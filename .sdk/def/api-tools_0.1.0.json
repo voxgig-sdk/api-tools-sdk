@@ -1,0 +1,664 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API Tools",
+    "description": "API Tools – Access over 30+ REST APIs, all completely free with no usage limits. Explore a wide range of tools designed for everyone, no sign-up or restrictions required!",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://api.apitools.workers.dev/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.apitools.workers.dev",
+      "description": "API Tools Production Server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Get API Documentation",
+        "description": "Returns the main documentation page listing all available APIs and endpoints",
+        "operationId": "getDocumentation",
+        "responses": {
+          "200": {
+            "description": "Successful response with API documentation",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string",
+                  "description": "HTML page containing API documentation"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "apis": {
+                      "type": "array",
+                      "description": "List of available APIs",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the API"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Description of the API"
+                          },
+                          "endpoint": {
+                            "type": "string",
+                            "description": "Endpoint path for the API"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Total number of available APIs"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Documentation"
+        ]
+      }
+    },
+    "/api/tools": {
+      "get": {
+        "summary": "List all API tools",
+        "description": "Returns a list of all available API tools and utilities",
+        "operationId": "listApiTools",
+        "responses": {
+          "200": {
+            "description": "Successful response with list of API tools",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tools": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "category": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Tools"
+        ]
+      }
+    },
+    "/api/ip": {
+      "get": {
+        "summary": "Get IP information",
+        "description": "Returns information about the requesting IP address or a specified IP",
+        "operationId": "getIpInfo",
+        "parameters": [
+          {
+            "name": "ip",
+            "in": "query",
+            "description": "IP address to lookup (optional, defaults to requesting IP)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with IP information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ip": {
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    },
+                    "city": {
+                      "type": "string"
+                    },
+                    "isp": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Utilities"
+        ]
+      }
+    },
+    "/api/uuid": {
+      "get": {
+        "summary": "Generate UUID",
+        "description": "Generates a random UUID (Universally Unique Identifier)",
+        "operationId": "generateUuid",
+        "parameters": [
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Number of UUIDs to generate",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with generated UUID(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uuid": {
+                      "type": "string"
+                    },
+                    "uuids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Generators"
+        ]
+      }
+    },
+    "/api/qrcode": {
+      "get": {
+        "summary": "Generate QR Code",
+        "description": "Generates a QR code from the provided text or URL",
+        "operationId": "generateQrCode",
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Text or URL to encode in the QR code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Size of the QR code in pixels",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with QR code image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing or invalid parameters"
+          }
+        },
+        "tags": [
+          "Generators"
+        ]
+      }
+    },
+    "/api/hash": {
+      "post": {
+        "summary": "Generate hash",
+        "description": "Generates a hash of the provided text using specified algorithm",
+        "operationId": "generateHash",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "text"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Text to hash"
+                  },
+                  "algorithm": {
+                    "type": "string",
+                    "description": "Hashing algorithm",
+                    "enum": [
+                      "md5",
+                      "sha1",
+                      "sha256",
+                      "sha512"
+                    ],
+                    "default": "sha256"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "hash": {
+                      "type": "string"
+                    },
+                    "algorithm": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Cryptography"
+        ]
+      }
+    },
+    "/api/base64/encode": {
+      "post": {
+        "summary": "Encode to Base64",
+        "description": "Encodes text to Base64 format",
+        "operationId": "encodeBase64",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "text"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Text to encode"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with Base64 encoded text",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "encoded": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Encoding"
+        ]
+      }
+    },
+    "/api/base64/decode": {
+      "post": {
+        "summary": "Decode from Base64",
+        "description": "Decodes Base64 encoded text",
+        "operationId": "decodeBase64",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "encoded"
+                ],
+                "properties": {
+                  "encoded": {
+                    "type": "string",
+                    "description": "Base64 encoded text to decode"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with decoded text",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "decoded": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Base64 input"
+          }
+        },
+        "tags": [
+          "Encoding"
+        ]
+      }
+    },
+    "/api/timestamp": {
+      "get": {
+        "summary": "Get current timestamp",
+        "description": "Returns the current Unix timestamp and formatted date/time",
+        "operationId": "getTimestamp",
+        "responses": {
+          "200": {
+            "description": "Successful response with timestamp information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "timestamp": {
+                      "type": "integer",
+                      "description": "Unix timestamp in seconds"
+                    },
+                    "milliseconds": {
+                      "type": "integer",
+                      "description": "Unix timestamp in milliseconds"
+                    },
+                    "iso": {
+                      "type": "string",
+                      "description": "ISO 8601 formatted date"
+                    },
+                    "utc": {
+                      "type": "string",
+                      "description": "UTC formatted date"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Utilities"
+        ]
+      }
+    },
+    "/api/random": {
+      "get": {
+        "summary": "Generate random data",
+        "description": "Generates random numbers, strings, or other data types",
+        "operationId": "generateRandom",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Type of random data to generate",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "number",
+                "string",
+                "boolean"
+              ],
+              "default": "number"
+            }
+          },
+          {
+            "name": "min",
+            "in": "query",
+            "description": "Minimum value for random number",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "max",
+            "in": "query",
+            "description": "Maximum value for random number",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "length",
+            "in": "query",
+            "description": "Length of random string",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 16
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with random data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "boolean"
+                        }
+                      ]
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Generators"
+        ]
+      }
+    },
+    "/api/url/encode": {
+      "post": {
+        "summary": "URL encode text",
+        "description": "Encodes text for safe use in URLs",
+        "operationId": "urlEncode",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "text"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Text to URL encode"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with URL encoded text",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "encoded": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Encoding"
+        ]
+      }
+    },
+    "/api/url/decode": {
+      "post": {
+        "summary": "URL decode text",
+        "description": "Decodes URL encoded text",
+        "operationId": "urlDecode",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "encoded"
+                ],
+                "properties": {
+                  "encoded": {
+                    "type": "string",
+                    "description": "URL encoded text to decode"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with decoded text",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "decoded": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Encoding"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Documentation",
+      "description": "API documentation endpoints"
+    },
+    {
+      "name": "Tools",
+      "description": "API tools and utilities listing"
+    },
+    {
+      "name": "Utilities",
+      "description": "General utility endpoints"
+    },
+    {
+      "name": "Generators",
+      "description": "Data generation endpoints"
+    },
+    {
+      "name": "Cryptography",
+      "description": "Cryptographic operations"
+    },
+    {
+      "name": "Encoding",
+      "description": "Encoding and decoding operations"
+    }
+  ],
+  "externalDocs": {
+    "description": "Official API Tools Documentation",
+    "url": "https://api.apitools.workers.dev/"
+  }
+}

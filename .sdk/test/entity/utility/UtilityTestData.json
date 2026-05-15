@@ -1,0 +1,50 @@
+{
+  "existing": {
+    "utility": {
+      "UTILITY00": {
+        "city": "s50",
+        "country": "s51",
+        "ip": "s52",
+        "iso": "s53",
+        "isp": "s54",
+        "millisecond": "s55",
+        "timestamp": "s56",
+        "utc": "s57"
+      },
+      "UTILITY01": {
+        "city": "sa0",
+        "country": "sa1",
+        "ip": "sa2",
+        "iso": "sa3",
+        "isp": "sa4",
+        "millisecond": "sa5",
+        "timestamp": "sa6",
+        "utc": "sa7"
+      },
+      "UTILITY02": {
+        "city": "sf0",
+        "country": "sf1",
+        "ip": "sf2",
+        "iso": "sf3",
+        "isp": "sf4",
+        "millisecond": "sf5",
+        "timestamp": "sf6",
+        "utc": "sf7"
+      }
+    }
+  },
+  "new": {
+    "utility": {
+      "utility_ref01": {
+        "city": "s140",
+        "country": "s141",
+        "ip": "s142",
+        "iso": "s143",
+        "isp": "s144",
+        "millisecond": "s145",
+        "timestamp": "s146",
+        "utc": "s147"
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "existing": {
+    "generator": {
+      "GENERATOR00": {
+        "type": "s1e",
+        "uuid": "s1f",
+        "value": "s20"
+      },
+      "GENERATOR01": {
+        "type": "s3c",
+        "uuid": "s3d",
+        "value": "s3e"
+      },
+      "GENERATOR02": {
+        "type": "s5a",
+        "uuid": "s5b",
+        "value": "s5c"
+      }
+    }
+  },
+  "new": {
+    "generator": {
+      "generator_ref01": {
+        "type": "s78",
+        "uuid": "s79",
+        "value": "s7a"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+# BasicCryptographyFlow
+
+main: kit: flow: BasicCryptographyFlow:
+{
+  entity: "cryptography",
+  kind: "basic",
+  name: "BasicCryptographyFlow",
+  step: [
+    {
+      input: {
+        ref: "cryptography_ref01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicCryptographyFlow"
+}

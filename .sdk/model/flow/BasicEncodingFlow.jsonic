@@ -1,0 +1,18 @@
+# BasicEncodingFlow
+
+main: kit: flow: BasicEncodingFlow:
+{
+  entity: "encoding",
+  kind: "basic",
+  name: "BasicEncodingFlow",
+  step: [
+    {
+      input: {
+        ref: "encoding_ref01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicEncodingFlow"
+}

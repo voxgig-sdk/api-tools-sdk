@@ -1,0 +1,30 @@
+{
+  "existing": {
+    "get_documentation": {
+      "GET_DOCUMENTATION00": {
+        "description": "s1e",
+        "endpoint": "s1f",
+        "name": "s20"
+      },
+      "GET_DOCUMENTATION01": {
+        "description": "s3c",
+        "endpoint": "s3d",
+        "name": "s3e"
+      },
+      "GET_DOCUMENTATION02": {
+        "description": "s5a",
+        "endpoint": "s5b",
+        "name": "s5c"
+      }
+    }
+  },
+  "new": {
+    "get_documentation": {
+      "get_documentation_ref01": {
+        "description": "s78",
+        "endpoint": "s79",
+        "name": "s7a"
+      }
+    }
+  }
+}

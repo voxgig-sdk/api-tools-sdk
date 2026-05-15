@@ -1,0 +1,48 @@
+# Entity: cryptography
+
+main: kit: entity: cryptography: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "algorithm"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "hash"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "text"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "cryptography"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/api/hash"
+          parts: [
+            "api"
+            "hash"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

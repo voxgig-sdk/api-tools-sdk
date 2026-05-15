@@ -1,0 +1,30 @@
+{
+  "existing": {
+    "encoding": {
+      "ENCODING00": {
+        "decoded": "s1e",
+        "encoded": "s1f",
+        "text": "s20"
+      },
+      "ENCODING01": {
+        "decoded": "s3c",
+        "encoded": "s3d",
+        "text": "s3e"
+      },
+      "ENCODING02": {
+        "decoded": "s5a",
+        "encoded": "s5b",
+        "text": "s5c"
+      }
+    }
+  },
+  "new": {
+    "encoding": {
+      "encoding_ref01": {
+        "decoded": "s78",
+        "encoded": "s79",
+        "text": "s7a"
+      }
+    }
+  }
+}

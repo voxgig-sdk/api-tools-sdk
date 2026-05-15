@@ -1,0 +1,22 @@
+# BasicGetDocumentationFlow
+
+main: kit: flow: BasicGetDocumentationFlow:
+{
+  entity: "get_documentation",
+  kind: "basic",
+  name: "BasicGetDocumentationFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "get_documentation_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGetDocumentationFlow"
+}

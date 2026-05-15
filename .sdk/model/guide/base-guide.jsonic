@@ -1,0 +1,62 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 6
+  metrics: count: path: 12
+  metrics: count: method: 12
+
+  entity: cryptography: {
+    path: "/api/hash": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: encoding: {
+    path: "/api/base64/decode": {
+      op: create: method: *POST
+    }
+    path: "/api/base64/encode": {
+      op: create: method: *POST
+    }
+    path: "/api/url/decode": {
+      op: create: method: *POST
+    }
+    path: "/api/url/encode": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: generator: {
+    path: "/api/qrcode": {
+      op: load: method: *GET
+    }
+    path: "/api/random": {
+      op: load: method: *GET
+    }
+    path: "/api/uuid": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: get_documentation: {
+    path: "/": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: tool: {
+    path: "/api/tools": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: utility: {
+    path: "/api/ip": {
+      op: load: method: *GET
+    }
+    path: "/api/timestamp": {
+      op: load: method: *GET
+    }
+  }
+
+}

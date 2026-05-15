@@ -1,0 +1,23 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        url: "https://api.apitools.workers.dev/"
+      }
+      description: "API Tools – Access over 30+ REST APIs, all completely free with no usage limits. Explore a wide range of tools designed for everyone, no sign-up or restrictions required!"
+      servers: [
+        {
+          description: "API Tools Production Server"
+          url: "https://api.apitools.workers.dev"
+        }
+      ]
+      title: "API Tools"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

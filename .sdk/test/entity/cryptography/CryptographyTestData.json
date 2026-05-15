@@ -1,0 +1,30 @@
+{
+  "existing": {
+    "cryptography": {
+      "CRYPTOGRAPHY00": {
+        "algorithm": "s1e",
+        "hash": "s1f",
+        "text": "s20"
+      },
+      "CRYPTOGRAPHY01": {
+        "algorithm": "s3c",
+        "hash": "s3d",
+        "text": "s3e"
+      },
+      "CRYPTOGRAPHY02": {
+        "algorithm": "s5a",
+        "hash": "s5b",
+        "text": "s5c"
+      }
+    }
+  },
+  "new": {
+    "cryptography": {
+      "cryptography_ref01": {
+        "algorithm": "s78",
+        "hash": "s79",
+        "text": "s7a"
+      }
+    }
+  }
+}

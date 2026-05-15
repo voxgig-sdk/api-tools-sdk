@@ -1,0 +1,40 @@
+# BasicGeneratorFlow
+
+main: kit: flow: BasicGeneratorFlow:
+{
+  entity: "generator",
+  kind: "basic",
+  name: "BasicGeneratorFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "generator_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "generator_ref01",
+        srcdatavar: "generator_ref01_data",
+        suffix: "_dt0"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-generator_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGeneratorFlow"
+}

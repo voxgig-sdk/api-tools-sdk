@@ -1,0 +1,94 @@
+# Entity: encoding
+
+main: kit: entity: encoding: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "decoded"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "encoded"
+      op: {
+        create: {
+          req: false
+          type: "`$STRING`"
+        }
+      }
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "text"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "encoding"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/api/base64/decode"
+          parts: [
+            "api"
+            "base64"
+            "decode"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "POST"
+          orig: "/api/base64/encode"
+          parts: [
+            "api"
+            "base64"
+            "encode"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "POST"
+          orig: "/api/url/decode"
+          parts: [
+            "api"
+            "url"
+            "decode"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "POST"
+          orig: "/api/url/encode"
+          parts: [
+            "api"
+            "url"
+            "encode"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

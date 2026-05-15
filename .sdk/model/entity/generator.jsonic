@@ -1,0 +1,161 @@
+# Entity: generator
+
+main: kit: entity: generator: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "type"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "uuid"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "value"
+      req: false
+      type: "`$ANY`"
+    }
+  ]
+
+  name: "generator"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: 1
+                kind: "query"
+                name: "count"
+                orig: "count"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/api/uuid"
+          parts: [
+            "api"
+            "uuid"
+          ]
+          select: {
+            exist: [
+              "count"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: 16
+                kind: "query"
+                name: "length"
+                orig: "length"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "max"
+                orig: "max"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "min"
+                orig: "min"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "number"
+                kind: "query"
+                name: "type"
+                orig: "type"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/api/random"
+          parts: [
+            "api"
+            "random"
+          ]
+          select: {
+            exist: [
+              "length"
+              "max"
+              "min"
+              "type"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            query: [
+              {
+                example: 200
+                kind: "query"
+                name: "size"
+                orig: "size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "text"
+                orig: "text"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/api/qrcode"
+          parts: [
+            "api"
+            "qrcode"
+          ]
+          select: {
+            exist: [
+              "size"
+              "text"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

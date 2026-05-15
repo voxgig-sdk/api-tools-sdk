@@ -1,0 +1,33 @@
+{
+  "existing": {
+    "tool": {
+      "TOOL00": {
+        "category": "s28",
+        "description": "s29",
+        "id": "TOOL00",
+        "name": "s2b"
+      },
+      "TOOL01": {
+        "category": "s50",
+        "description": "s51",
+        "id": "TOOL01",
+        "name": "s53"
+      },
+      "TOOL02": {
+        "category": "s78",
+        "description": "s79",
+        "id": "TOOL02",
+        "name": "s7b"
+      }
+    }
+  },
+  "new": {
+    "tool": {
+      "tool_ref01": {
+        "category": "sa0",
+        "description": "sa1",
+        "name": "sa3"
+      }
+    }
+  }
+}
