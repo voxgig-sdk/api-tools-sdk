@@ -4,17 +4,20 @@
       "GENERATOR00": {
         "type": "s1e",
         "uuid": "s1f",
-        "value": "s20"
+        "value": "s20",
+        "id": "GENERATOR00"
       },
       "GENERATOR01": {
         "type": "s3c",
         "uuid": "s3d",
-        "value": "s3e"
+        "value": "s3e",
+        "id": "GENERATOR01"
       },
       "GENERATOR02": {
         "type": "s5a",
         "uuid": "s5b",
-        "value": "s5c"
+        "value": "s5c",
+        "id": "GENERATOR02"
       }
     }
   },

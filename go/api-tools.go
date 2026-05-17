@@ -1,10 +1,10 @@
 package voxgigapitoolssdk
 
 import (
-	"github.com/voxgig-sdk/api-tools-sdk/core"
-	"github.com/voxgig-sdk/api-tools-sdk/entity"
-	"github.com/voxgig-sdk/api-tools-sdk/feature"
-	_ "github.com/voxgig-sdk/api-tools-sdk/utility"
+	"github.com/voxgig-sdk/api-tools-sdk/go/core"
+	"github.com/voxgig-sdk/api-tools-sdk/go/entity"
+	"github.com/voxgig-sdk/api-tools-sdk/go/feature"
+	_ "github.com/voxgig-sdk/api-tools-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

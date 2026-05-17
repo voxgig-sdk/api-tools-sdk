@@ -4,17 +4,20 @@
       "CRYPTOGRAPHY00": {
         "algorithm": "s1e",
         "hash": "s1f",
-        "text": "s20"
+        "text": "s20",
+        "id": "CRYPTOGRAPHY00"
       },
       "CRYPTOGRAPHY01": {
         "algorithm": "s3c",
         "hash": "s3d",
-        "text": "s3e"
+        "text": "s3e",
+        "id": "CRYPTOGRAPHY01"
       },
       "CRYPTOGRAPHY02": {
         "algorithm": "s5a",
         "hash": "s5b",
-        "text": "s5c"
+        "text": "s5c",
+        "id": "CRYPTOGRAPHY02"
       }
     }
   },

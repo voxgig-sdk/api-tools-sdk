@@ -4,17 +4,20 @@
       "ENCODING00": {
         "decoded": "s1e",
         "encoded": "s1f",
-        "text": "s20"
+        "text": "s20",
+        "id": "ENCODING00"
       },
       "ENCODING01": {
         "decoded": "s3c",
         "encoded": "s3d",
-        "text": "s3e"
+        "text": "s3e",
+        "id": "ENCODING01"
       },
       "ENCODING02": {
         "decoded": "s5a",
         "encoded": "s5b",
-        "text": "s5c"
+        "text": "s5c",
+        "id": "ENCODING02"
       }
     }
   },

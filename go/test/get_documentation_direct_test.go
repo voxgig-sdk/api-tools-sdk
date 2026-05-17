@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/api-tools-sdk"
-	"github.com/voxgig-sdk/api-tools-sdk/core"
+	sdk "github.com/voxgig-sdk/api-tools-sdk/go"
+	"github.com/voxgig-sdk/api-tools-sdk/go/core"
 )
 
 func TestGetDocumentationDirect(t *testing.T) {

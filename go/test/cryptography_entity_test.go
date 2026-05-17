@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/api-tools-sdk"
-	"github.com/voxgig-sdk/api-tools-sdk/core"
+	sdk "github.com/voxgig-sdk/api-tools-sdk/go"
+	"github.com/voxgig-sdk/api-tools-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/api-tools-sdk/go/utility/struct"
 )
 
 func TestCryptographyEntity(t *testing.T) {

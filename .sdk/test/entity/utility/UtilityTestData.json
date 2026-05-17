@@ -9,7 +9,8 @@
         "isp": "s54",
         "millisecond": "s55",
         "timestamp": "s56",
-        "utc": "s57"
+        "utc": "s57",
+        "id": "UTILITY00"
       },
       "UTILITY01": {
         "city": "sa0",
@@ -19,7 +20,8 @@
         "isp": "sa4",
         "millisecond": "sa5",
         "timestamp": "sa6",
-        "utc": "sa7"
+        "utc": "sa7",
+        "id": "UTILITY01"
       },
       "UTILITY02": {
         "city": "sf0",
@@ -29,7 +31,8 @@
         "isp": "sf4",
         "millisecond": "sf5",
         "timestamp": "sf6",
-        "utc": "sf7"
+        "utc": "sf7",
+        "id": "UTILITY02"
       }
     }
   },

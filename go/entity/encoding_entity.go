@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/api-tools-sdk/core"
+	"github.com/voxgig-sdk/api-tools-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/api-tools-sdk/go/utility/struct"
 )
 
 type EncodingEntity struct {
