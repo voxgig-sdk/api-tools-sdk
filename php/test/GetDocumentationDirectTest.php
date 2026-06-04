@@ -68,14 +68,12 @@ function get_documentation_direct_setup($mockres)
     $env = Runner::env_override([
         "APITOOLS_TEST_GET_DOCUMENTATION_ENTID" => [],
         "APITOOLS_TEST_LIVE" => "FALSE",
-        "APITOOLS_APIKEY" => "NONE",
     ]);
 
     $live = $env["APITOOLS_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["APITOOLS_APIKEY"],
         ];
         $client = new ApiToolsSDK($merged_opts);
         return [
