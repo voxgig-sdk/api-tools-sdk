@@ -1,22 +1,8 @@
 # ApiTools SDK
 
-Grab-bag of 30+ free REST tools (encoders, generators, crypto helpers) hosted on a Cloudflare Workers endpoint
+API Tools client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About API Tools
-
-API Tools is a small Cloudflare Workers-hosted collection of REST endpoints listed on [freepublicapis.com](https://freepublicapis.com/api-tools). It bundles roughly thirty utility endpoints under a single base URL (`https://api.apitools.workers.dev`) and is offered without sign-up, API keys, or documented rate limits.
-
-The SDK groups the surface into utility-style entities. Typical things exposed by collections of this kind include:
-
-- cryptography helpers (hashing, simple ciphers)
-- encoding/decoding utilities (Base64, URL, etc.)
-- generators (IDs, random data, text)
-- documentation lookups
-- miscellaneous tools and utilities
-
-Operational notes: the upstream homepage was unreachable at enrichment time, and the freepublicapis.com listing flags the service as currently non-functional with a high error rate. There is no published authentication scheme, licence, or SLA, so use it for experimentation rather than for anything load-bearing.
 
 ## Try it
 
@@ -50,27 +36,28 @@ gem install api-tools-sdk
 luarocks install api-tools-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { ApiToolsSDK } from 'api-tools'
 
-const client = new ApiToolsSDK({})
+const client = new ApiToolsSDK({
+  apikey: process.env.API-TOOLS_APIKEY,
+})
 
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -100,12 +87,12 @@ The API exposes 6 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Cryptography** | Cryptography helper endpoints (e.g. hashing or simple cipher utilities) grouped under the API's crypto tools. | `/api/hash` |
-| **Encoding** | Encoding and decoding utilities such as Base64 or URL encoding helpers. | `/api/base64/decode` |
-| **Generator** | Generator endpoints that produce values like IDs, random strings, or sample data on demand. | `/api/uuid` |
-| **GetDocumentation** | Documentation-retrieval endpoints that return descriptive metadata about the available tools. | `/` |
-| **Tool** | General-purpose tool endpoints that don't fall neatly into the other categories. | `/api/tools` |
-| **Utility** | Miscellaneous utility endpoints exposed alongside the other tool groups. | `/api/ip` |
+| **Cryptography** |  | `/api/hash` |
+| **Encoding** |  | `/api/base64/decode` |
+| **Generator** |  | `/api/uuid` |
+| **GetDocumentation** |  | `/` |
+| **Tool** |  | `/api/tools` |
+| **Utility** |  | `/api/ip` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -115,9 +102,12 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from apitools_sdk import ApiToolsSDK
 
-client = ApiToolsSDK({})
+client = ApiToolsSDK({
+    "apikey": os.environ.get("API-TOOLS_APIKEY"),
+})
 
 ```
 
@@ -127,7 +117,9 @@ client = ApiToolsSDK({})
 <?php
 require_once 'apitools_sdk.php';
 
-$client = new ApiToolsSDK([]);
+$client = new ApiToolsSDK([
+    "apikey" => getenv("API-TOOLS_APIKEY"),
+]);
 
 ```
 
@@ -136,7 +128,9 @@ $client = new ApiToolsSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/api-tools-sdk/go"
 
-client := sdk.NewApiToolsSDK(map[string]any{})
+client := sdk.NewApiToolsSDK(map[string]any{
+    "apikey": os.Getenv("API-TOOLS_APIKEY"),
+})
 
 ```
 
@@ -145,7 +139,9 @@ client := sdk.NewApiToolsSDK(map[string]any{})
 ```ruby
 require_relative "ApiTools_sdk"
 
-client = ApiToolsSDK.new({})
+client = ApiToolsSDK.new({
+  "apikey" => ENV["API-TOOLS_APIKEY"],
+})
 
 ```
 
@@ -154,7 +150,9 @@ client = ApiToolsSDK.new({})
 ```lua
 local sdk = require("api-tools_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("API-TOOLS_APIKEY"),
+})
 
 ```
 
@@ -174,25 +172,21 @@ const result = await client.Cryptography().load({ id: 'test01' })
 ### Python
 
 ```python
-client = ApiToolsSDK.test(None, None)
-result, err = client.Cryptography(None).load(
-    {"id": "test01"}, None
-)
+client = ApiToolsSDK.test()
+result, err = client.Cryptography().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = ApiToolsSDK::test(null, null);
-[$result, $err] = $client->Cryptography(null)->load(
-    ["id" => "test01"], null
-);
+$client = ApiToolsSDK::test();
+[$result, $err] = $client->Cryptography()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Cryptography(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -201,19 +195,15 @@ result, err := client.Cryptography(nil).Load(
 ### Ruby
 
 ```ruby
-client = ApiToolsSDK.test(nil, nil)
-result, err = client.Cryptography(nil).load(
-  { "id" => "test01" }, nil
-)
+client = ApiToolsSDK.test
+result, err = client.Cryptography().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Cryptography(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Cryptography():load({ id = "test01" })
 ```
 
 ## How it works
@@ -317,15 +307,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the API Tools
-
-- Upstream: [https://api.apitools.workers.dev](https://api.apitools.workers.dev)
-- API docs: [https://freepublicapis.com/api-tools](https://freepublicapis.com/api-tools)
-
-- No licence is published on the catalogue page or the service endpoint.
-- Treat the API as informal/experimental; verify terms before relying on it in production.
-- The freepublicapis.com listing reports the service as unreliable, so availability is not guaranteed.
 
 ---
 

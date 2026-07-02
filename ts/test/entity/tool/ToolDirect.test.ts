@@ -79,12 +79,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'APITOOLS_TEST_TOOL_ENTID': {},
     'APITOOLS_TEST_LIVE': 'FALSE',
+    'APITOOLS_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.APITOOLS_TEST_LIVE
 
   if (live) {
     const client = new ApiToolsSDK({
+      apikey: env.APITOOLS_APIKEY,
     })
 
     let idmap: any = env['APITOOLS_TEST_TOOL_ENTID']

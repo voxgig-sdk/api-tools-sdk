@@ -16,33 +16,7 @@ main: {
       ]
       title: "API Tools"
       version: "1.0.0"
-      tagline: "Grab-bag of 30+ free REST tools (encoders, generators, crypto helpers) hosted on a Cloudflare Workers endpoint"
-      homepage: "https://api.apitools.workers.dev"
-      docs_url: "https://freepublicapis.com/api-tools"
-      license_short: "Not specified"
-      license_md: `- No licence is published on the catalogue page or the service endpoint.
-- Treat the API as informal/experimental; verify terms before relying on it in production.
-- The freepublicapis.com listing reports the service as unreliable, so availability is not guaranteed.`
-      about_md: `API Tools is a small Cloudflare Workers-hosted collection of REST endpoints listed on [freepublicapis.com](https://freepublicapis.com/api-tools). It bundles roughly thirty utility endpoints under a single base URL (\`https://api.apitools.workers.dev\`) and is offered without sign-up, API keys, or documented rate limits.
-
-The SDK groups the surface into utility-style entities. Typical things exposed by collections of this kind include:
-
-- cryptography helpers (hashing, simple ciphers)
-- encoding/decoding utilities (Base64, URL, etc.)
-- generators (IDs, random data, text)
-- documentation lookups
-- miscellaneous tools and utilities
-
-Operational notes: the upstream homepage was unreachable at enrichment time, and the freepublicapis.com listing flags the service as currently non-functional with a high error rate. There is no published authentication scheme, licence, or SLA, so use it for experimentation rather than for anything load-bearing.`
-      entity_desc: {
-        cryptography: "Cryptography helper endpoints (e.g. hashing or simple cipher utilities) grouped under the API's crypto tools."
-        encoding: "Encoding and decoding utilities such as Base64 or URL encoding helpers."
-        generator: "Generator endpoints that produce values like IDs, random strings, or sample data on demand."
-        get_documentation: "Documentation-retrieval endpoints that return descriptive metadata about the available tools."
-        tool: "General-purpose tool endpoints that don't fall neatly into the other categories."
-        utility: "Miscellaneous utility endpoints exposed alongside the other tool groups."
-      }
-      auth: false
     }
   }
 }
+

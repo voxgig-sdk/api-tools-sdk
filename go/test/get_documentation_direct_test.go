@@ -93,12 +93,14 @@ func get_documentationDirectSetup(mockres any) *get_documentationDirectSetupResu
 	env := envOverride(map[string]any{
 		"APITOOLS_TEST_GET_DOCUMENTATION_ENTID": map[string]any{},
 		"APITOOLS_TEST_LIVE":    "FALSE",
+		"APITOOLS_APIKEY":       "NONE",
 	})
 
 	live := env["APITOOLS_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["APITOOLS_APIKEY"],
 		}
 		client := sdk.NewApiToolsSDK(mergedOpts)
 

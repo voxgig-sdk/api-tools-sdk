@@ -119,6 +119,7 @@ function basicSetup(extra?: any) {
     'API_TOOLS_TEST_GENERATOR_ENTID': idmap,
     'API_TOOLS_TEST_LIVE': 'FALSE',
     'API_TOOLS_TEST_EXPLAIN': 'FALSE',
+    'API_TOOLS_APIKEY': 'NONE',
   })
 
   idmap = env['API_TOOLS_TEST_GENERATOR_ENTID']
@@ -128,6 +129,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new ApiToolsSDK(merge([
       {
+        apikey: env.API_TOOLS_APIKEY,
       },
       extra
     ]))

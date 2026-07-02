@@ -86,6 +86,7 @@ function cryptography_basic_setup(extra)
     ["APITOOLS_TEST_CRYPTOGRAPHY_ENTID"] = idmap,
     ["APITOOLS_TEST_LIVE"] = "FALSE",
     ["APITOOLS_TEST_EXPLAIN"] = "FALSE",
+    ["APITOOLS_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -97,6 +98,7 @@ function cryptography_basic_setup(extra)
   if env["APITOOLS_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["APITOOLS_APIKEY"],
       },
       extra or {},
     })

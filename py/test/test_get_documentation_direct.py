@@ -61,12 +61,14 @@ def _get_documentation_direct_setup(mockres):
     env = runner.env_override({
         "APITOOLS_TEST_GET_DOCUMENTATION_ENTID": {},
         "APITOOLS_TEST_LIVE": "FALSE",
+        "APITOOLS_APIKEY": "NONE",
     })
 
     live = env.get("APITOOLS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
+            "apikey": env.get("APITOOLS_APIKEY"),
         }
         client = ApiToolsSDK(merged_opts)
         return {
