@@ -10,7 +10,7 @@ The TypeScript SDK for the ApiTools API — a type-safe, entity-oriented client 
 
 ## Install
 ```bash
-npm install api-tools
+npm install @voxgig-sdk/api-tools
 ```
 ## Tutorial: your first API call
 

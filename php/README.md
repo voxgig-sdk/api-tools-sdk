@@ -10,7 +10,7 @@ The PHP SDK for the ApiTools API — an entity-oriented client using PHP convent
 
 ## Install
 ```bash
-composer require voxgig/api-tools-sdk
+composer require voxgig-sdk/api-tools
 ```
 
 

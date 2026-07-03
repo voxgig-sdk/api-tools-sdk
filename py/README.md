@@ -10,7 +10,7 @@ The Python SDK for the ApiTools API — an entity-oriented client following Pyth
 
 ## Install
 ```bash
-pip install api-tools-sdk
+pip install voxgig-sdk-api-tools
 ```
 
 Or install from source:

@@ -10,13 +10,13 @@ The Ruby SDK for the ApiTools API — an entity-oriented client using idiomatic 
 
 ## Install
 ```bash
-gem install api-tools-sdk
+gem install voxgig-sdk-api-tools
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "api-tools-sdk"
+gem "voxgig-sdk-api-tools"
 ```
 
 Then run:
