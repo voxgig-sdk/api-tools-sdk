@@ -220,105 +220,45 @@ class ApiToolsSDK:
         }
 
 
-    @property
-    def cryptography(self):
-        """Idiomatic facade: client.cryptography.list() / client.cryptography.load({"id": ...})."""
-        from entity.cryptography_entity import CryptographyEntity
-        cached = getattr(self, "_cryptography", None)
-        if cached is None:
-            cached = CryptographyEntity(self, None)
-            self._cryptography = cached
-        return cached
-
-    def Cryptography(self, data=None):
-        # Deprecated: use client.cryptography instead.
+    def Cryptography(self, data=None) -> "CryptographyEntity":
+        """Entity factory: client.Cryptography().list({}) / client.Cryptography().load({"id": ...})."""
         from entity.cryptography_entity import CryptographyEntity
         return CryptographyEntity(self, data)
 
 
-    @property
-    def encoding(self):
-        """Idiomatic facade: client.encoding.list() / client.encoding.load({"id": ...})."""
-        from entity.encoding_entity import EncodingEntity
-        cached = getattr(self, "_encoding", None)
-        if cached is None:
-            cached = EncodingEntity(self, None)
-            self._encoding = cached
-        return cached
-
-    def Encoding(self, data=None):
-        # Deprecated: use client.encoding instead.
+    def Encoding(self, data=None) -> "EncodingEntity":
+        """Entity factory: client.Encoding().list({}) / client.Encoding().load({"id": ...})."""
         from entity.encoding_entity import EncodingEntity
         return EncodingEntity(self, data)
 
 
-    @property
-    def generator(self):
-        """Idiomatic facade: client.generator.list() / client.generator.load({"id": ...})."""
-        from entity.generator_entity import GeneratorEntity
-        cached = getattr(self, "_generator", None)
-        if cached is None:
-            cached = GeneratorEntity(self, None)
-            self._generator = cached
-        return cached
-
-    def Generator(self, data=None):
-        # Deprecated: use client.generator instead.
+    def Generator(self, data=None) -> "GeneratorEntity":
+        """Entity factory: client.Generator().list({}) / client.Generator().load({"id": ...})."""
         from entity.generator_entity import GeneratorEntity
         return GeneratorEntity(self, data)
 
 
-    @property
-    def get_documentation(self):
-        """Idiomatic facade: client.get_documentation.list() / client.get_documentation.load({"id": ...})."""
-        from entity.get_documentation_entity import GetDocumentationEntity
-        cached = getattr(self, "_get_documentation", None)
-        if cached is None:
-            cached = GetDocumentationEntity(self, None)
-            self._get_documentation = cached
-        return cached
-
-    def GetDocumentation(self, data=None):
-        # Deprecated: use client.get_documentation instead.
+    def GetDocumentation(self, data=None) -> "GetDocumentationEntity":
+        """Entity factory: client.GetDocumentation().list({}) / client.GetDocumentation().load({"id": ...})."""
         from entity.get_documentation_entity import GetDocumentationEntity
         return GetDocumentationEntity(self, data)
 
 
-    @property
-    def tool(self):
-        """Idiomatic facade: client.tool.list() / client.tool.load({"id": ...})."""
-        from entity.tool_entity import ToolEntity
-        cached = getattr(self, "_tool", None)
-        if cached is None:
-            cached = ToolEntity(self, None)
-            self._tool = cached
-        return cached
-
-    def Tool(self, data=None):
-        # Deprecated: use client.tool instead.
+    def Tool(self, data=None) -> "ToolEntity":
+        """Entity factory: client.Tool().list({}) / client.Tool().load({"id": ...})."""
         from entity.tool_entity import ToolEntity
         return ToolEntity(self, data)
 
 
-    @property
-    def utility(self):
-        """Idiomatic facade: client.utility.list() / client.utility.load({"id": ...})."""
-        from entity.utility_entity import UtilityEntity
-        cached = getattr(self, "_utility", None)
-        if cached is None:
-            cached = UtilityEntity(self, None)
-            self._utility = cached
-        return cached
-
-    def Utility(self, data=None):
-        # Deprecated: use client.utility instead.
+    def Utility(self, data=None) -> "UtilityEntity":
+        """Entity factory: client.Utility().list({}) / client.Utility().load({"id": ...})."""
         from entity.utility_entity import UtilityEntity
         return UtilityEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "ApiToolsSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -338,3 +278,14 @@ class ApiToolsSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.cryptography_entity import CryptographyEntity
+    from entity.encoding_entity import EncodingEntity
+    from entity.generator_entity import GeneratorEntity
+    from entity.get_documentation_entity import GetDocumentationEntity
+    from entity.tool_entity import ToolEntity
+    from entity.utility_entity import UtilityEntity

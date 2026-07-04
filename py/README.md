@@ -34,8 +34,8 @@ client = ApiToolsSDK()
 ### 4. Create, update, and remove
 
 ```python
-# Create
-created = client.cryptography.create({"name": "Example"})
+# Create — returns the bare created record (a dict)
+created = client.Cryptography().create({"name": "Example"})
 
 ```
 
@@ -82,8 +82,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = ApiToolsSDK.test()
 
-result = client.cryptography.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+cryptography = client.Cryptography().load({"id": "test01"})
+# cryptography contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -160,11 +161,11 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `Cryptography` | `(data) -> CryptographyEntity` | Create a Cryptography entity instance. |
-| `Encoding` | `(data) -> EncodingEntity` | Create a Encoding entity instance. |
+| `Encoding` | `(data) -> EncodingEntity` | Create an Encoding entity instance. |
 | `Generator` | `(data) -> GeneratorEntity` | Create a Generator entity instance. |
 | `GetDocumentation` | `(data) -> GetDocumentationEntity` | Create a GetDocumentation entity instance. |
 | `Tool` | `(data) -> ToolEntity` | Create a Tool entity instance. |
-| `Utility` | `(data) -> UtilityEntity` | Create a Utility entity instance. |
+| `Utility` | `(data) -> UtilityEntity` | Create an Utility entity instance. |
 
 ### Entity interface
 
@@ -289,7 +290,7 @@ API path: `/api/ip`
 
 ### Cryptography
 
-Create an instance: `const cryptography = client.cryptography`
+Create an instance: `cryptography = client.Cryptography()`
 
 #### Operations
 
@@ -307,16 +308,16 @@ Create an instance: `const cryptography = client.cryptography`
 
 #### Example: Create
 
-```ts
-const cryptography = await client.cryptography.create({
-  text: /* `$STRING` */,
+```python
+cryptography = client.Cryptography().create({
+    "text": ...,  # `$STRING`
 })
 ```
 
 
 ### Encoding
 
-Create an instance: `const encoding = client.encoding`
+Create an instance: `encoding = client.Encoding()`
 
 #### Operations
 
@@ -334,17 +335,17 @@ Create an instance: `const encoding = client.encoding`
 
 #### Example: Create
 
-```ts
-const encoding = await client.encoding.create({
-  encoded: /* `$STRING` */,
-  text: /* `$STRING` */,
+```python
+encoding = client.Encoding().create({
+    "encoded": ...,  # `$STRING`
+    "text": ...,  # `$STRING`
 })
 ```
 
 
 ### Generator
 
-Create an instance: `const generator = client.generator`
+Create an instance: `generator = client.Generator()`
 
 #### Operations
 
@@ -363,20 +364,20 @@ Create an instance: `const generator = client.generator`
 
 #### Example: Load
 
-```ts
-const generator = await client.generator.load({ id: 'generator_id' })
+```python
+generator = client.Generator().load({"id": "generator_id"})
 ```
 
 #### Example: List
 
-```ts
-const generators = await client.generator.list()
+```python
+generators = client.Generator().list({})
 ```
 
 
 ### GetDocumentation
 
-Create an instance: `const get_documentation = client.get_documentation`
+Create an instance: `get_documentation = client.GetDocumentation()`
 
 #### Operations
 
@@ -394,14 +395,14 @@ Create an instance: `const get_documentation = client.get_documentation`
 
 #### Example: List
 
-```ts
-const get_documentations = await client.get_documentation.list()
+```python
+get_documentations = client.GetDocumentation().list({})
 ```
 
 
 ### Tool
 
-Create an instance: `const tool = client.tool`
+Create an instance: `tool = client.Tool()`
 
 #### Operations
 
@@ -420,14 +421,14 @@ Create an instance: `const tool = client.tool`
 
 #### Example: List
 
-```ts
-const tools = await client.tool.list()
+```python
+tools = client.Tool().list({})
 ```
 
 
 ### Utility
 
-Create an instance: `const utility = client.utility`
+Create an instance: `utility = client.Utility()`
 
 #### Operations
 
@@ -450,8 +451,8 @@ Create an instance: `const utility = client.utility`
 
 #### Example: Load
 
-```ts
-const utility = await client.utility.load({ id: 'utility_id' })
+```python
+utility = client.Utility().load({"id": "utility_id"})
 ```
 
 
@@ -525,7 +526,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-cryptography = client.cryptography
+cryptography = client.Cryptography()
 cryptography.load({"id": "example_id"})
 
 # cryptography.data_get() now returns the loaded cryptography data

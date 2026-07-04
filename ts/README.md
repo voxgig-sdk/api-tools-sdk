@@ -31,8 +31,8 @@ const client = new ApiToolsSDK()
 ### 4. Create, update, and remove
 
 ```ts
-// Create
-const created = await client.cryptography.create({
+// Create — returns the created Cryptography
+const created = await client.Cryptography().create({
   name: 'Example',
 })
 
@@ -52,6 +52,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -80,9 +83,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ApiToolsSDK.test()
 
-const result = await client.cryptography.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const cryptography = await client.Cryptography().load({ id: 'test01' })
+// cryptography is a bare entity populated with mock response data
+console.log(cryptography)
 ```
 
 You can also use the instance method:
@@ -97,7 +100,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.cryptography
+const entity = client.Cryptography()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -176,11 +179,11 @@ new ApiToolsSDK(options?: {
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
 | `Cryptography(data?)` | `CryptographyEntity` | Create a Cryptography entity instance. |
-| `Encoding(data?)` | `EncodingEntity` | Create a Encoding entity instance. |
+| `Encoding(data?)` | `EncodingEntity` | Create an Encoding entity instance. |
 | `Generator(data?)` | `GeneratorEntity` | Create a Generator entity instance. |
 | `GetDocumentation(data?)` | `GetDocumentationEntity` | Create a GetDocumentation entity instance. |
 | `Tool(data?)` | `ToolEntity` | Create a Tool entity instance. |
-| `Utility(data?)` | `UtilityEntity` | Create a Utility entity instance. |
+| `Utility(data?)` | `UtilityEntity` | Create an Utility entity instance. |
 | `tester(testopts?, sdkopts?)` | `ApiToolsSDK` | Create a test-mode client instance. |
 
 #### Static methods
@@ -197,29 +200,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): ApiToolsSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -336,7 +340,7 @@ API path: `/api/ip`
 
 ### Cryptography
 
-Create an instance: `const cryptography = client.cryptography`
+Create an instance: `const cryptography = client.Cryptography()`
 
 #### Operations
 
@@ -355,7 +359,7 @@ Create an instance: `const cryptography = client.cryptography`
 #### Example: Create
 
 ```ts
-const cryptography = await client.cryptography.create({
+const cryptography = await client.Cryptography().create({
   text: /* `$STRING` */,
 })
 ```
@@ -363,7 +367,7 @@ const cryptography = await client.cryptography.create({
 
 ### Encoding
 
-Create an instance: `const encoding = client.encoding`
+Create an instance: `const encoding = client.Encoding()`
 
 #### Operations
 
@@ -382,7 +386,7 @@ Create an instance: `const encoding = client.encoding`
 #### Example: Create
 
 ```ts
-const encoding = await client.encoding.create({
+const encoding = await client.Encoding().create({
   encoded: /* `$STRING` */,
   text: /* `$STRING` */,
 })
@@ -391,7 +395,7 @@ const encoding = await client.encoding.create({
 
 ### Generator
 
-Create an instance: `const generator = client.generator`
+Create an instance: `const generator = client.Generator()`
 
 #### Operations
 
@@ -411,19 +415,19 @@ Create an instance: `const generator = client.generator`
 #### Example: Load
 
 ```ts
-const generator = await client.generator.load({ id: 'generator_id' })
+const generator = await client.Generator().load({ id: 'generator_id' })
 ```
 
 #### Example: List
 
 ```ts
-const generators = await client.generator.list()
+const generators = await client.Generator().list()
 ```
 
 
 ### GetDocumentation
 
-Create an instance: `const get_documentation = client.get_documentation`
+Create an instance: `const get_documentation = client.GetDocumentation()`
 
 #### Operations
 
@@ -442,13 +446,13 @@ Create an instance: `const get_documentation = client.get_documentation`
 #### Example: List
 
 ```ts
-const get_documentations = await client.get_documentation.list()
+const get_documentations = await client.GetDocumentation().list()
 ```
 
 
 ### Tool
 
-Create an instance: `const tool = client.tool`
+Create an instance: `const tool = client.Tool()`
 
 #### Operations
 
@@ -468,13 +472,13 @@ Create an instance: `const tool = client.tool`
 #### Example: List
 
 ```ts
-const tools = await client.tool.list()
+const tools = await client.Tool().list()
 ```
 
 
 ### Utility
 
-Create an instance: `const utility = client.utility`
+Create an instance: `const utility = client.Utility()`
 
 #### Operations
 
@@ -498,7 +502,7 @@ Create an instance: `const utility = client.utility`
 #### Example: Load
 
 ```ts
-const utility = await client.utility.load({ id: 'utility_id' })
+const utility = await client.Utility().load({ id: 'utility_id' })
 ```
 
 
@@ -569,7 +573,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const cryptography = client.cryptography
+const cryptography = client.Cryptography()
 await cryptography.load({ id: "example_id" })
 
 // cryptography.data() now returns the loaded cryptography data

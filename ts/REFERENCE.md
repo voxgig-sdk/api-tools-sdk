@@ -169,7 +169,7 @@ Alias for `ApiToolsSDK.test()`.
 ## CryptographyEntity
 
 ```ts
-const cryptography = client.cryptography
+const cryptography = client.Cryptography()
 ```
 
 ### Fields
@@ -187,7 +187,7 @@ const cryptography = client.cryptography
 Create a new entity with the given data.
 
 ```ts
-const result = await client.cryptography.create({
+const result = await client.Cryptography().create({
   text: /* `$STRING` */,
 })
 ```
@@ -223,7 +223,7 @@ Return a copy of the entity options.
 ## EncodingEntity
 
 ```ts
-const encoding = client.encoding
+const encoding = client.Encoding()
 ```
 
 ### Fields
@@ -249,7 +249,7 @@ const encoding = client.encoding
 Create a new entity with the given data.
 
 ```ts
-const result = await client.encoding.create({
+const result = await client.Encoding().create({
   encoded: /* `$STRING` */,
   text: /* `$STRING` */,
 })
@@ -286,7 +286,7 @@ Return a copy of the entity options.
 ## GeneratorEntity
 
 ```ts
-const generator = client.generator
+const generator = client.Generator()
 ```
 
 ### Fields
@@ -304,7 +304,7 @@ const generator = client.generator
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.generator.list()
+const results = await client.Generator().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -312,7 +312,7 @@ const results = await client.generator.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.generator.load({ id: 'generator_id' })
+const result = await client.Generator().load({ id: 'generator_id' })
 ```
 
 ### Common Methods
@@ -346,7 +346,7 @@ Return a copy of the entity options.
 ## GetDocumentationEntity
 
 ```ts
-const get_documentation = client.get_documentation
+const get_documentation = client.GetDocumentation()
 ```
 
 ### Fields
@@ -364,7 +364,7 @@ const get_documentation = client.get_documentation
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.get_documentation.list()
+const results = await client.GetDocumentation().list()
 ```
 
 ### Common Methods
@@ -398,7 +398,7 @@ Return a copy of the entity options.
 ## ToolEntity
 
 ```ts
-const tool = client.tool
+const tool = client.Tool()
 ```
 
 ### Fields
@@ -417,7 +417,7 @@ const tool = client.tool
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.tool.list()
+const results = await client.Tool().list()
 ```
 
 ### Common Methods
@@ -451,7 +451,7 @@ Return a copy of the entity options.
 ## UtilityEntity
 
 ```ts
-const utility = client.utility
+const utility = client.Utility()
 ```
 
 ### Fields
@@ -474,7 +474,7 @@ const utility = client.utility
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.utility.load({ id: 'utility_id' })
+const result = await client.Utility().load({ id: 'utility_id' })
 ```
 
 ### Common Methods

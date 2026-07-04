@@ -100,7 +100,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## CryptographyEntity
 
 ```python
-cryptography = client.cryptography
+cryptography = client.Cryptography()
 ```
 
 ### Fields
@@ -118,8 +118,8 @@ cryptography = client.cryptography
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.cryptography.create({
-    "text": # `$STRING`,
+result = client.Cryptography().create({
+    "text": ...,  # `$STRING`
 })
 ```
 
@@ -155,7 +155,7 @@ Return the entity name.
 ## EncodingEntity
 
 ```python
-encoding = client.encoding
+encoding = client.Encoding()
 ```
 
 ### Fields
@@ -181,9 +181,9 @@ encoding = client.encoding
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.encoding.create({
-    "encoded": # `$STRING`,
-    "text": # `$STRING`,
+result = client.Encoding().create({
+    "encoded": ...,  # `$STRING`
+    "text": ...,  # `$STRING`
 })
 ```
 
@@ -219,7 +219,7 @@ Return the entity name.
 ## GeneratorEntity
 
 ```python
-generator = client.generator
+generator = client.Generator()
 ```
 
 ### Fields
@@ -237,7 +237,9 @@ generator = client.generator
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.generator.list({})
+results = client.Generator().list({})
+for generator in results:
+    print(generator)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -245,7 +247,7 @@ results = client.generator.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.generator.load({"id": "generator_id"})
+result = client.Generator().load({"id": "generator_id"})
 ```
 
 ### Common Methods
@@ -280,7 +282,7 @@ Return the entity name.
 ## GetDocumentationEntity
 
 ```python
-get_documentation = client.get_documentation
+get_documentation = client.GetDocumentation()
 ```
 
 ### Fields
@@ -298,7 +300,9 @@ get_documentation = client.get_documentation
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.get_documentation.list({})
+results = client.GetDocumentation().list({})
+for get_documentation in results:
+    print(get_documentation)
 ```
 
 ### Common Methods
@@ -333,7 +337,7 @@ Return the entity name.
 ## ToolEntity
 
 ```python
-tool = client.tool
+tool = client.Tool()
 ```
 
 ### Fields
@@ -352,7 +356,9 @@ tool = client.tool
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.tool.list({})
+results = client.Tool().list({})
+for tool in results:
+    print(tool)
 ```
 
 ### Common Methods
@@ -387,7 +393,7 @@ Return the entity name.
 ## UtilityEntity
 
 ```python
-utility = client.utility
+utility = client.Utility()
 ```
 
 ### Fields
@@ -410,7 +416,7 @@ utility = client.utility
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.utility.load({"id": "utility_id"})
+result = client.Utility().load({"id": "utility_id"})
 ```
 
 ### Common Methods

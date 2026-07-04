@@ -233,10 +233,10 @@ class ApiToolsSDK
 
     private $_cryptography = null;
 
-    // Idiomatic facade: $client->cryptography()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Cryptography() (PHP method
-    // names are case-insensitive).
-    public function cryptography($data = null)
+    // Canonical facade: $client->Cryptography()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->cryptography()
+    // resolves here too.
+    public function Cryptography($data = null)
     {
         require_once __DIR__ . '/entity/cryptography_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class ApiToolsSDK
 
     private $_encoding = null;
 
-    // Idiomatic facade: $client->encoding()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Encoding() (PHP method
-    // names are case-insensitive).
-    public function encoding($data = null)
+    // Canonical facade: $client->Encoding()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->encoding()
+    // resolves here too.
+    public function Encoding($data = null)
     {
         require_once __DIR__ . '/entity/encoding_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class ApiToolsSDK
 
     private $_generator = null;
 
-    // Idiomatic facade: $client->generator()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Generator() (PHP method
-    // names are case-insensitive).
-    public function generator($data = null)
+    // Canonical facade: $client->Generator()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->generator()
+    // resolves here too.
+    public function Generator($data = null)
     {
         require_once __DIR__ . '/entity/generator_entity.php';
         if ($data === null) {
@@ -287,10 +287,10 @@ class ApiToolsSDK
 
     private $_get_documentation = null;
 
-    // Idiomatic facade: $client->get_documentation()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias GetDocumentation() (PHP method
-    // names are case-insensitive).
-    public function get_documentation($data = null)
+    // Canonical facade: $client->GetDocumentation()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->get_documentation()
+    // resolves here too.
+    public function GetDocumentation($data = null)
     {
         require_once __DIR__ . '/entity/get_documentation_entity.php';
         if ($data === null) {
@@ -305,10 +305,10 @@ class ApiToolsSDK
 
     private $_tool = null;
 
-    // Idiomatic facade: $client->tool()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Tool() (PHP method
-    // names are case-insensitive).
-    public function tool($data = null)
+    // Canonical facade: $client->Tool()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->tool()
+    // resolves here too.
+    public function Tool($data = null)
     {
         require_once __DIR__ . '/entity/tool_entity.php';
         if ($data === null) {
@@ -323,10 +323,10 @@ class ApiToolsSDK
 
     private $_utility = null;
 
-    // Idiomatic facade: $client->utility()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Utility() (PHP method
-    // names are case-insensitive).
-    public function utility($data = null)
+    // Canonical facade: $client->Utility()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->utility()
+    // resolves here too.
+    public function Utility($data = null)
     {
         require_once __DIR__ . '/entity/utility_entity.php';
         if ($data === null) {

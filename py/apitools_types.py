@@ -4,112 +4,109 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Cryptography:
+class CryptographyRequired(TypedDict):
     text: str
-    algorithm: Optional[str] = None
-    hash: Optional[str] = None
 
 
-@dataclass
-class CryptographyCreateData:
-    algorithm: Optional[str] = None
-    hash: Optional[str] = None
-    text: Optional[str] = None
+class Cryptography(CryptographyRequired, total=False):
+    algorithm: str
+    hash: str
 
 
-@dataclass
-class Encoding:
+class CryptographyCreateData(TypedDict, total=False):
+    algorithm: str
+    hash: str
+    text: str
+
+
+class EncodingRequired(TypedDict):
     encoded: str
     text: str
-    decoded: Optional[str] = None
 
 
-@dataclass
-class EncodingCreateData:
-    decoded: Optional[str] = None
-    encoded: Optional[str] = None
-    text: Optional[str] = None
+class Encoding(EncodingRequired, total=False):
+    decoded: str
 
 
-@dataclass
-class Generator:
-    type: Optional[str] = None
-    uuid: Optional[str] = None
-    value: Optional[Any] = None
+class EncodingCreateData(TypedDict, total=False):
+    decoded: str
+    encoded: str
+    text: str
 
 
-@dataclass
-class GeneratorLoadMatch:
-    type: Optional[str] = None
-    uuid: Optional[str] = None
-    value: Optional[Any] = None
+class Generator(TypedDict, total=False):
+    type: str
+    uuid: str
+    value: Any
 
 
-@dataclass
-class GeneratorListMatch:
-    type: Optional[str] = None
-    uuid: Optional[str] = None
-    value: Optional[Any] = None
+class GeneratorLoadMatch(TypedDict, total=False):
+    type: str
+    uuid: str
+    value: Any
 
 
-@dataclass
-class GetDocumentation:
-    description: Optional[str] = None
-    endpoint: Optional[str] = None
-    name: Optional[str] = None
+class GeneratorListMatch(TypedDict, total=False):
+    type: str
+    uuid: str
+    value: Any
 
 
-@dataclass
-class GetDocumentationListMatch:
-    description: Optional[str] = None
-    endpoint: Optional[str] = None
-    name: Optional[str] = None
+class GetDocumentation(TypedDict, total=False):
+    description: str
+    endpoint: str
+    name: str
 
 
-@dataclass
-class Tool:
-    category: Optional[str] = None
-    description: Optional[str] = None
-    id: Optional[str] = None
-    name: Optional[str] = None
+class GetDocumentationListMatch(TypedDict, total=False):
+    description: str
+    endpoint: str
+    name: str
 
 
-@dataclass
-class ToolListMatch:
-    category: Optional[str] = None
-    description: Optional[str] = None
-    id: Optional[str] = None
-    name: Optional[str] = None
+class Tool(TypedDict, total=False):
+    category: str
+    description: str
+    id: str
+    name: str
 
 
-@dataclass
-class Utility:
-    city: Optional[str] = None
-    country: Optional[str] = None
-    ip: Optional[str] = None
-    iso: Optional[str] = None
-    isp: Optional[str] = None
-    millisecond: Optional[int] = None
-    timestamp: Optional[int] = None
-    utc: Optional[str] = None
+class ToolListMatch(TypedDict, total=False):
+    category: str
+    description: str
+    id: str
+    name: str
 
 
-@dataclass
-class UtilityLoadMatch:
-    city: Optional[str] = None
-    country: Optional[str] = None
-    ip: Optional[str] = None
-    iso: Optional[str] = None
-    isp: Optional[str] = None
-    millisecond: Optional[int] = None
-    timestamp: Optional[int] = None
-    utc: Optional[str] = None
+class Utility(TypedDict, total=False):
+    city: str
+    country: str
+    ip: str
+    iso: str
+    isp: str
+    millisecond: int
+    timestamp: int
+    utc: str
 
+
+class UtilityLoadMatch(TypedDict, total=False):
+    city: str
+    country: str
+    ip: str
+    iso: str
+    isp: str
+    millisecond: int
+    timestamp: int
+    utc: str

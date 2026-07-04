@@ -133,22 +133,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = ApiToolsSDK.test()
-const result = await client.cryptography.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const cryptography = await client.Cryptography().load({ id: 'test01' })
+// cryptography is a bare Cryptography populated with mock data
+console.log(cryptography)
 ```
 
 ### Python
 
 ```python
 client = ApiToolsSDK.test()
-result = client.cryptography.load({"id": "test01"})
+cryptography = client.Cryptography().load({"id": "test01"})
+print(cryptography)
 ```
 
 ### PHP
 
 ```php
-$client = ApiToolsSDK::test();
-$result = $client->cryptography()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = ApiToolsSDK::test([
+    "entity" => ["cryptography" => ["test01" => ["id" => "test01"]]],
+]);
+$cryptography = $client->Cryptography()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -163,15 +168,18 @@ result, err := client.Cryptography(nil).Load(
 ### Ruby
 
 ```ruby
-client = ApiToolsSDK.test
-result = client.cryptography.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = ApiToolsSDK.test({
+  "entity" => { "cryptography" => { "test01" => { "id" => "test01" } } },
+})
+cryptography = client.Cryptography.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:cryptography():load({ id = "test01" })
+local result, err = client:Cryptography():load({ id = "test01" })
 ```
 
 ## How it works
@@ -219,6 +227,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

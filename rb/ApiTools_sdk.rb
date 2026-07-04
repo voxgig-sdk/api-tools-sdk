@@ -208,78 +208,42 @@ class ApiToolsSDK
   end
 
 
-  # Idiomatic facade: client.cryptography.list / client.cryptography.load({ "id" => ... })
-  def cryptography
-    require_relative 'entity/cryptography_entity'
-    @cryptography ||= CryptographyEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.cryptography instead.
+  # Canonical facade: client.Cryptography.list / client.Cryptography.load({ "id" => ... })
   def Cryptography(data = nil)
     require_relative 'entity/cryptography_entity'
     CryptographyEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.encoding.list / client.encoding.load({ "id" => ... })
-  def encoding
-    require_relative 'entity/encoding_entity'
-    @encoding ||= EncodingEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.encoding instead.
+  # Canonical facade: client.Encoding.list / client.Encoding.load({ "id" => ... })
   def Encoding(data = nil)
     require_relative 'entity/encoding_entity'
     EncodingEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.generator.list / client.generator.load({ "id" => ... })
-  def generator
-    require_relative 'entity/generator_entity'
-    @generator ||= GeneratorEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.generator instead.
+  # Canonical facade: client.Generator.list / client.Generator.load({ "id" => ... })
   def Generator(data = nil)
     require_relative 'entity/generator_entity'
     GeneratorEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.get_documentation.list / client.get_documentation.load({ "id" => ... })
-  def get_documentation
-    require_relative 'entity/get_documentation_entity'
-    @get_documentation ||= GetDocumentationEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.get_documentation instead.
+  # Canonical facade: client.GetDocumentation.list / client.GetDocumentation.load({ "id" => ... })
   def GetDocumentation(data = nil)
     require_relative 'entity/get_documentation_entity'
     GetDocumentationEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.tool.list / client.tool.load({ "id" => ... })
-  def tool
-    require_relative 'entity/tool_entity'
-    @tool ||= ToolEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.tool instead.
+  # Canonical facade: client.Tool.list / client.Tool.load({ "id" => ... })
   def Tool(data = nil)
     require_relative 'entity/tool_entity'
     ToolEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.utility.list / client.utility.load({ "id" => ... })
-  def utility
-    require_relative 'entity/utility_entity'
-    @utility ||= UtilityEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.utility instead.
+  # Canonical facade: client.Utility.list / client.Utility.load({ "id" => ... })
   def Utility(data = nil)
     require_relative 'entity/utility_entity'
     UtilityEntity.new(self, data)

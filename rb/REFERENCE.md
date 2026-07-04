@@ -106,7 +106,7 @@ same parameters as `direct()`. Raises on error.
 ## CryptographyEntity
 
 ```ruby
-cryptography = client.cryptography
+cryptography = client.Cryptography
 ```
 
 ### Fields
@@ -124,7 +124,7 @@ cryptography = client.cryptography
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.cryptography.create({
+result = client.Cryptography.create({
   "text" => # `$STRING`,
 })
 ```
@@ -162,7 +162,7 @@ Return the entity name.
 ## EncodingEntity
 
 ```ruby
-encoding = client.encoding
+encoding = client.Encoding
 ```
 
 ### Fields
@@ -188,7 +188,7 @@ encoding = client.encoding
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.encoding.create({
+result = client.Encoding.create({
   "encoded" => # `$STRING`,
   "text" => # `$STRING`,
 })
@@ -227,7 +227,7 @@ Return the entity name.
 ## GeneratorEntity
 
 ```ruby
-generator = client.generator
+generator = client.Generator
 ```
 
 ### Fields
@@ -245,7 +245,7 @@ generator = client.generator
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.generator.list(nil)
+results = client.Generator.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -253,7 +253,7 @@ results = client.generator.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.generator.load({ "id" => "generator_id" })
+result = client.Generator.load({ "id" => "generator_id" })
 ```
 
 ### Common Methods
@@ -289,7 +289,7 @@ Return the entity name.
 ## GetDocumentationEntity
 
 ```ruby
-get_documentation = client.get_documentation
+get_documentation = client.GetDocumentation
 ```
 
 ### Fields
@@ -307,7 +307,7 @@ get_documentation = client.get_documentation
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.get_documentation.list(nil)
+results = client.GetDocumentation.list(nil)
 ```
 
 ### Common Methods
@@ -343,7 +343,7 @@ Return the entity name.
 ## ToolEntity
 
 ```ruby
-tool = client.tool
+tool = client.Tool
 ```
 
 ### Fields
@@ -362,7 +362,7 @@ tool = client.tool
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.tool.list(nil)
+results = client.Tool.list(nil)
 ```
 
 ### Common Methods
@@ -398,7 +398,7 @@ Return the entity name.
 ## UtilityEntity
 
 ```ruby
-utility = client.utility
+utility = client.Utility
 ```
 
 ### Fields
@@ -421,7 +421,7 @@ utility = client.utility
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.utility.load({ "id" => "utility_id" })
+result = client.Utility.load({ "id" => "utility_id" })
 ```
 
 ### Common Methods

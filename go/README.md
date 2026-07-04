@@ -30,32 +30,31 @@ go mod edit -replace github.com/voxgig-sdk/api-tools-sdk/go=../api-tools-sdk/go
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
 
 import (
     "fmt"
-
     sdk "github.com/voxgig-sdk/api-tools-sdk/go"
-    "github.com/voxgig-sdk/api-tools-sdk/go/core"
 )
 
 func main() {
     client := sdk.New()
-```
 
-### 4. Create, update, and remove
-
-```go
-// Create
-created, _ := client.Cryptography(nil).Create(
-    map[string]any{"name": "Example"}, nil,
-)
-cm := core.ToMapAny(created)
-newID := core.ToMapAny(cm["data"])["id"]
-
+    // Create a cryptography.
+    created, err := client.Cryptography(nil).Create(map[string]any{"name": "Example"}, nil)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(created)
+}
 ```
 
 
@@ -105,10 +104,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Cryptography(nil).Load(
+cryptography, err := client.Cryptography(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(cryptography) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -186,11 +188,11 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
 | `Cryptography` | `(data map[string]any) ApiToolsEntity` | Create a Cryptography entity instance. |
-| `Encoding` | `(data map[string]any) ApiToolsEntity` | Create a Encoding entity instance. |
+| `Encoding` | `(data map[string]any) ApiToolsEntity` | Create an Encoding entity instance. |
 | `Generator` | `(data map[string]any) ApiToolsEntity` | Create a Generator entity instance. |
 | `GetDocumentation` | `(data map[string]any) ApiToolsEntity` | Create a GetDocumentation entity instance. |
 | `Tool` | `(data map[string]any) ApiToolsEntity` | Create a Tool entity instance. |
-| `Utility` | `(data map[string]any) ApiToolsEntity` | Create a Utility entity instance. |
+| `Utility` | `(data map[string]any) ApiToolsEntity` | Create an Utility entity instance. |
 
 ### Entity interface (ApiToolsEntity)
 
@@ -210,17 +212,24 @@ All entities implement the `ApiToolsEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    cryptography, err := client.Cryptography(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // cryptography is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -384,13 +393,21 @@ Create an instance: `generator := client.Generator(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Generator(nil).Load(map[string]any{"id": "generator_id"}, nil)
+generator, err := client.Generator(nil).Load(map[string]any{"id": "generator_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(generator) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Generator(nil).List(nil, nil)
+generators, err := client.Generator(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(generators) // the array of records
 ```
 
 
@@ -415,7 +432,11 @@ Create an instance: `get_documentation := client.GetDocumentation(nil)`
 #### Example: List
 
 ```go
-results, err := client.GetDocumentation(nil).List(nil, nil)
+get_documentations, err := client.GetDocumentation(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(get_documentations) // the array of records
 ```
 
 
@@ -441,7 +462,11 @@ Create an instance: `tool := client.Tool(nil)`
 #### Example: List
 
 ```go
-results, err := client.Tool(nil).List(nil, nil)
+tools, err := client.Tool(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(tools) // the array of records
 ```
 
 
@@ -471,7 +496,11 @@ Create an instance: `utility := client.Utility(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Utility(nil).Load(map[string]any{"id": "utility_id"}, nil)
+utility, err := client.Utility(nil).Load(map[string]any{"id": "utility_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(utility) // the loaded record
 ```
 
 

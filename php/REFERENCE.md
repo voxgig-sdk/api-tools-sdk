@@ -105,7 +105,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## CryptographyEntity
 
 ```php
-$cryptography = $client->cryptography();
+$cryptography = $client->Cryptography();
 ```
 
 ### Fields
@@ -123,7 +123,7 @@ $cryptography = $client->cryptography();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->cryptography()->create([
+$result = $client->Cryptography()->create([
   "text" => /* `$STRING` */,
 ]);
 ```
@@ -161,7 +161,7 @@ Return the entity name.
 ## EncodingEntity
 
 ```php
-$encoding = $client->encoding();
+$encoding = $client->Encoding();
 ```
 
 ### Fields
@@ -187,7 +187,7 @@ $encoding = $client->encoding();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->encoding()->create([
+$result = $client->Encoding()->create([
   "encoded" => /* `$STRING` */,
   "text" => /* `$STRING` */,
 ]);
@@ -226,7 +226,7 @@ Return the entity name.
 ## GeneratorEntity
 
 ```php
-$generator = $client->generator();
+$generator = $client->Generator();
 ```
 
 ### Fields
@@ -244,7 +244,7 @@ $generator = $client->generator();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->generator()->list([]);
+$results = $client->Generator()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -252,7 +252,7 @@ $results = $client->generator()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->generator()->load(["id" => "generator_id"]);
+$result = $client->Generator()->load(["id" => "generator_id"]);
 ```
 
 ### Common Methods
@@ -288,7 +288,7 @@ Return the entity name.
 ## GetDocumentationEntity
 
 ```php
-$get_documentation = $client->get_documentation();
+$get_documentation = $client->GetDocumentation();
 ```
 
 ### Fields
@@ -306,7 +306,7 @@ $get_documentation = $client->get_documentation();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->get_documentation()->list([]);
+$results = $client->GetDocumentation()->list([]);
 ```
 
 ### Common Methods
@@ -342,7 +342,7 @@ Return the entity name.
 ## ToolEntity
 
 ```php
-$tool = $client->tool();
+$tool = $client->Tool();
 ```
 
 ### Fields
@@ -361,7 +361,7 @@ $tool = $client->tool();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->tool()->list([]);
+$results = $client->Tool()->list([]);
 ```
 
 ### Common Methods
@@ -397,7 +397,7 @@ Return the entity name.
 ## UtilityEntity
 
 ```php
-$utility = $client->utility();
+$utility = $client->Utility();
 ```
 
 ### Fields
@@ -420,7 +420,7 @@ $utility = $client->utility();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->utility()->load(["id" => "utility_id"]);
+$result = $client->Utility()->load(["id" => "utility_id"]);
 ```
 
 ### Common Methods

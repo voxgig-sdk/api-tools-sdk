@@ -35,7 +35,8 @@ local client = sdk.new()
 
 ```lua
 -- Create
-local created, _ = client:cryptography():create({ name = "Example" })
+local created, err = client:Cryptography():create({ name = "Example" })
+if err then error(err) end
 
 ```
 
@@ -82,8 +83,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:cryptography():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Cryptography():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -162,11 +163,11 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
 | `Cryptography` | `(data) -> CryptographyEntity` | Create a Cryptography entity instance. |
-| `Encoding` | `(data) -> EncodingEntity` | Create a Encoding entity instance. |
+| `Encoding` | `(data) -> EncodingEntity` | Create an Encoding entity instance. |
 | `Generator` | `(data) -> GeneratorEntity` | Create a Generator entity instance. |
 | `GetDocumentation` | `(data) -> GetDocumentationEntity` | Create a GetDocumentation entity instance. |
 | `Tool` | `(data) -> ToolEntity` | Create a Tool entity instance. |
-| `Utility` | `(data) -> UtilityEntity` | Create a Utility entity instance. |
+| `Utility` | `(data) -> UtilityEntity` | Create an Utility entity instance. |
 
 ### Entity interface
 
@@ -188,17 +189,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local cryptography, err = client:Cryptography():load({ id = "example_id" })
+    if err then error(err) end
+    -- cryptography is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -287,7 +293,7 @@ API path: `/api/ip`
 
 ### Cryptography
 
-Create an instance: `const cryptography = client.cryptography`
+Create an instance: `local cryptography = client:Cryptography(nil)`
 
 #### Operations
 
@@ -305,16 +311,16 @@ Create an instance: `const cryptography = client.cryptography`
 
 #### Example: Create
 
-```ts
-const cryptography = await client.cryptography.create({
-  text: /* `$STRING` */,
+```lua
+local cryptography, err = client:Cryptography():create({
+  text = nil, -- `$STRING`
 })
 ```
 
 
 ### Encoding
 
-Create an instance: `const encoding = client.encoding`
+Create an instance: `local encoding = client:Encoding(nil)`
 
 #### Operations
 
@@ -332,17 +338,17 @@ Create an instance: `const encoding = client.encoding`
 
 #### Example: Create
 
-```ts
-const encoding = await client.encoding.create({
-  encoded: /* `$STRING` */,
-  text: /* `$STRING` */,
+```lua
+local encoding, err = client:Encoding():create({
+  encoded = nil, -- `$STRING`
+  text = nil, -- `$STRING`
 })
 ```
 
 
 ### Generator
 
-Create an instance: `const generator = client.generator`
+Create an instance: `local generator = client:Generator(nil)`
 
 #### Operations
 
@@ -361,20 +367,20 @@ Create an instance: `const generator = client.generator`
 
 #### Example: Load
 
-```ts
-const generator = await client.generator.load({ id: 'generator_id' })
+```lua
+local generator, err = client:Generator():load({ id = "generator_id" })
 ```
 
 #### Example: List
 
-```ts
-const generators = await client.generator.list()
+```lua
+local generators, err = client:Generator():list()
 ```
 
 
 ### GetDocumentation
 
-Create an instance: `const get_documentation = client.get_documentation`
+Create an instance: `local get_documentation = client:GetDocumentation(nil)`
 
 #### Operations
 
@@ -392,14 +398,14 @@ Create an instance: `const get_documentation = client.get_documentation`
 
 #### Example: List
 
-```ts
-const get_documentations = await client.get_documentation.list()
+```lua
+local get_documentations, err = client:GetDocumentation():list()
 ```
 
 
 ### Tool
 
-Create an instance: `const tool = client.tool`
+Create an instance: `local tool = client:Tool(nil)`
 
 #### Operations
 
@@ -418,14 +424,14 @@ Create an instance: `const tool = client.tool`
 
 #### Example: List
 
-```ts
-const tools = await client.tool.list()
+```lua
+local tools, err = client:Tool():list()
 ```
 
 
 ### Utility
 
-Create an instance: `const utility = client.utility`
+Create an instance: `local utility = client:Utility(nil)`
 
 #### Operations
 
@@ -448,8 +454,8 @@ Create an instance: `const utility = client.utility`
 
 #### Example: Load
 
-```ts
-const utility = await client.utility.load({ id: 'utility_id' })
+```lua
+local utility, err = client:Utility():load({ id = "utility_id" })
 ```
 
 
@@ -524,7 +530,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local cryptography = client:cryptography()
+local cryptography = client:Cryptography()
 cryptography:load({ id = "example_id" })
 
 -- cryptography:data_get() now returns the loaded cryptography data

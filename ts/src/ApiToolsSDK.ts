@@ -209,84 +209,42 @@ class ApiToolsSDK {
 
 
 
-  _cryptography?: CryptographyEntity
-
-  // Idiomatic facade: `client.cryptography.list()` / `client.cryptography.load({ id })`.
-  get cryptography(): CryptographyEntity {
-    return (this._cryptography ??= new CryptographyEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.cryptography` instead. */
+  // Entity access: `client.Cryptography().list()` / `client.Cryptography().load({ id })`.
   Cryptography(data?: any) {
     const self = this
     return new CryptographyEntity(self,data)
   }
 
 
-  _encoding?: EncodingEntity
-
-  // Idiomatic facade: `client.encoding.list()` / `client.encoding.load({ id })`.
-  get encoding(): EncodingEntity {
-    return (this._encoding ??= new EncodingEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.encoding` instead. */
+  // Entity access: `client.Encoding().list()` / `client.Encoding().load({ id })`.
   Encoding(data?: any) {
     const self = this
     return new EncodingEntity(self,data)
   }
 
 
-  _generator?: GeneratorEntity
-
-  // Idiomatic facade: `client.generator.list()` / `client.generator.load({ id })`.
-  get generator(): GeneratorEntity {
-    return (this._generator ??= new GeneratorEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.generator` instead. */
+  // Entity access: `client.Generator().list()` / `client.Generator().load({ id })`.
   Generator(data?: any) {
     const self = this
     return new GeneratorEntity(self,data)
   }
 
 
-  _get_documentation?: GetDocumentationEntity
-
-  // Idiomatic facade: `client.get_documentation.list()` / `client.get_documentation.load({ id })`.
-  get get_documentation(): GetDocumentationEntity {
-    return (this._get_documentation ??= new GetDocumentationEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.get_documentation` instead. */
+  // Entity access: `client.GetDocumentation().list()` / `client.GetDocumentation().load({ id })`.
   GetDocumentation(data?: any) {
     const self = this
     return new GetDocumentationEntity(self,data)
   }
 
 
-  _tool?: ToolEntity
-
-  // Idiomatic facade: `client.tool.list()` / `client.tool.load({ id })`.
-  get tool(): ToolEntity {
-    return (this._tool ??= new ToolEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.tool` instead. */
+  // Entity access: `client.Tool().list()` / `client.Tool().load({ id })`.
   Tool(data?: any) {
     const self = this
     return new ToolEntity(self,data)
   }
 
 
-  _utility?: UtilityEntity
-
-  // Idiomatic facade: `client.utility.list()` / `client.utility.load({ id })`.
-  get utility(): UtilityEntity {
-    return (this._utility ??= new UtilityEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.utility` instead. */
+  // Entity access: `client.Utility().list()` / `client.Utility().load({ id })`.
   Utility(data?: any) {
     const self = this
     return new UtilityEntity(self,data)

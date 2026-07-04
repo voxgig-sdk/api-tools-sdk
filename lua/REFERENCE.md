@@ -103,7 +103,7 @@ same parameters as `direct()`.
 ## CryptographyEntity
 
 ```lua
-local cryptography = client:cryptography(nil)
+local cryptography = client:Cryptography(nil)
 ```
 
 ### Fields
@@ -121,7 +121,7 @@ local cryptography = client:cryptography(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:cryptography():create({
+local result, err = client:Cryptography():create({
   text = --[[ `$STRING` ]],
 })
 ```
@@ -159,7 +159,7 @@ Return the entity name.
 ## EncodingEntity
 
 ```lua
-local encoding = client:encoding(nil)
+local encoding = client:Encoding(nil)
 ```
 
 ### Fields
@@ -185,7 +185,7 @@ local encoding = client:encoding(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:encoding():create({
+local result, err = client:Encoding():create({
   encoded = --[[ `$STRING` ]],
   text = --[[ `$STRING` ]],
 })
@@ -224,7 +224,7 @@ Return the entity name.
 ## GeneratorEntity
 
 ```lua
-local generator = client:generator(nil)
+local generator = client:Generator(nil)
 ```
 
 ### Fields
@@ -242,7 +242,7 @@ local generator = client:generator(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:generator():list()
+local results, err = client:Generator():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -250,7 +250,7 @@ local results, err = client:generator():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:generator():load({ id = "generator_id" })
+local result, err = client:Generator():load({ id = "generator_id" })
 ```
 
 ### Common Methods
@@ -286,7 +286,7 @@ Return the entity name.
 ## GetDocumentationEntity
 
 ```lua
-local get_documentation = client:get_documentation(nil)
+local get_documentation = client:GetDocumentation(nil)
 ```
 
 ### Fields
@@ -304,7 +304,7 @@ local get_documentation = client:get_documentation(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:get_documentation():list()
+local results, err = client:GetDocumentation():list()
 ```
 
 ### Common Methods
@@ -340,7 +340,7 @@ Return the entity name.
 ## ToolEntity
 
 ```lua
-local tool = client:tool(nil)
+local tool = client:Tool(nil)
 ```
 
 ### Fields
@@ -359,7 +359,7 @@ local tool = client:tool(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:tool():list()
+local results, err = client:Tool():list()
 ```
 
 ### Common Methods
@@ -395,7 +395,7 @@ Return the entity name.
 ## UtilityEntity
 
 ```lua
-local utility = client:utility(nil)
+local utility = client:Utility(nil)
 ```
 
 ### Fields
@@ -418,7 +418,7 @@ local utility = client:utility(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:utility():load({ id = "utility_id" })
+local result, err = client:Utility():load({ id = "utility_id" })
 ```
 
 ### Common Methods

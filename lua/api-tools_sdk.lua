@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:cryptography():list() / client:cryptography():load({ id = ... })
-function ApiToolsSDK:cryptography(data)
+-- Idiomatic facade: client:Cryptography():list() / client:Cryptography():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ApiToolsSDK:Cryptography(data)
   local EntityMod = require("entity.cryptography_entity")
   if data == nil then
     if self._cryptography == nil then
@@ -256,15 +257,10 @@ function ApiToolsSDK:cryptography(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:cryptography() instead.
-function ApiToolsSDK:Cryptography(data)
-  local EntityMod = require("entity.cryptography_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:encoding():list() / client:encoding():load({ id = ... })
-function ApiToolsSDK:encoding(data)
+-- Idiomatic facade: client:Encoding():list() / client:Encoding():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ApiToolsSDK:Encoding(data)
   local EntityMod = require("entity.encoding_entity")
   if data == nil then
     if self._encoding == nil then
@@ -275,15 +271,10 @@ function ApiToolsSDK:encoding(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:encoding() instead.
-function ApiToolsSDK:Encoding(data)
-  local EntityMod = require("entity.encoding_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:generator():list() / client:generator():load({ id = ... })
-function ApiToolsSDK:generator(data)
+-- Idiomatic facade: client:Generator():list() / client:Generator():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ApiToolsSDK:Generator(data)
   local EntityMod = require("entity.generator_entity")
   if data == nil then
     if self._generator == nil then
@@ -294,15 +285,10 @@ function ApiToolsSDK:generator(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:generator() instead.
-function ApiToolsSDK:Generator(data)
-  local EntityMod = require("entity.generator_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:get_documentation():list() / client:get_documentation():load({ id = ... })
-function ApiToolsSDK:get_documentation(data)
+-- Idiomatic facade: client:GetDocumentation():list() / client:GetDocumentation():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ApiToolsSDK:GetDocumentation(data)
   local EntityMod = require("entity.get_documentation_entity")
   if data == nil then
     if self._get_documentation == nil then
@@ -313,15 +299,10 @@ function ApiToolsSDK:get_documentation(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:get_documentation() instead.
-function ApiToolsSDK:GetDocumentation(data)
-  local EntityMod = require("entity.get_documentation_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:tool():list() / client:tool():load({ id = ... })
-function ApiToolsSDK:tool(data)
+-- Idiomatic facade: client:Tool():list() / client:Tool():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ApiToolsSDK:Tool(data)
   local EntityMod = require("entity.tool_entity")
   if data == nil then
     if self._tool == nil then
@@ -332,15 +313,10 @@ function ApiToolsSDK:tool(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:tool() instead.
-function ApiToolsSDK:Tool(data)
-  local EntityMod = require("entity.tool_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:utility():list() / client:utility():load({ id = ... })
-function ApiToolsSDK:utility(data)
+-- Idiomatic facade: client:Utility():list() / client:Utility():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ApiToolsSDK:Utility(data)
   local EntityMod = require("entity.utility_entity")
   if data == nil then
     if self._utility == nil then
@@ -348,12 +324,6 @@ function ApiToolsSDK:utility(data)
     end
     return self._utility
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:utility() instead.
-function ApiToolsSDK:Utility(data)
-  local EntityMod = require("entity.utility_entity")
   return EntityMod.new(self, data)
 end
 

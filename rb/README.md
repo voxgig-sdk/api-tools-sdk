@@ -31,8 +31,8 @@ client = ApiToolsSDK.new
 ### 4. Create, update, and remove
 
 ```ruby
-# Create
-created = client.cryptography.create({ "name" => "Example" })
+# create returns the bare created Cryptography record.
+created = client.Cryptography.create({ "name" => "Example" })
 
 ```
 
@@ -77,13 +77,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = ApiToolsSDK.test
+client = ApiToolsSDK.test({
+  "entity" => { "cryptography" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.cryptography.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+cryptography = client.Cryptography.load({ "id" => "test01" })
+puts cryptography
 ```
 
 ### Use a custom fetch function
@@ -160,11 +164,11 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `Cryptography` | `(data) -> CryptographyEntity` | Create a Cryptography entity instance. |
-| `Encoding` | `(data) -> EncodingEntity` | Create a Encoding entity instance. |
+| `Encoding` | `(data) -> EncodingEntity` | Create an Encoding entity instance. |
 | `Generator` | `(data) -> GeneratorEntity` | Create a Generator entity instance. |
 | `GetDocumentation` | `(data) -> GetDocumentationEntity` | Create a GetDocumentation entity instance. |
 | `Tool` | `(data) -> ToolEntity` | Create a Tool entity instance. |
-| `Utility` | `(data) -> UtilityEntity` | Create a Utility entity instance. |
+| `Utility` | `(data) -> UtilityEntity` | Create an Utility entity instance. |
 
 ### Entity interface
 
@@ -288,7 +292,7 @@ API path: `/api/ip`
 
 ### Cryptography
 
-Create an instance: `const cryptography = client.cryptography`
+Create an instance: `cryptography = client.Cryptography`
 
 #### Operations
 
@@ -306,16 +310,16 @@ Create an instance: `const cryptography = client.cryptography`
 
 #### Example: Create
 
-```ts
-const cryptography = await client.cryptography.create({
-  text: /* `$STRING` */,
+```ruby
+cryptography = client.Cryptography.create({
+  "text" => nil, # `$STRING`
 })
 ```
 
 
 ### Encoding
 
-Create an instance: `const encoding = client.encoding`
+Create an instance: `encoding = client.Encoding`
 
 #### Operations
 
@@ -333,17 +337,17 @@ Create an instance: `const encoding = client.encoding`
 
 #### Example: Create
 
-```ts
-const encoding = await client.encoding.create({
-  encoded: /* `$STRING` */,
-  text: /* `$STRING` */,
+```ruby
+encoding = client.Encoding.create({
+  "encoded" => nil, # `$STRING`
+  "text" => nil, # `$STRING`
 })
 ```
 
 
 ### Generator
 
-Create an instance: `const generator = client.generator`
+Create an instance: `generator = client.Generator`
 
 #### Operations
 
@@ -362,20 +366,22 @@ Create an instance: `const generator = client.generator`
 
 #### Example: Load
 
-```ts
-const generator = await client.generator.load({ id: 'generator_id' })
+```ruby
+# load returns the bare Generator record (raises on error).
+generator = client.Generator.load({ "id" => "generator_id" })
 ```
 
 #### Example: List
 
-```ts
-const generators = await client.generator.list()
+```ruby
+# list returns an Array of Generator records (raises on error).
+generators = client.Generator.list
 ```
 
 
 ### GetDocumentation
 
-Create an instance: `const get_documentation = client.get_documentation`
+Create an instance: `get_documentation = client.GetDocumentation`
 
 #### Operations
 
@@ -393,14 +399,15 @@ Create an instance: `const get_documentation = client.get_documentation`
 
 #### Example: List
 
-```ts
-const get_documentations = await client.get_documentation.list()
+```ruby
+# list returns an Array of GetDocumentation records (raises on error).
+get_documentations = client.GetDocumentation.list
 ```
 
 
 ### Tool
 
-Create an instance: `const tool = client.tool`
+Create an instance: `tool = client.Tool`
 
 #### Operations
 
@@ -419,14 +426,15 @@ Create an instance: `const tool = client.tool`
 
 #### Example: List
 
-```ts
-const tools = await client.tool.list()
+```ruby
+# list returns an Array of Tool records (raises on error).
+tools = client.Tool.list
 ```
 
 
 ### Utility
 
-Create an instance: `const utility = client.utility`
+Create an instance: `utility = client.Utility`
 
 #### Operations
 
@@ -449,8 +457,9 @@ Create an instance: `const utility = client.utility`
 
 #### Example: Load
 
-```ts
-const utility = await client.utility.load({ id: 'utility_id' })
+```ruby
+# load returns the bare Utility record (raises on error).
+utility = client.Utility.load({ "id" => "utility_id" })
 ```
 
 
@@ -525,7 +534,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-cryptography = client.cryptography
+cryptography = client.Cryptography
 cryptography.load({ "id" => "example_id" })
 
 # cryptography.data_get now returns the loaded cryptography data
