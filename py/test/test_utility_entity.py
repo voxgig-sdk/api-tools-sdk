@@ -49,8 +49,7 @@ class TestUtilityEntity:
         # LOAD
         utility_ref01_ent = client.Utility(None)
         utility_ref01_match_dt0 = {}
-        utility_ref01_data_dt0_loaded, err = utility_ref01_ent.load(utility_ref01_match_dt0, None)
-        assert err is None
+        utility_ref01_data_dt0_loaded = utility_ref01_ent.load(utility_ref01_match_dt0, None)
         assert utility_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _utility_basic_setup(extra):
         "APITOOLS_TEST_UTILITY_ENTID": idmap,
         "APITOOLS_TEST_LIVE": "FALSE",
         "APITOOLS_TEST_EXPLAIN": "FALSE",
-        "APITOOLS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _utility_basic_setup(extra):
     if env.get("APITOOLS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("APITOOLS_APIKEY"),
             },
             extra or {},
         ])

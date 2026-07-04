@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Tool,
+  ToolListMatch,
+} from '../ApiToolsTypes'
 
 // TODO: needs Entity superclass
-class ToolEntity extends ApiToolsEntityBase {
+class ToolEntity extends ApiToolsEntityBase<Tool> {
 
   constructor(client: ApiToolsSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class ToolEntity extends ApiToolsEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: ToolListMatch, ctrl?: Control): Promise<Tool[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class ToolEntity extends ApiToolsEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Tool[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

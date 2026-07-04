@@ -50,8 +50,7 @@ class TestGetDocumentationEntity:
         get_documentation_ref01_ent = client.GetDocumentation(None)
         get_documentation_ref01_match = {}
 
-        get_documentation_ref01_list_result, err = get_documentation_ref01_ent.list(get_documentation_ref01_match, None)
-        assert err is None
+        get_documentation_ref01_list_result = get_documentation_ref01_ent.list(get_documentation_ref01_match, None)
         assert isinstance(get_documentation_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _get_documentation_basic_setup(extra):
         "APITOOLS_TEST_GET_DOCUMENTATION_ENTID": idmap,
         "APITOOLS_TEST_LIVE": "FALSE",
         "APITOOLS_TEST_EXPLAIN": "FALSE",
-        "APITOOLS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _get_documentation_basic_setup(extra):
     if env.get("APITOOLS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("APITOOLS_APIKEY"),
             },
             extra or {},
         ])

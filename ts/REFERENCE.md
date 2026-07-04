@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -170,7 +169,7 @@ Alias for `ApiToolsSDK.test()`.
 ## CryptographyEntity
 
 ```ts
-const cryptography = client.Cryptography()
+const cryptography = client.cryptography
 ```
 
 ### Fields
@@ -188,7 +187,7 @@ const cryptography = client.Cryptography()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Cryptography().create({
+const result = await client.cryptography.create({
   text: /* `$STRING` */,
 })
 ```
@@ -224,7 +223,7 @@ Return a copy of the entity options.
 ## EncodingEntity
 
 ```ts
-const encoding = client.Encoding()
+const encoding = client.encoding
 ```
 
 ### Fields
@@ -250,7 +249,7 @@ const encoding = client.Encoding()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Encoding().create({
+const result = await client.encoding.create({
   encoded: /* `$STRING` */,
   text: /* `$STRING` */,
 })
@@ -287,7 +286,7 @@ Return a copy of the entity options.
 ## GeneratorEntity
 
 ```ts
-const generator = client.Generator()
+const generator = client.generator
 ```
 
 ### Fields
@@ -305,7 +304,7 @@ const generator = client.Generator()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Generator().list()
+const results = await client.generator.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -313,7 +312,7 @@ const results = await client.Generator().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Generator().load({ id: 'generator_id' })
+const result = await client.generator.load({ id: 'generator_id' })
 ```
 
 ### Common Methods
@@ -347,7 +346,7 @@ Return a copy of the entity options.
 ## GetDocumentationEntity
 
 ```ts
-const get_documentation = client.GetDocumentation()
+const get_documentation = client.get_documentation
 ```
 
 ### Fields
@@ -365,7 +364,7 @@ const get_documentation = client.GetDocumentation()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.GetDocumentation().list()
+const results = await client.get_documentation.list()
 ```
 
 ### Common Methods
@@ -399,7 +398,7 @@ Return a copy of the entity options.
 ## ToolEntity
 
 ```ts
-const tool = client.Tool()
+const tool = client.tool
 ```
 
 ### Fields
@@ -418,7 +417,7 @@ const tool = client.Tool()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Tool().list()
+const results = await client.tool.list()
 ```
 
 ### Common Methods
@@ -452,7 +451,7 @@ Return a copy of the entity options.
 ## UtilityEntity
 
 ```ts
-const utility = client.Utility()
+const utility = client.utility
 ```
 
 ### Fields
@@ -475,7 +474,7 @@ const utility = client.Utility()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Utility().load({ id: 'utility_id' })
+const result = await client.utility.load({ id: 'utility_id' })
 ```
 
 ### Common Methods

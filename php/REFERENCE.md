@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `$options` | `array` | SDK configuration options. |
-| `$options["apikey"]` | `string` | API key for authentication. |
 | `$options["base"]` | `string` | Base URL for API requests. |
 | `$options["prefix"]` | `string` | URL prefix appended after base. |
 | `$options["suffix"]` | `string` | URL suffix appended after path. |
@@ -76,7 +75,10 @@ Return a copy of the SDK utility object.
 
 #### `direct(array $fetchargs = []): array`
 
-Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
+Make a direct HTTP request to any API endpoint. This is the raw-HTTP escape
+hatch: it does **not** throw. It returns a result array
+`["ok" => bool, "status" => int, "headers" => array, "data" => mixed]`, or
+`["ok" => false, "err" => \Exception]` on failure. Branch on `$result["ok"]`.
 
 **Parameters:**
 
@@ -90,11 +92,12 @@ Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
 | `$fetchargs["body"]` | `mixed` | Request body (arrays are JSON-serialized). |
 | `$fetchargs["ctrl"]` | `array` | Control options. |
 
-**Returns:** `array [$result, $err]`
+**Returns:** `array` — the result dict (see above); never throws.
 
-#### `prepare(array $fetchargs = []): array`
+#### `prepare(array $fetchargs = []): mixed`
 
-Prepare a fetch definition without sending the request. Returns `[$fetchdef, $err]`.
+Prepare a fetch definition without sending the request. Returns the
+`$fetchdef` array. Throws on error.
 
 
 ---
@@ -102,7 +105,7 @@ Prepare a fetch definition without sending the request. Returns `[$fetchdef, $er
 ## CryptographyEntity
 
 ```php
-$cryptography = $client->Cryptography();
+$cryptography = $client->cryptography();
 ```
 
 ### Fields
@@ -115,12 +118,12 @@ $cryptography = $client->Cryptography();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->Cryptography()->create([
+$result = $client->cryptography()->create([
   "text" => /* `$STRING` */,
 ]);
 ```
@@ -158,7 +161,7 @@ Return the entity name.
 ## EncodingEntity
 
 ```php
-$encoding = $client->Encoding();
+$encoding = $client->encoding();
 ```
 
 ### Fields
@@ -179,12 +182,12 @@ $encoding = $client->Encoding();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->Encoding()->create([
+$result = $client->encoding()->create([
   "encoded" => /* `$STRING` */,
   "text" => /* `$STRING` */,
 ]);
@@ -223,7 +226,7 @@ Return the entity name.
 ## GeneratorEntity
 
 ```php
-$generator = $client->Generator();
+$generator = $client->generator();
 ```
 
 ### Fields
@@ -236,20 +239,20 @@ $generator = $client->Generator();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Generator()->list([]);
+$results = $client->generator()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Generator()->load(["id" => "generator_id"]);
+$result = $client->generator()->load(["id" => "generator_id"]);
 ```
 
 ### Common Methods
@@ -285,7 +288,7 @@ Return the entity name.
 ## GetDocumentationEntity
 
 ```php
-$get_documentation = $client->GetDocumentation();
+$get_documentation = $client->get_documentation();
 ```
 
 ### Fields
@@ -298,12 +301,12 @@ $get_documentation = $client->GetDocumentation();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->GetDocumentation()->list([]);
+$results = $client->get_documentation()->list([]);
 ```
 
 ### Common Methods
@@ -339,7 +342,7 @@ Return the entity name.
 ## ToolEntity
 
 ```php
-$tool = $client->Tool();
+$tool = $client->tool();
 ```
 
 ### Fields
@@ -353,12 +356,12 @@ $tool = $client->Tool();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Tool()->list([]);
+$results = $client->tool()->list([]);
 ```
 
 ### Common Methods
@@ -394,7 +397,7 @@ Return the entity name.
 ## UtilityEntity
 
 ```php
-$utility = $client->Utility();
+$utility = $client->utility();
 ```
 
 ### Fields
@@ -412,12 +415,12 @@ $utility = $client->Utility();
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Utility()->load(["id" => "utility_id"]);
+$result = $client->utility()->load(["id" => "utility_id"]);
 ```
 
 ### Common Methods

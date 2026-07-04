@@ -36,8 +36,7 @@ class CryptographyEntityTest < Minitest::Test
     cryptography_ref01_data = Helpers.to_map(Vs.getprop(
       Vs.getpath(setup[:data], "new.cryptography"), "cryptography_ref01"))
 
-    cryptography_ref01_data_result, err = cryptography_ref01_ent.create(cryptography_ref01_data, nil)
-    assert_nil err
+    cryptography_ref01_data_result = cryptography_ref01_ent.create(cryptography_ref01_data, nil)
     cryptography_ref01_data = Helpers.to_map(cryptography_ref01_data_result)
     assert !cryptography_ref01_data.nil?
 
@@ -77,7 +76,6 @@ def cryptography_basic_setup(extra)
     "APITOOLS_TEST_CRYPTOGRAPHY_ENTID" => idmap,
     "APITOOLS_TEST_LIVE" => "FALSE",
     "APITOOLS_TEST_EXPLAIN" => "FALSE",
-    "APITOOLS_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -89,7 +87,6 @@ def cryptography_basic_setup(extra)
   if env["APITOOLS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["APITOOLS_APIKEY"],
       },
       extra || {},
     ])

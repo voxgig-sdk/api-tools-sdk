@@ -50,8 +50,7 @@ class ToolEntityTest extends TestCase
         $tool_ref01_ent = $client->Tool(null);
         $tool_ref01_match = [];
 
-        [$tool_ref01_list_result, $err] = $tool_ref01_ent->list($tool_ref01_match, null);
-        $this->assertNull($err);
+        $tool_ref01_list_result = $tool_ref01_ent->list($tool_ref01_match, null);
         $this->assertIsArray($tool_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function tool_basic_setup($extra)
         "APITOOLS_TEST_TOOL_ENTID" => $idmap,
         "APITOOLS_TEST_LIVE" => "FALSE",
         "APITOOLS_TEST_EXPLAIN" => "FALSE",
-        "APITOOLS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function tool_basic_setup($extra)
     if ($env["APITOOLS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["APITOOLS_APIKEY"],
             ],
             $extra ?? [],
         ]);

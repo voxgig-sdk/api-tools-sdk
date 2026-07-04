@@ -43,14 +43,12 @@ class GeneratorEntityTest < Minitest::Test
     generator_ref01_ent = client.Generator(nil)
     generator_ref01_match = {}
 
-    generator_ref01_list_result, err = generator_ref01_ent.list(generator_ref01_match, nil)
-    assert_nil err
+    generator_ref01_list_result = generator_ref01_ent.list(generator_ref01_match, nil)
     assert generator_ref01_list_result.is_a?(Array)
 
     # LOAD
     generator_ref01_match_dt0 = {}
-    generator_ref01_data_dt0_loaded, err = generator_ref01_ent.load(generator_ref01_match_dt0, nil)
-    assert_nil err
+    generator_ref01_data_dt0_loaded = generator_ref01_ent.load(generator_ref01_match_dt0, nil)
     assert !generator_ref01_data_dt0_loaded.nil?
 
   end
@@ -89,7 +87,6 @@ def generator_basic_setup(extra)
     "APITOOLS_TEST_GENERATOR_ENTID" => idmap,
     "APITOOLS_TEST_LIVE" => "FALSE",
     "APITOOLS_TEST_EXPLAIN" => "FALSE",
-    "APITOOLS_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -101,7 +98,6 @@ def generator_basic_setup(extra)
   if env["APITOOLS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["APITOOLS_APIKEY"],
       },
       extra || {},
     ])

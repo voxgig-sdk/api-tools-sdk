@@ -45,6 +45,7 @@ class CryptographyEntity
     end
   end
 
+  # @return [Cryptography, Hash] the current Cryptography data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class CryptographyEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Cryptography fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -67,6 +69,11 @@ class CryptographyEntity
   
 
   
+  # Create a new Cryptography.
+  #
+  # @param reqdata [CryptographyCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Cryptography, Hash] the created Cryptography; raises ApiToolsError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

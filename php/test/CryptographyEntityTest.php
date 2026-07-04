@@ -43,8 +43,7 @@ class CryptographyEntityTest extends TestCase
         $cryptography_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.cryptography"), "cryptography_ref01"));
 
-        [$cryptography_ref01_data_result, $err] = $cryptography_ref01_ent->create($cryptography_ref01_data, null);
-        $this->assertNull($err);
+        $cryptography_ref01_data_result = $cryptography_ref01_ent->create($cryptography_ref01_data, null);
         $cryptography_ref01_data = Helpers::to_map($cryptography_ref01_data_result);
         $this->assertNotNull($cryptography_ref01_data);
 
@@ -80,7 +79,6 @@ function cryptography_basic_setup($extra)
         "APITOOLS_TEST_CRYPTOGRAPHY_ENTID" => $idmap,
         "APITOOLS_TEST_LIVE" => "FALSE",
         "APITOOLS_TEST_EXPLAIN" => "FALSE",
-        "APITOOLS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -92,7 +90,6 @@ function cryptography_basic_setup($extra)
     if ($env["APITOOLS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["APITOOLS_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch GetDocumentationListMatch
+---@param ctrl? table
+---@return GetDocumentation[]
+---@return string? err
 function GetDocumentationEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

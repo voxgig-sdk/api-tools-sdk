@@ -20,9 +20,6 @@ class ApiToolsConfig
             ],
             "options" => [
                 "base" => "https://api.apitools.workers.dev",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],

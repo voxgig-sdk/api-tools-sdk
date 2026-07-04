@@ -43,8 +43,7 @@ class EncodingEntityTest extends TestCase
         $encoding_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.encoding"), "encoding_ref01"));
 
-        [$encoding_ref01_data_result, $err] = $encoding_ref01_ent->create($encoding_ref01_data, null);
-        $this->assertNull($err);
+        $encoding_ref01_data_result = $encoding_ref01_ent->create($encoding_ref01_data, null);
         $encoding_ref01_data = Helpers::to_map($encoding_ref01_data_result);
         $this->assertNotNull($encoding_ref01_data);
 
@@ -80,7 +79,6 @@ function encoding_basic_setup($extra)
         "APITOOLS_TEST_ENCODING_ENTID" => $idmap,
         "APITOOLS_TEST_LIVE" => "FALSE",
         "APITOOLS_TEST_EXPLAIN" => "FALSE",
-        "APITOOLS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -92,7 +90,6 @@ function encoding_basic_setup($extra)
     if ($env["APITOOLS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["APITOOLS_APIKEY"],
             ],
             $extra ?? [],
         ]);

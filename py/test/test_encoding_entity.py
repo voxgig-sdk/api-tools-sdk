@@ -44,9 +44,7 @@ class TestEncodingEntity:
         encoding_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.encoding"), "encoding_ref01"))
 
-        encoding_ref01_data_result, err = encoding_ref01_ent.create(encoding_ref01_data, None)
-        assert err is None
-        encoding_ref01_data = helpers.to_map(encoding_ref01_data_result)
+        encoding_ref01_data = helpers.to_map(encoding_ref01_ent.create(encoding_ref01_data, None))
         assert encoding_ref01_data is not None
 
 
@@ -87,7 +85,6 @@ def _encoding_basic_setup(extra):
         "APITOOLS_TEST_ENCODING_ENTID": idmap,
         "APITOOLS_TEST_LIVE": "FALSE",
         "APITOOLS_TEST_EXPLAIN": "FALSE",
-        "APITOOLS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -98,7 +95,6 @@ def _encoding_basic_setup(extra):
     if env.get("APITOOLS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("APITOOLS_APIKEY"),
             },
             extra or {},
         ])

@@ -50,14 +50,12 @@ class TestGeneratorEntity:
         generator_ref01_ent = client.Generator(None)
         generator_ref01_match = {}
 
-        generator_ref01_list_result, err = generator_ref01_ent.list(generator_ref01_match, None)
-        assert err is None
+        generator_ref01_list_result = generator_ref01_ent.list(generator_ref01_match, None)
         assert isinstance(generator_ref01_list_result, list)
 
         # LOAD
         generator_ref01_match_dt0 = {}
-        generator_ref01_data_dt0_loaded, err = generator_ref01_ent.load(generator_ref01_match_dt0, None)
-        assert err is None
+        generator_ref01_data_dt0_loaded = generator_ref01_ent.load(generator_ref01_match_dt0, None)
         assert generator_ref01_data_dt0_loaded is not None
 
 
@@ -98,7 +96,6 @@ def _generator_basic_setup(extra):
         "APITOOLS_TEST_GENERATOR_ENTID": idmap,
         "APITOOLS_TEST_LIVE": "FALSE",
         "APITOOLS_TEST_EXPLAIN": "FALSE",
-        "APITOOLS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -109,7 +106,6 @@ def _generator_basic_setup(extra):
     if env.get("APITOOLS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("APITOOLS_APIKEY"),
             },
             extra or {},
         ])

@@ -43,8 +43,7 @@ class ToolEntityTest < Minitest::Test
     tool_ref01_ent = client.Tool(nil)
     tool_ref01_match = {}
 
-    tool_ref01_list_result, err = tool_ref01_ent.list(tool_ref01_match, nil)
-    assert_nil err
+    tool_ref01_list_result = tool_ref01_ent.list(tool_ref01_match, nil)
     assert tool_ref01_list_result.is_a?(Array)
 
   end
@@ -83,7 +82,6 @@ def tool_basic_setup(extra)
     "APITOOLS_TEST_TOOL_ENTID" => idmap,
     "APITOOLS_TEST_LIVE" => "FALSE",
     "APITOOLS_TEST_EXPLAIN" => "FALSE",
-    "APITOOLS_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +93,6 @@ def tool_basic_setup(extra)
   if env["APITOOLS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["APITOOLS_APIKEY"],
       },
       extra || {},
     ])

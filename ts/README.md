@@ -9,9 +9,12 @@ The TypeScript SDK for the ApiTools API — a type-safe, entity-oriented client 
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/api-tools
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/api-tools-sdk/releases](https://github.com/voxgig-sdk/api-tools-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,18 +23,16 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { ApiToolsSDK } from 'api-tools'
+import { ApiToolsSDK } from '@voxgig-sdk/api-tools'
 
-const client = new ApiToolsSDK({
-  apikey: process.env.API-TOOLS_APIKEY,
-})
+const client = new ApiToolsSDK()
 ```
 
 ### 4. Create, update, and remove
 
 ```ts
 // Create
-const created = await client.Cryptography().create({
+const created = await client.cryptography.create({
   name: 'Example',
 })
 
@@ -79,7 +80,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ApiToolsSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.cryptography.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -87,7 +88,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new ApiToolsSDK({ apikey: '...' })
+const client = new ApiToolsSDK()
 const testClient = client.tester()
 ```
 
@@ -96,7 +97,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.cryptography
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -123,7 +124,6 @@ const logger = {
 }
 
 const client = new ApiToolsSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -133,8 +133,7 @@ const client = new ApiToolsSDK({
 Create a `.env.local` file at the project root:
 
 ```
-API-TOOLS_TEST_LIVE=TRUE
-API-TOOLS_APIKEY=<your-key>
+API_TOOLS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -152,7 +151,6 @@ cd ts && npm test
 
 ```ts
 new ApiToolsSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -163,7 +161,6 @@ new ApiToolsSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -339,7 +336,7 @@ API path: `/api/ip`
 
 ### Cryptography
 
-Create an instance: `const cryptography = client.Cryptography()`
+Create an instance: `const cryptography = client.cryptography`
 
 #### Operations
 
@@ -358,7 +355,7 @@ Create an instance: `const cryptography = client.Cryptography()`
 #### Example: Create
 
 ```ts
-const cryptography = await client.Cryptography().create({
+const cryptography = await client.cryptography.create({
   text: /* `$STRING` */,
 })
 ```
@@ -366,7 +363,7 @@ const cryptography = await client.Cryptography().create({
 
 ### Encoding
 
-Create an instance: `const encoding = client.Encoding()`
+Create an instance: `const encoding = client.encoding`
 
 #### Operations
 
@@ -385,7 +382,7 @@ Create an instance: `const encoding = client.Encoding()`
 #### Example: Create
 
 ```ts
-const encoding = await client.Encoding().create({
+const encoding = await client.encoding.create({
   encoded: /* `$STRING` */,
   text: /* `$STRING` */,
 })
@@ -394,7 +391,7 @@ const encoding = await client.Encoding().create({
 
 ### Generator
 
-Create an instance: `const generator = client.Generator()`
+Create an instance: `const generator = client.generator`
 
 #### Operations
 
@@ -414,19 +411,19 @@ Create an instance: `const generator = client.Generator()`
 #### Example: Load
 
 ```ts
-const generator = await client.Generator().load({ id: 'generator_id' })
+const generator = await client.generator.load({ id: 'generator_id' })
 ```
 
 #### Example: List
 
 ```ts
-const generators = await client.Generator().list()
+const generators = await client.generator.list()
 ```
 
 
 ### GetDocumentation
 
-Create an instance: `const get_documentation = client.GetDocumentation()`
+Create an instance: `const get_documentation = client.get_documentation`
 
 #### Operations
 
@@ -445,13 +442,13 @@ Create an instance: `const get_documentation = client.GetDocumentation()`
 #### Example: List
 
 ```ts
-const get_documentations = await client.GetDocumentation().list()
+const get_documentations = await client.get_documentation.list()
 ```
 
 
 ### Tool
 
-Create an instance: `const tool = client.Tool()`
+Create an instance: `const tool = client.tool`
 
 #### Operations
 
@@ -471,13 +468,13 @@ Create an instance: `const tool = client.Tool()`
 #### Example: List
 
 ```ts
-const tools = await client.Tool().list()
+const tools = await client.tool.list()
 ```
 
 
 ### Utility
 
-Create an instance: `const utility = client.Utility()`
+Create an instance: `const utility = client.utility`
 
 #### Operations
 
@@ -501,7 +498,7 @@ Create an instance: `const utility = client.Utility()`
 #### Example: Load
 
 ```ts
-const utility = await client.Utility().load({ id: 'utility_id' })
+const utility = await client.utility.load({ id: 'utility_id' })
 ```
 
 
@@ -562,7 +559,7 @@ api-tools/
 Import the SDK from the package root:
 
 ```ts
-import { ApiToolsSDK } from 'api-tools'
+import { ApiToolsSDK } from '@voxgig-sdk/api-tools'
 ```
 
 ### Entity state
@@ -572,11 +569,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const cryptography = client.cryptography
+await cryptography.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// cryptography.data() now returns the loaded cryptography data
+// cryptography.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -49,8 +49,7 @@ class UtilityEntityTest extends TestCase
         // LOAD
         $utility_ref01_ent = $client->Utility(null);
         $utility_ref01_match_dt0 = [];
-        [$utility_ref01_data_dt0_loaded, $err] = $utility_ref01_ent->load($utility_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $utility_ref01_data_dt0_loaded = $utility_ref01_ent->load($utility_ref01_match_dt0, null);
         $this->assertNotNull($utility_ref01_data_dt0_loaded);
 
     }
@@ -85,7 +84,6 @@ function utility_basic_setup($extra)
         "APITOOLS_TEST_UTILITY_ENTID" => $idmap,
         "APITOOLS_TEST_LIVE" => "FALSE",
         "APITOOLS_TEST_EXPLAIN" => "FALSE",
-        "APITOOLS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,7 +95,6 @@ function utility_basic_setup($extra)
     if ($env["APITOOLS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["APITOOLS_APIKEY"],
             ],
             $extra ?? [],
         ]);

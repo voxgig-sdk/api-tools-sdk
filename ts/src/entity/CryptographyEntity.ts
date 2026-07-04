@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Cryptography,
+  CryptographyCreateData,
+} from '../ApiToolsTypes'
 
 // TODO: needs Entity superclass
-class CryptographyEntity extends ApiToolsEntityBase {
+class CryptographyEntity extends ApiToolsEntityBase<Cryptography> {
 
   constructor(client: ApiToolsSDK, entopts: any) {
     super(client, entopts)
@@ -34,7 +38,7 @@ class CryptographyEntity extends ApiToolsEntityBase {
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: CryptographyCreateData, ctrl?: Control): Promise<Cryptography> {
 
     const utility = this._utility
     const {
@@ -133,7 +137,9 @@ class CryptographyEntity extends ApiToolsEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Cryptography> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

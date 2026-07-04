@@ -9,9 +9,10 @@ The PHP SDK for the ApiTools API — an entity-oriented client using PHP convent
 
 
 ## Install
-```bash
-composer require voxgig-sdk/api-tools
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/api-tools-sdk/releases](https://github.com/voxgig-sdk/api-tools-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -25,16 +26,14 @@ loading a specific record.
 <?php
 require_once 'apitools_sdk.php';
 
-$client = new ApiToolsSDK([
-    "apikey" => getenv("API-TOOLS_APIKEY"),
-]);
+$client = new ApiToolsSDK();
 ```
 
 ### 4. Create, update, and remove
 
 ```php
 // Create
-[$created, $_] = $client->Cryptography()->create(["name" => "Example"]);
+$created = $client->cryptography()->create(["name" => "Example"]);
 
 ```
 
@@ -46,28 +45,31 @@ $client = new ApiToolsSDK([
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -81,7 +83,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = ApiToolsSDK::test();
 
-[$result, $err] = $client->ApiTools()->load(["id" => "test01"]);
+$result = $client->cryptography()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -115,8 +117,7 @@ $client = new ApiToolsSDK([
 Create a `.env.local` file at the project root:
 
 ```
-API-TOOLS_TEST_LIVE=TRUE
-API-TOOLS_APIKEY=<your-key>
+API_TOOLS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -139,7 +140,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -190,8 +190,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -289,7 +293,7 @@ API path: `/api/ip`
 
 ### Cryptography
 
-Create an instance: `const cryptography = client.Cryptography()`
+Create an instance: `const cryptography = client.cryptography`
 
 #### Operations
 
@@ -308,7 +312,7 @@ Create an instance: `const cryptography = client.Cryptography()`
 #### Example: Create
 
 ```ts
-const cryptography = await client.Cryptography().create({
+const cryptography = await client.cryptography.create({
   text: /* `$STRING` */,
 })
 ```
@@ -316,7 +320,7 @@ const cryptography = await client.Cryptography().create({
 
 ### Encoding
 
-Create an instance: `const encoding = client.Encoding()`
+Create an instance: `const encoding = client.encoding`
 
 #### Operations
 
@@ -335,7 +339,7 @@ Create an instance: `const encoding = client.Encoding()`
 #### Example: Create
 
 ```ts
-const encoding = await client.Encoding().create({
+const encoding = await client.encoding.create({
   encoded: /* `$STRING` */,
   text: /* `$STRING` */,
 })
@@ -344,7 +348,7 @@ const encoding = await client.Encoding().create({
 
 ### Generator
 
-Create an instance: `const generator = client.Generator()`
+Create an instance: `const generator = client.generator`
 
 #### Operations
 
@@ -364,19 +368,19 @@ Create an instance: `const generator = client.Generator()`
 #### Example: Load
 
 ```ts
-const generator = await client.Generator().load({ id: 'generator_id' })
+const generator = await client.generator.load({ id: 'generator_id' })
 ```
 
 #### Example: List
 
 ```ts
-const generators = await client.Generator().list()
+const generators = await client.generator.list()
 ```
 
 
 ### GetDocumentation
 
-Create an instance: `const get_documentation = client.GetDocumentation()`
+Create an instance: `const get_documentation = client.get_documentation`
 
 #### Operations
 
@@ -395,13 +399,13 @@ Create an instance: `const get_documentation = client.GetDocumentation()`
 #### Example: List
 
 ```ts
-const get_documentations = await client.GetDocumentation().list()
+const get_documentations = await client.get_documentation.list()
 ```
 
 
 ### Tool
 
-Create an instance: `const tool = client.Tool()`
+Create an instance: `const tool = client.tool`
 
 #### Operations
 
@@ -421,13 +425,13 @@ Create an instance: `const tool = client.Tool()`
 #### Example: List
 
 ```ts
-const tools = await client.Tool().list()
+const tools = await client.tool.list()
 ```
 
 
 ### Utility
 
-Create an instance: `const utility = client.Utility()`
+Create an instance: `const utility = client.utility`
 
 #### Operations
 
@@ -451,7 +455,7 @@ Create an instance: `const utility = client.Utility()`
 #### Example: Load
 
 ```ts
-const utility = await client.Utility().load({ id: 'utility_id' })
+const utility = await client.utility.load({ id: 'utility_id' })
 ```
 
 
@@ -526,11 +530,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$cryptography = $client->cryptography();
+$cryptography->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $cryptography->dataGet() now returns the loaded cryptography data
+// $cryptography->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

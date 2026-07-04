@@ -50,8 +50,7 @@ class TestToolEntity:
         tool_ref01_ent = client.Tool(None)
         tool_ref01_match = {}
 
-        tool_ref01_list_result, err = tool_ref01_ent.list(tool_ref01_match, None)
-        assert err is None
+        tool_ref01_list_result = tool_ref01_ent.list(tool_ref01_match, None)
         assert isinstance(tool_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _tool_basic_setup(extra):
         "APITOOLS_TEST_TOOL_ENTID": idmap,
         "APITOOLS_TEST_LIVE": "FALSE",
         "APITOOLS_TEST_EXPLAIN": "FALSE",
-        "APITOOLS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _tool_basic_setup(extra):
     if env.get("APITOOLS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("APITOOLS_APIKEY"),
             },
             extra or {},
         ])

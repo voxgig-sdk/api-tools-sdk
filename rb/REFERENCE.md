@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `Hash` | SDK configuration options. |
-| `options["apikey"]` | `String` | API key for authentication. |
 | `options["base"]` | `String` | Base URL for API requests. |
 | `options["prefix"]` | `String` | URL prefix appended after base. |
 | `options["suffix"]` | `String` | URL suffix appended after path. |
@@ -74,9 +73,11 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs = {}) -> Hash, err`
+#### `direct(fetchargs = {}) -> Hash`
 
-Make a direct HTTP request to any API endpoint.
+Make a direct HTTP request to any API endpoint. Returns a result hash
+(`{ "ok" => ..., "status" => ..., "data" => ..., "err" => ... }`); it
+does not raise — inspect `result["ok"]`.
 
 **Parameters:**
 
@@ -90,14 +91,14 @@ Make a direct HTTP request to any API endpoint.
 | `fetchargs["body"]` | `any` | Request body (hashes are JSON-serialized). |
 | `fetchargs["ctrl"]` | `Hash` | Control options (e.g. `{ "explain" => true }`). |
 
-**Returns:** `Hash, err`
+**Returns:** `Hash`
 
-#### `prepare(fetchargs = {}) -> Hash, err`
+#### `prepare(fetchargs = {}) -> Hash`
 
 Prepare a fetch definition without sending the request. Accepts the
-same parameters as `direct()`.
+same parameters as `direct()`. Raises on error.
 
-**Returns:** `Hash, err`
+**Returns:** `Hash` (the fetch definition; raises on error)
 
 
 ---
@@ -105,7 +106,7 @@ same parameters as `direct()`.
 ## CryptographyEntity
 
 ```ruby
-cryptography = client.Cryptography
+cryptography = client.cryptography
 ```
 
 ### Fields
@@ -118,12 +119,12 @@ cryptography = client.Cryptography
 
 ### Operations
 
-#### `create(reqdata, ctrl = nil) -> result, err`
+#### `create(reqdata, ctrl = nil) -> result`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Raises on error.
 
 ```ruby
-result, err = client.Cryptography.create({
+result = client.cryptography.create({
   "text" => # `$STRING`,
 })
 ```
@@ -161,7 +162,7 @@ Return the entity name.
 ## EncodingEntity
 
 ```ruby
-encoding = client.Encoding
+encoding = client.encoding
 ```
 
 ### Fields
@@ -182,12 +183,12 @@ encoding = client.Encoding
 
 ### Operations
 
-#### `create(reqdata, ctrl = nil) -> result, err`
+#### `create(reqdata, ctrl = nil) -> result`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Raises on error.
 
 ```ruby
-result, err = client.Encoding.create({
+result = client.encoding.create({
   "encoded" => # `$STRING`,
   "text" => # `$STRING`,
 })
@@ -226,7 +227,7 @@ Return the entity name.
 ## GeneratorEntity
 
 ```ruby
-generator = client.Generator
+generator = client.generator
 ```
 
 ### Fields
@@ -239,20 +240,20 @@ generator = client.Generator
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Generator.list(nil)
+results = client.generator.list(nil)
 ```
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.Generator.load({ "id" => "generator_id" })
+result = client.generator.load({ "id" => "generator_id" })
 ```
 
 ### Common Methods
@@ -288,7 +289,7 @@ Return the entity name.
 ## GetDocumentationEntity
 
 ```ruby
-get_documentation = client.GetDocumentation
+get_documentation = client.get_documentation
 ```
 
 ### Fields
@@ -301,12 +302,12 @@ get_documentation = client.GetDocumentation
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.GetDocumentation.list(nil)
+results = client.get_documentation.list(nil)
 ```
 
 ### Common Methods
@@ -342,7 +343,7 @@ Return the entity name.
 ## ToolEntity
 
 ```ruby
-tool = client.Tool
+tool = client.tool
 ```
 
 ### Fields
@@ -356,12 +357,12 @@ tool = client.Tool
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Tool.list(nil)
+results = client.tool.list(nil)
 ```
 
 ### Common Methods
@@ -397,7 +398,7 @@ Return the entity name.
 ## UtilityEntity
 
 ```ruby
-utility = client.Utility
+utility = client.utility
 ```
 
 ### Fields
@@ -415,12 +416,12 @@ utility = client.Utility
 
 ### Operations
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.Utility.load({ "id" => "utility_id" })
+result = client.utility.load({ "id" => "utility_id" })
 ```
 
 ### Common Methods

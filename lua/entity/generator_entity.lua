@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch GeneratorLoadMatch
+---@param ctrl? table
+---@return Generator
+---@return string? err
 function GeneratorEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch GeneratorListMatch
+---@param ctrl? table
+---@return Generator[]
+---@return string? err
 function GeneratorEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

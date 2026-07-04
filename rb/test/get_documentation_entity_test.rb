@@ -43,8 +43,7 @@ class GetDocumentationEntityTest < Minitest::Test
     get_documentation_ref01_ent = client.GetDocumentation(nil)
     get_documentation_ref01_match = {}
 
-    get_documentation_ref01_list_result, err = get_documentation_ref01_ent.list(get_documentation_ref01_match, nil)
-    assert_nil err
+    get_documentation_ref01_list_result = get_documentation_ref01_ent.list(get_documentation_ref01_match, nil)
     assert get_documentation_ref01_list_result.is_a?(Array)
 
   end
@@ -83,7 +82,6 @@ def get_documentation_basic_setup(extra)
     "APITOOLS_TEST_GET_DOCUMENTATION_ENTID" => idmap,
     "APITOOLS_TEST_LIVE" => "FALSE",
     "APITOOLS_TEST_EXPLAIN" => "FALSE",
-    "APITOOLS_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +93,6 @@ def get_documentation_basic_setup(extra)
   if env["APITOOLS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["APITOOLS_APIKEY"],
       },
       extra || {},
     ])

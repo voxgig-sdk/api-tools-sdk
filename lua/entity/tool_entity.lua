@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch ToolListMatch
+---@param ctrl? table
+---@return Tool[]
+---@return string? err
 function ToolEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -42,8 +42,7 @@ class UtilityEntityTest < Minitest::Test
     # LOAD
     utility_ref01_ent = client.Utility(nil)
     utility_ref01_match_dt0 = {}
-    utility_ref01_data_dt0_loaded, err = utility_ref01_ent.load(utility_ref01_match_dt0, nil)
-    assert_nil err
+    utility_ref01_data_dt0_loaded = utility_ref01_ent.load(utility_ref01_match_dt0, nil)
     assert !utility_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def utility_basic_setup(extra)
     "APITOOLS_TEST_UTILITY_ENTID" => idmap,
     "APITOOLS_TEST_LIVE" => "FALSE",
     "APITOOLS_TEST_EXPLAIN" => "FALSE",
-    "APITOOLS_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def utility_basic_setup(extra)
   if env["APITOOLS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["APITOOLS_APIKEY"],
       },
       extra || {},
     ])

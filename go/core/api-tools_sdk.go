@@ -245,31 +245,49 @@ func (sdk *ApiToolsSDK) Direct(fetchargs map[string]any) (map[string]any, error)
 }
 
 
+// Cryptography returns a Cryptography entity bound to this client.
+// Idiomatic usage: client.Cryptography(nil).List(nil, nil) or
+// client.Cryptography(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ApiToolsSDK) Cryptography(data map[string]any) ApiToolsEntity {
 	return NewCryptographyEntityFunc(sdk, data)
 }
 
 
+// Encoding returns a Encoding entity bound to this client.
+// Idiomatic usage: client.Encoding(nil).List(nil, nil) or
+// client.Encoding(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ApiToolsSDK) Encoding(data map[string]any) ApiToolsEntity {
 	return NewEncodingEntityFunc(sdk, data)
 }
 
 
+// Generator returns a Generator entity bound to this client.
+// Idiomatic usage: client.Generator(nil).List(nil, nil) or
+// client.Generator(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ApiToolsSDK) Generator(data map[string]any) ApiToolsEntity {
 	return NewGeneratorEntityFunc(sdk, data)
 }
 
 
+// GetDocumentation returns a GetDocumentation entity bound to this client.
+// Idiomatic usage: client.GetDocumentation(nil).List(nil, nil) or
+// client.GetDocumentation(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ApiToolsSDK) GetDocumentation(data map[string]any) ApiToolsEntity {
 	return NewGetDocumentationEntityFunc(sdk, data)
 }
 
 
+// Tool returns a Tool entity bound to this client.
+// Idiomatic usage: client.Tool(nil).List(nil, nil) or
+// client.Tool(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ApiToolsSDK) Tool(data map[string]any) ApiToolsEntity {
 	return NewToolEntityFunc(sdk, data)
 }
 
 
+// Utility returns a Utility entity bound to this client.
+// Idiomatic usage: client.Utility(nil).List(nil, nil) or
+// client.Utility(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ApiToolsSDK) Utility(data map[string]any) ApiToolsEntity {
 	return NewUtilityEntityFunc(sdk, data)
 }

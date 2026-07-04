@@ -144,16 +144,23 @@ class ApiToolsSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class ApiToolsSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,40 +212,106 @@ class ApiToolsSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def cryptography(self):
+        """Idiomatic facade: client.cryptography.list() / client.cryptography.load({"id": ...})."""
+        from entity.cryptography_entity import CryptographyEntity
+        cached = getattr(self, "_cryptography", None)
+        if cached is None:
+            cached = CryptographyEntity(self, None)
+            self._cryptography = cached
+        return cached
 
     def Cryptography(self, data=None):
+        # Deprecated: use client.cryptography instead.
         from entity.cryptography_entity import CryptographyEntity
         return CryptographyEntity(self, data)
 
 
+    @property
+    def encoding(self):
+        """Idiomatic facade: client.encoding.list() / client.encoding.load({"id": ...})."""
+        from entity.encoding_entity import EncodingEntity
+        cached = getattr(self, "_encoding", None)
+        if cached is None:
+            cached = EncodingEntity(self, None)
+            self._encoding = cached
+        return cached
+
     def Encoding(self, data=None):
+        # Deprecated: use client.encoding instead.
         from entity.encoding_entity import EncodingEntity
         return EncodingEntity(self, data)
 
 
+    @property
+    def generator(self):
+        """Idiomatic facade: client.generator.list() / client.generator.load({"id": ...})."""
+        from entity.generator_entity import GeneratorEntity
+        cached = getattr(self, "_generator", None)
+        if cached is None:
+            cached = GeneratorEntity(self, None)
+            self._generator = cached
+        return cached
+
     def Generator(self, data=None):
+        # Deprecated: use client.generator instead.
         from entity.generator_entity import GeneratorEntity
         return GeneratorEntity(self, data)
 
 
+    @property
+    def get_documentation(self):
+        """Idiomatic facade: client.get_documentation.list() / client.get_documentation.load({"id": ...})."""
+        from entity.get_documentation_entity import GetDocumentationEntity
+        cached = getattr(self, "_get_documentation", None)
+        if cached is None:
+            cached = GetDocumentationEntity(self, None)
+            self._get_documentation = cached
+        return cached
+
     def GetDocumentation(self, data=None):
+        # Deprecated: use client.get_documentation instead.
         from entity.get_documentation_entity import GetDocumentationEntity
         return GetDocumentationEntity(self, data)
 
 
+    @property
+    def tool(self):
+        """Idiomatic facade: client.tool.list() / client.tool.load({"id": ...})."""
+        from entity.tool_entity import ToolEntity
+        cached = getattr(self, "_tool", None)
+        if cached is None:
+            cached = ToolEntity(self, None)
+            self._tool = cached
+        return cached
+
     def Tool(self, data=None):
+        # Deprecated: use client.tool instead.
         from entity.tool_entity import ToolEntity
         return ToolEntity(self, data)
 
 
+    @property
+    def utility(self):
+        """Idiomatic facade: client.utility.list() / client.utility.load({"id": ...})."""
+        from entity.utility_entity import UtilityEntity
+        cached = getattr(self, "_utility", None)
+        if cached is None:
+            cached = UtilityEntity(self, None)
+            self._utility = cached
+        return cached
+
     def Utility(self, data=None):
+        # Deprecated: use client.utility instead.
         from entity.utility_entity import UtilityEntity
         return UtilityEntity(self, data)
 

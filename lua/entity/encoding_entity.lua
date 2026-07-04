@@ -83,6 +83,10 @@ end
 
 
 
+---@param reqdata EncodingCreateData
+---@param ctrl? table
+---@return Encoding
+---@return string? err
 function EncodingEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

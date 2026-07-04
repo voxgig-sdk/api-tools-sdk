@@ -45,6 +45,7 @@ class EncodingEntity
     end
   end
 
+  # @return [Encoding, Hash] the current Encoding data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class EncodingEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Encoding fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -67,6 +69,11 @@ class EncodingEntity
   
 
   
+  # Create a new Encoding.
+  #
+  # @param reqdata [EncodingCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Encoding, Hash] the created Encoding; raises ApiToolsError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

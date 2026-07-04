@@ -50,8 +50,7 @@ class GetDocumentationEntityTest extends TestCase
         $get_documentation_ref01_ent = $client->GetDocumentation(null);
         $get_documentation_ref01_match = [];
 
-        [$get_documentation_ref01_list_result, $err] = $get_documentation_ref01_ent->list($get_documentation_ref01_match, null);
-        $this->assertNull($err);
+        $get_documentation_ref01_list_result = $get_documentation_ref01_ent->list($get_documentation_ref01_match, null);
         $this->assertIsArray($get_documentation_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function get_documentation_basic_setup($extra)
         "APITOOLS_TEST_GET_DOCUMENTATION_ENTID" => $idmap,
         "APITOOLS_TEST_LIVE" => "FALSE",
         "APITOOLS_TEST_EXPLAIN" => "FALSE",
-        "APITOOLS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function get_documentation_basic_setup($extra)
     if ($env["APITOOLS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["APITOOLS_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -44,9 +44,7 @@ class TestCryptographyEntity:
         cryptography_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.cryptography"), "cryptography_ref01"))
 
-        cryptography_ref01_data_result, err = cryptography_ref01_ent.create(cryptography_ref01_data, None)
-        assert err is None
-        cryptography_ref01_data = helpers.to_map(cryptography_ref01_data_result)
+        cryptography_ref01_data = helpers.to_map(cryptography_ref01_ent.create(cryptography_ref01_data, None))
         assert cryptography_ref01_data is not None
 
 
@@ -87,7 +85,6 @@ def _cryptography_basic_setup(extra):
         "APITOOLS_TEST_CRYPTOGRAPHY_ENTID": idmap,
         "APITOOLS_TEST_LIVE": "FALSE",
         "APITOOLS_TEST_EXPLAIN": "FALSE",
-        "APITOOLS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -98,7 +95,6 @@ def _cryptography_basic_setup(extra):
     if env.get("APITOOLS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("APITOOLS_APIKEY"),
             },
             extra or {},
         ])

@@ -244,36 +244,114 @@ end
 
 
 
+-- Idiomatic facade: client:cryptography():list() / client:cryptography():load({ id = ... })
+function ApiToolsSDK:cryptography(data)
+  local EntityMod = require("entity.cryptography_entity")
+  if data == nil then
+    if self._cryptography == nil then
+      self._cryptography = EntityMod.new(self, nil)
+    end
+    return self._cryptography
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:cryptography() instead.
 function ApiToolsSDK:Cryptography(data)
   local EntityMod = require("entity.cryptography_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:encoding():list() / client:encoding():load({ id = ... })
+function ApiToolsSDK:encoding(data)
+  local EntityMod = require("entity.encoding_entity")
+  if data == nil then
+    if self._encoding == nil then
+      self._encoding = EntityMod.new(self, nil)
+    end
+    return self._encoding
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:encoding() instead.
 function ApiToolsSDK:Encoding(data)
   local EntityMod = require("entity.encoding_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:generator():list() / client:generator():load({ id = ... })
+function ApiToolsSDK:generator(data)
+  local EntityMod = require("entity.generator_entity")
+  if data == nil then
+    if self._generator == nil then
+      self._generator = EntityMod.new(self, nil)
+    end
+    return self._generator
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:generator() instead.
 function ApiToolsSDK:Generator(data)
   local EntityMod = require("entity.generator_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:get_documentation():list() / client:get_documentation():load({ id = ... })
+function ApiToolsSDK:get_documentation(data)
+  local EntityMod = require("entity.get_documentation_entity")
+  if data == nil then
+    if self._get_documentation == nil then
+      self._get_documentation = EntityMod.new(self, nil)
+    end
+    return self._get_documentation
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:get_documentation() instead.
 function ApiToolsSDK:GetDocumentation(data)
   local EntityMod = require("entity.get_documentation_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:tool():list() / client:tool():load({ id = ... })
+function ApiToolsSDK:tool(data)
+  local EntityMod = require("entity.tool_entity")
+  if data == nil then
+    if self._tool == nil then
+      self._tool = EntityMod.new(self, nil)
+    end
+    return self._tool
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:tool() instead.
 function ApiToolsSDK:Tool(data)
   local EntityMod = require("entity.tool_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:utility():list() / client:utility():load({ id = ... })
+function ApiToolsSDK:utility(data)
+  local EntityMod = require("entity.utility_entity")
+  if data == nil then
+    if self._utility == nil then
+      self._utility = EntityMod.new(self, nil)
+    end
+    return self._utility
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:utility() instead.
 function ApiToolsSDK:Utility(data)
   local EntityMod = require("entity.utility_entity")
   return EntityMod.new(self, data)

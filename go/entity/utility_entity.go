@@ -85,6 +85,27 @@ func (e *UtilityEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Utility; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *UtilityEntity) DataTyped(data ...Utility) Utility {
+	if len(data) > 0 {
+		return typedFrom[Utility](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Utility](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Utility (all fields
+// optional at the wire level).
+func (e *UtilityEntity) MatchTyped(match ...Utility) Utility {
+	if len(match) > 0 {
+		return typedFrom[Utility](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Utility](e.Match())
+}
+
 
 func (e *UtilityEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -109,6 +130,17 @@ func (e *UtilityEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any,
 			}
 		}
 	})
+}
+
+// LoadTyped is the statically-typed variant of Load: it takes an
+// UtilityLoadMatch and returns an Utility. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *UtilityEntity) LoadTyped(reqmatch UtilityLoadMatch, ctrl map[string]any) (Utility, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Utility{}, err
+	}
+	return typedFrom[Utility](res), nil
 }
 
 
