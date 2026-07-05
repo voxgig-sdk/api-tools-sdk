@@ -12,6 +12,9 @@
 ---@field text string
 
 ---@class CryptographyCreateData
+---@field algorithm? string
+---@field hash? string
+---@field text string
 
 ---@class Encoding
 ---@field decoded? string
@@ -19,6 +22,9 @@
 ---@field text string
 
 ---@class EncodingCreateData
+---@field decoded? string
+---@field encoded string
+---@field text string
 
 ---@class Generator
 ---@field type? string
@@ -26,8 +32,14 @@
 ---@field value? any
 
 ---@class GeneratorLoadMatch
+---@field type? string
+---@field uuid? string
+---@field value? any
 
 ---@class GeneratorListMatch
+---@field type? string
+---@field uuid? string
+---@field value? any
 
 ---@class GetDocumentation
 ---@field description? string
@@ -35,6 +47,9 @@
 ---@field name? string
 
 ---@class GetDocumentationListMatch
+---@field description? string
+---@field endpoint? string
+---@field name? string
 
 ---@class Tool
 ---@field category? string
@@ -43,6 +58,10 @@
 ---@field name? string
 
 ---@class ToolListMatch
+---@field category? string
+---@field description? string
+---@field id? string
+---@field name? string
 
 ---@class Utility
 ---@field city? string
@@ -55,6 +74,14 @@
 ---@field utc? string
 
 ---@class UtilityLoadMatch
+---@field city? string
+---@field country? string
+---@field ip? string
+---@field iso? string
+---@field isp? string
+---@field millisecond? number
+---@field timestamp? number
+---@field utc? string
 
 local M = {}
 

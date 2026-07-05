@@ -8,7 +8,7 @@ Complete API reference for the ApiTools Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'api-tools_sdk'
+require_relative 'ApiTools_sdk'
 
 client = ApiToolsSDK.new(options)
 ```
@@ -113,9 +113,9 @@ cryptography = client.Cryptography
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `algorithm` | ``$STRING`` | No |  |
-| `hash` | ``$STRING`` | No |  |
-| `text` | ``$STRING`` | Yes |  |
+| `algorithm` | `String` | No |  |
+| `hash` | `String` | No |  |
+| `text` | `String` | Yes |  |
 
 ### Operations
 
@@ -125,7 +125,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Cryptography.create({
-  "text" => # `$STRING`,
+  "text" => "example", # String
 })
 ```
 
@@ -169,17 +169,17 @@ encoding = client.Encoding
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `decoded` | ``$STRING`` | No |  |
-| `encoded` | ``$STRING`` | Yes |  |
-| `text` | ``$STRING`` | Yes |  |
+| `decoded` | `String` | No |  |
+| `encoded` | `String` | Yes |  |
+| `text` | `String` | Yes |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `decoded` | - | - | - | - | - |
-| `encoded` | - | - | Yes | - | - |
-| `text` | - | - | - | - | - |
+| Field | create |
+| --- | --- |
+| `decoded` | - |
+| `encoded` | Yes |
+| `text` | - |
 
 ### Operations
 
@@ -189,8 +189,8 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Encoding.create({
-  "encoded" => # `$STRING`,
-  "text" => # `$STRING`,
+  "encoded" => "example", # String
+  "text" => "example", # String
 })
 ```
 
@@ -234,18 +234,18 @@ generator = client.Generator
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `type` | ``$STRING`` | No |  |
-| `uuid` | ``$STRING`` | No |  |
-| `value` | ``$ANY`` | No |  |
+| `type` | `String` | No |  |
+| `uuid` | `String` | No |  |
+| `value` | `Object` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Generator.list(nil)
+results = client.Generator.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -253,7 +253,7 @@ results = client.Generator.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Generator.load({ "id" => "generator_id" })
+result = client.Generator.load()
 ```
 
 ### Common Methods
@@ -296,18 +296,18 @@ get_documentation = client.GetDocumentation
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `endpoint` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `description` | `String` | No |  |
+| `endpoint` | `String` | No |  |
+| `name` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.GetDocumentation.list(nil)
+results = client.GetDocumentation.list
 ```
 
 ### Common Methods
@@ -350,19 +350,19 @@ tool = client.Tool
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `category` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `category` | `String` | No |  |
+| `description` | `String` | No |  |
+| `id` | `String` | No |  |
+| `name` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Tool.list(nil)
+results = client.Tool.list
 ```
 
 ### Common Methods
@@ -405,14 +405,14 @@ utility = client.Utility
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `city` | ``$STRING`` | No |  |
-| `country` | ``$STRING`` | No |  |
-| `ip` | ``$STRING`` | No |  |
-| `iso` | ``$STRING`` | No |  |
-| `isp` | ``$STRING`` | No |  |
-| `millisecond` | ``$INTEGER`` | No |  |
-| `timestamp` | ``$INTEGER`` | No |  |
-| `utc` | ``$STRING`` | No |  |
+| `city` | `String` | No |  |
+| `country` | `String` | No |  |
+| `ip` | `String` | No |  |
+| `iso` | `String` | No |  |
+| `isp` | `String` | No |  |
+| `millisecond` | `Integer` | No |  |
+| `timestamp` | `Integer` | No |  |
+| `utc` | `String` | No |  |
 
 ### Operations
 
@@ -421,7 +421,7 @@ utility = client.Utility
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Utility.load({ "id" => "utility_id" })
+result = client.Utility.load()
 ```
 
 ### Common Methods

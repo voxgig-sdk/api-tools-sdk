@@ -20,12 +20,12 @@ class Cryptography
     public string $text;
 }
 
-/** Match filter for Cryptography#create (any subset of Cryptography fields). */
+/** Request payload for Cryptography#create. */
 class CryptographyCreateData
 {
     public ?string $algorithm = null;
     public ?string $hash = null;
-    public ?string $text = null;
+    public string $text;
 }
 
 /** Encoding entity data model. */
@@ -36,12 +36,12 @@ class Encoding
     public string $text;
 }
 
-/** Match filter for Encoding#create (any subset of Encoding fields). */
+/** Request payload for Encoding#create. */
 class EncodingCreateData
 {
     public ?string $decoded = null;
-    public ?string $encoded = null;
-    public ?string $text = null;
+    public string $encoded;
+    public string $text;
 }
 
 /** Generator entity data model. */
@@ -52,7 +52,7 @@ class Generator
     public mixed $value = null;
 }
 
-/** Match filter for Generator#load (any subset of Generator fields). */
+/** Request payload for Generator#load. */
 class GeneratorLoadMatch
 {
     public ?string $type = null;
@@ -60,7 +60,7 @@ class GeneratorLoadMatch
     public mixed $value = null;
 }
 
-/** Match filter for Generator#list (any subset of Generator fields). */
+/** Request payload for Generator#list. */
 class GeneratorListMatch
 {
     public ?string $type = null;
@@ -76,7 +76,7 @@ class GetDocumentation
     public ?string $name = null;
 }
 
-/** Match filter for GetDocumentation#list (any subset of GetDocumentation fields). */
+/** Request payload for GetDocumentation#list. */
 class GetDocumentationListMatch
 {
     public ?string $description = null;
@@ -93,7 +93,7 @@ class Tool
     public ?string $name = null;
 }
 
-/** Match filter for Tool#list (any subset of Tool fields). */
+/** Request payload for Tool#list. */
 class ToolListMatch
 {
     public ?string $category = null;
@@ -115,7 +115,7 @@ class Utility
     public ?string $utc = null;
 }
 
-/** Match filter for Utility#load (any subset of Utility fields). */
+/** Request payload for Utility#load. */
 class UtilityLoadMatch
 {
     public ?string $city = null;

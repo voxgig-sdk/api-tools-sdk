@@ -25,10 +25,13 @@ class Cryptography(CryptographyRequired, total=False):
     hash: str
 
 
-class CryptographyCreateData(TypedDict, total=False):
+class CryptographyCreateDataRequired(TypedDict):
+    text: str
+
+
+class CryptographyCreateData(CryptographyCreateDataRequired, total=False):
     algorithm: str
     hash: str
-    text: str
 
 
 class EncodingRequired(TypedDict):
@@ -40,10 +43,13 @@ class Encoding(EncodingRequired, total=False):
     decoded: str
 
 
-class EncodingCreateData(TypedDict, total=False):
-    decoded: str
+class EncodingCreateDataRequired(TypedDict):
     encoded: str
     text: str
+
+
+class EncodingCreateData(EncodingCreateDataRequired, total=False):
+    decoded: str
 
 
 class Generator(TypedDict, total=False):

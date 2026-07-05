@@ -8,7 +8,7 @@ Complete API reference for the ApiTools Python SDK.
 ### Constructor
 
 ```python
-from api-tools_sdk import ApiToolsSDK
+from apitools_sdk import ApiToolsSDK
 
 client = ApiToolsSDK(options)
 ```
@@ -107,9 +107,9 @@ cryptography = client.Cryptography()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `algorithm` | ``$STRING`` | No |  |
-| `hash` | ``$STRING`` | No |  |
-| `text` | ``$STRING`` | Yes |  |
+| `algorithm` | `str` | No |  |
+| `hash` | `str` | No |  |
+| `text` | `str` | Yes |  |
 
 ### Operations
 
@@ -119,7 +119,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Cryptography().create({
-    "text": ...,  # `$STRING`
+    "text": "example",  # str
 })
 ```
 
@@ -162,17 +162,17 @@ encoding = client.Encoding()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `decoded` | ``$STRING`` | No |  |
-| `encoded` | ``$STRING`` | Yes |  |
-| `text` | ``$STRING`` | Yes |  |
+| `decoded` | `str` | No |  |
+| `encoded` | `str` | Yes |  |
+| `text` | `str` | Yes |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `decoded` | - | - | - | - | - |
-| `encoded` | - | - | Yes | - | - |
-| `text` | - | - | - | - | - |
+| Field | create |
+| --- | --- |
+| `decoded` | - |
+| `encoded` | Yes |
+| `text` | - |
 
 ### Operations
 
@@ -182,8 +182,8 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Encoding().create({
-    "encoded": ...,  # `$STRING`
-    "text": ...,  # `$STRING`
+    "encoded": "example",  # str
+    "text": "example",  # str
 })
 ```
 
@@ -226,18 +226,18 @@ generator = client.Generator()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `type` | ``$STRING`` | No |  |
-| `uuid` | ``$STRING`` | No |  |
-| `value` | ``$ANY`` | No |  |
+| `type` | `str` | No |  |
+| `uuid` | `str` | No |  |
+| `value` | `Any` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Generator().list({})
+results = client.Generator().list()
 for generator in results:
     print(generator)
 ```
@@ -247,7 +247,7 @@ for generator in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Generator().load({"id": "generator_id"})
+result = client.Generator().load()
 ```
 
 ### Common Methods
@@ -289,18 +289,18 @@ get_documentation = client.GetDocumentation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `endpoint` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `description` | `str` | No |  |
+| `endpoint` | `str` | No |  |
+| `name` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.GetDocumentation().list({})
+results = client.GetDocumentation().list()
 for get_documentation in results:
     print(get_documentation)
 ```
@@ -344,19 +344,19 @@ tool = client.Tool()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `category` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `category` | `str` | No |  |
+| `description` | `str` | No |  |
+| `id` | `str` | No |  |
+| `name` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Tool().list({})
+results = client.Tool().list()
 for tool in results:
     print(tool)
 ```
@@ -400,14 +400,14 @@ utility = client.Utility()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `city` | ``$STRING`` | No |  |
-| `country` | ``$STRING`` | No |  |
-| `ip` | ``$STRING`` | No |  |
-| `iso` | ``$STRING`` | No |  |
-| `isp` | ``$STRING`` | No |  |
-| `millisecond` | ``$INTEGER`` | No |  |
-| `timestamp` | ``$INTEGER`` | No |  |
-| `utc` | ``$STRING`` | No |  |
+| `city` | `str` | No |  |
+| `country` | `str` | No |  |
+| `ip` | `str` | No |  |
+| `iso` | `str` | No |  |
+| `isp` | `str` | No |  |
+| `millisecond` | `int` | No |  |
+| `timestamp` | `int` | No |  |
+| `utc` | `str` | No |  |
 
 ### Operations
 
@@ -416,7 +416,7 @@ utility = client.Utility()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Utility().load({"id": "utility_id"})
+result = client.Utility().load()
 ```
 
 ### Common Methods

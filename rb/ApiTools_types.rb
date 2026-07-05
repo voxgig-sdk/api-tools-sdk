@@ -25,7 +25,7 @@ Cryptography = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Cryptography#create (any subset of Cryptography fields).
+# Request payload for Cryptography#create.
 #
 # @!attribute [rw] algorithm
 #   @return [String, nil]
@@ -34,7 +34,7 @@ Cryptography = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] text
-#   @return [String, nil]
+#   @return [String]
 CryptographyCreateData = Struct.new(
   :algorithm,
   :hash,
@@ -59,16 +59,16 @@ Encoding = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Encoding#create (any subset of Encoding fields).
+# Request payload for Encoding#create.
 #
 # @!attribute [rw] decoded
 #   @return [String, nil]
 #
 # @!attribute [rw] encoded
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] text
-#   @return [String, nil]
+#   @return [String]
 EncodingCreateData = Struct.new(
   :decoded,
   :encoded,
@@ -93,7 +93,7 @@ Generator = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Generator#load (any subset of Generator fields).
+# Request payload for Generator#load.
 #
 # @!attribute [rw] type
 #   @return [String, nil]
@@ -110,7 +110,7 @@ GeneratorLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Generator#list (any subset of Generator fields).
+# Request payload for Generator#list.
 #
 # @!attribute [rw] type
 #   @return [String, nil]
@@ -144,7 +144,7 @@ GetDocumentation = Struct.new(
   keyword_init: true
 )
 
-# Match filter for GetDocumentation#list (any subset of GetDocumentation fields).
+# Request payload for GetDocumentation#list.
 #
 # @!attribute [rw] description
 #   @return [String, nil]
@@ -182,7 +182,7 @@ Tool = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Tool#list (any subset of Tool fields).
+# Request payload for Tool#list.
 #
 # @!attribute [rw] category
 #   @return [String, nil]
@@ -240,7 +240,7 @@ Utility = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Utility#load (any subset of Utility fields).
+# Request payload for Utility#load.
 #
 # @!attribute [rw] city
 #   @return [String, nil]

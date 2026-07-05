@@ -4,6 +4,8 @@
 
 The PHP SDK for the ApiTools API — an entity-oriented client using PHP conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Cryptography()` — with named operations (`list`/`load`/`create`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -33,8 +35,39 @@ $client = new ApiToolsSDK();
 
 ```php
 // create() returns the bare created Cryptography record.
-$created = $client->Cryptography()->create(["name" => "Example"]);
+$created = $client->Cryptography()->create(["text" => "example"]);
 
+```
+
+
+## Error handling
+
+Entity operations throw a `\Throwable` on failure, so wrap them in
+`try` / `catch`:
+
+```php
+try {
+    $cryptography = $client->Cryptography()->create(["text" => "example"]);
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
+`direct()` does **not** throw — it returns the result array. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```php
+$result = $client->direct([
+    "path" => "/api/resource/{id}",
+    "method" => "GET",
+    "params" => ["id" => "example_id"],
+]);
+
+if (! $result["ok"]) {
+    $err = $result["err"] ?? null;
+    echo "request failed: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
+}
 ```
 
 
@@ -57,7 +90,10 @@ if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
 } else {
-    echo "Error: " . $result["err"]->getMessage();
+    // On an HTTP error status there is no err (only a transport failure sets
+    // it), so fall back to the status code.
+    $err = $result["err"] ?? null;
+    echo "Error: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
 }
 ```
 
@@ -78,16 +114,13 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = ApiToolsSDK::test([
-    "entity" => ["cryptography" => ["test01" => ["id" => "test01"]]],
-]);
+$client = ApiToolsSDK::test();
 
-// load() returns the bare mock record (throws on error).
-$cryptography = $client->Cryptography()->load(["id" => "test01"]);
+// Entity ops return the bare mock record (throws on error).
+$cryptography = $client->Cryptography()->create(["text" => "example"]);
 print_r($cryptography);
 ```
 
@@ -181,10 +214,8 @@ All entities share the same interface.
 | Method | Signature | Description |
 | --- | --- | --- |
 | `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `($reqmatch, $ctrl): array` | List entities matching the criteria. |
+| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
 | `create` | `($reqdata, $ctrl): array` | Create a new entity. |
-| `update` | `($reqdata, $ctrl): array` | Update an existing entity. |
-| `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -309,15 +340,15 @@ Create an instance: `$cryptography = $client->Cryptography();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `algorithm` | ``$STRING`` |  |
-| `hash` | ``$STRING`` |  |
-| `text` | ``$STRING`` |  |
+| `algorithm` | `string` |  |
+| `hash` | `string` |  |
+| `text` | `string` |  |
 
 #### Example: Create
 
 ```php
 $cryptography = $client->Cryptography()->create([
-    "text" => null, // `$STRING`
+    "text" => null, // string
 ]);
 ```
 
@@ -336,16 +367,16 @@ Create an instance: `$encoding = $client->Encoding();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `decoded` | ``$STRING`` |  |
-| `encoded` | ``$STRING`` |  |
-| `text` | ``$STRING`` |  |
+| `decoded` | `string` |  |
+| `encoded` | `string` |  |
+| `text` | `string` |  |
 
 #### Example: Create
 
 ```php
 $encoding = $client->Encoding()->create([
-    "encoded" => null, // `$STRING`
-    "text" => null, // `$STRING`
+    "encoded" => null, // string
+    "text" => null, // string
 ]);
 ```
 
@@ -365,15 +396,15 @@ Create an instance: `$generator = $client->Generator();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `type` | ``$STRING`` |  |
-| `uuid` | ``$STRING`` |  |
-| `value` | ``$ANY`` |  |
+| `type` | `string` |  |
+| `uuid` | `string` |  |
+| `value` | `mixed` |  |
 
 #### Example: Load
 
 ```php
 // load() returns the bare Generator record (throws on error).
-$generator = $client->Generator()->load(["id" => "generator_id"]);
+$generator = $client->Generator()->load();
 ```
 
 #### Example: List
@@ -398,9 +429,9 @@ Create an instance: `$get_documentation = $client->GetDocumentation();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | ``$STRING`` |  |
-| `endpoint` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `description` | `string` |  |
+| `endpoint` | `string` |  |
+| `name` | `string` |  |
 
 #### Example: List
 
@@ -424,10 +455,10 @@ Create an instance: `$tool = $client->Tool();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `category` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `category` | `string` |  |
+| `description` | `string` |  |
+| `id` | `string` |  |
+| `name` | `string` |  |
 
 #### Example: List
 
@@ -451,29 +482,33 @@ Create an instance: `$utility = $client->Utility();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `city` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `ip` | ``$STRING`` |  |
-| `iso` | ``$STRING`` |  |
-| `isp` | ``$STRING`` |  |
-| `millisecond` | ``$INTEGER`` |  |
-| `timestamp` | ``$INTEGER`` |  |
-| `utc` | ``$STRING`` |  |
+| `city` | `string` |  |
+| `country` | `string` |  |
+| `ip` | `string` |  |
+| `iso` | `string` |  |
+| `isp` | `string` |  |
+| `millisecond` | `int` |  |
+| `timestamp` | `int` |  |
+| `utc` | `string` |  |
 
 #### Example: Load
 
 ```php
 // load() returns the bare Utility record (throws on error).
-$utility = $client->Utility()->load(["id" => "utility_id"]);
+$utility = $client->Utility()->load();
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -490,8 +525,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return array.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -535,15 +571,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `create`, the entity
 stores the returned data and match criteria internally.
 
 ```php
 $cryptography = $client->Cryptography();
-$cryptography->load(["id" => "example_id"]);
+$cryptography->create(["text" => "example"]);
 
-// $cryptography->dataGet() now returns the loaded cryptography data
-// $cryptography->matchGet() returns the last match criteria
+// $cryptography->data_get() now returns the cryptography data from the last create
+// $cryptography->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

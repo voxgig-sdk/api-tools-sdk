@@ -110,9 +110,9 @@ local cryptography = client:Cryptography(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `algorithm` | ``$STRING`` | No |  |
-| `hash` | ``$STRING`` | No |  |
-| `text` | ``$STRING`` | Yes |  |
+| `algorithm` | `string` | No |  |
+| `hash` | `string` | No |  |
+| `text` | `string` | Yes |  |
 
 ### Operations
 
@@ -122,7 +122,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Cryptography():create({
-  text = --[[ `$STRING` ]],
+  text = --[[ string ]],
 })
 ```
 
@@ -166,17 +166,17 @@ local encoding = client:Encoding(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `decoded` | ``$STRING`` | No |  |
-| `encoded` | ``$STRING`` | Yes |  |
-| `text` | ``$STRING`` | Yes |  |
+| `decoded` | `string` | No |  |
+| `encoded` | `string` | Yes |  |
+| `text` | `string` | Yes |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `decoded` | - | - | - | - | - |
-| `encoded` | - | - | Yes | - | - |
-| `text` | - | - | - | - | - |
+| Field | create |
+| --- | --- |
+| `decoded` | - |
+| `encoded` | Yes |
+| `text` | - |
 
 ### Operations
 
@@ -186,8 +186,8 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Encoding():create({
-  encoded = --[[ `$STRING` ]],
-  text = --[[ `$STRING` ]],
+  encoded = --[[ string ]],
+  text = --[[ string ]],
 })
 ```
 
@@ -231,9 +231,9 @@ local generator = client:Generator(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `type` | ``$STRING`` | No |  |
-| `uuid` | ``$STRING`` | No |  |
-| `value` | ``$ANY`` | No |  |
+| `type` | `string` | No |  |
+| `uuid` | `string` | No |  |
+| `value` | `any` | No |  |
 
 ### Operations
 
@@ -250,7 +250,7 @@ local results, err = client:Generator():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Generator():load({ id = "generator_id" })
+local result, err = client:Generator():load()
 ```
 
 ### Common Methods
@@ -293,9 +293,9 @@ local get_documentation = client:GetDocumentation(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `endpoint` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `description` | `string` | No |  |
+| `endpoint` | `string` | No |  |
+| `name` | `string` | No |  |
 
 ### Operations
 
@@ -347,10 +347,10 @@ local tool = client:Tool(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `category` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `category` | `string` | No |  |
+| `description` | `string` | No |  |
+| `id` | `string` | No |  |
+| `name` | `string` | No |  |
 
 ### Operations
 
@@ -402,14 +402,14 @@ local utility = client:Utility(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `city` | ``$STRING`` | No |  |
-| `country` | ``$STRING`` | No |  |
-| `ip` | ``$STRING`` | No |  |
-| `iso` | ``$STRING`` | No |  |
-| `isp` | ``$STRING`` | No |  |
-| `millisecond` | ``$INTEGER`` | No |  |
-| `timestamp` | ``$INTEGER`` | No |  |
-| `utc` | ``$STRING`` | No |  |
+| `city` | `string` | No |  |
+| `country` | `string` | No |  |
+| `ip` | `string` | No |  |
+| `iso` | `string` | No |  |
+| `isp` | `string` | No |  |
+| `millisecond` | `number` | No |  |
+| `timestamp` | `number` | No |  |
+| `utc` | `string` | No |  |
 
 ### Operations
 
@@ -418,7 +418,7 @@ local utility = client:Utility(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Utility():load({ id = "utility_id" })
+local result, err = client:Utility():load()
 ```
 
 ### Common Methods

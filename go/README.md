@@ -4,6 +4,8 @@
 
 The Golang SDK for the ApiTools API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Cryptography(nil)` — each with the same small set of operations (`List`, `Load`, `Create`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -49,12 +51,41 @@ func main() {
     client := sdk.New()
 
     // Create a cryptography.
-    created, err := client.Cryptography(nil).Create(map[string]any{"name": "Example"}, nil)
+    created, err := client.Cryptography(nil).Create(map[string]any{"text": "example"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(created)
 }
+```
+
+
+## Error handling
+
+Every entity operation returns `(value, error)`. Check `err` before
+using the value — there is no exception to catch:
+
+```go
+cryptography, err := client.Cryptography(nil).Create(map[string]any{"text": "example"}, nil)
+if err != nil {
+    // handle err
+    return
+}
+_ = cryptography
+```
+
+`Direct` follows the same `(value, error)` convention:
+
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
+    "method": "GET",
+    "params": map[string]any{"id": "example_id"},
+})
+if err != nil {
+    // handle err
+}
+_ = result
 ```
 
 
@@ -104,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-cryptography, err := client.Cryptography(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+cryptography, err := client.Cryptography(nil).Create(
+    map[string]any{"text": "example"}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(cryptography) // the loaded mock data
+fmt.Println(cryptography) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -203,8 +234,6 @@ All entities implement the `ApiToolsEntity` interface.
 | `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
 | `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
 | `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity. |
-| `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity. |
-| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -217,16 +246,16 @@ operation's data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `Load` / `Create` | the entity record (`map[string]any`) |
 | `List` | a `[]any` of entity records |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    cryptography, err := client.Cryptography(nil).Load(map[string]any{"id": "example_id"}, nil)
+    cryptography, err := client.Cryptography(nil).Create(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // cryptography is the loaded record
+    // cryptography is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -330,15 +359,15 @@ Create an instance: `cryptography := client.Cryptography(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `algorithm` | ``$STRING`` |  |
-| `hash` | ``$STRING`` |  |
-| `text` | ``$STRING`` |  |
+| `algorithm` | `string` |  |
+| `hash` | `string` |  |
+| `text` | `string` |  |
 
 #### Example: Create
 
 ```go
 result, err := client.Cryptography(nil).Create(map[string]any{
-    "text": /* `$STRING` */,
+    "text": /* string */,
 }, nil)
 ```
 
@@ -357,16 +386,16 @@ Create an instance: `encoding := client.Encoding(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `decoded` | ``$STRING`` |  |
-| `encoded` | ``$STRING`` |  |
-| `text` | ``$STRING`` |  |
+| `decoded` | `string` |  |
+| `encoded` | `string` |  |
+| `text` | `string` |  |
 
 #### Example: Create
 
 ```go
 result, err := client.Encoding(nil).Create(map[string]any{
-    "encoded": /* `$STRING` */,
-    "text": /* `$STRING` */,
+    "encoded": /* string */,
+    "text": /* string */,
 }, nil)
 ```
 
@@ -386,14 +415,14 @@ Create an instance: `generator := client.Generator(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `type` | ``$STRING`` |  |
-| `uuid` | ``$STRING`` |  |
-| `value` | ``$ANY`` |  |
+| `type` | `string` |  |
+| `uuid` | `string` |  |
+| `value` | `any` |  |
 
 #### Example: Load
 
 ```go
-generator, err := client.Generator(nil).Load(map[string]any{"id": "generator_id"}, nil)
+generator, err := client.Generator(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
@@ -425,9 +454,9 @@ Create an instance: `get_documentation := client.GetDocumentation(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | ``$STRING`` |  |
-| `endpoint` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `description` | `string` |  |
+| `endpoint` | `string` |  |
+| `name` | `string` |  |
 
 #### Example: List
 
@@ -454,10 +483,10 @@ Create an instance: `tool := client.Tool(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `category` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `category` | `string` |  |
+| `description` | `string` |  |
+| `id` | `string` |  |
+| `name` | `string` |  |
 
 #### Example: List
 
@@ -484,19 +513,19 @@ Create an instance: `utility := client.Utility(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `city` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `ip` | ``$STRING`` |  |
-| `iso` | ``$STRING`` |  |
-| `isp` | ``$STRING`` |  |
-| `millisecond` | ``$INTEGER`` |  |
-| `timestamp` | ``$INTEGER`` |  |
-| `utc` | ``$STRING`` |  |
+| `city` | `string` |  |
+| `country` | `string` |  |
+| `ip` | `string` |  |
+| `iso` | `string` |  |
+| `isp` | `string` |  |
+| `millisecond` | `int` |  |
+| `timestamp` | `int` |  |
+| `utc` | `string` |  |
 
 #### Example: Load
 
 ```go
-utility, err := client.Utility(nil).Load(map[string]any{"id": "utility_id"}, nil)
+utility, err := client.Utility(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
@@ -504,12 +533,16 @@ fmt.Println(utility) // the loaded record
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -526,9 +559,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller. An unexpected panic triggers the
-`PreUnexpected` hook.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -569,14 +602,14 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `Create`, the entity
 stores the returned data and match criteria internally.
 
 ```go
 cryptography := client.Cryptography(nil)
-cryptography.Load(map[string]any{"id": "example_id"}, nil)
+cryptography.Create(map[string]any{"text": "example"}, nil)
 
-// cryptography.Data() now returns the loaded cryptography data
+// cryptography.Data() now returns the cryptography data from the last create
 // cryptography.Match() returns the last match criteria
 ```
 

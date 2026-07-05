@@ -11,7 +11,11 @@ export interface Cryptography {
   text: string
 }
 
-export type CryptographyCreateData = Partial<Cryptography>
+export interface CryptographyCreateData {
+  algorithm?: string
+  hash?: string
+  text: string
+}
 
 export interface Encoding {
   decoded?: string
@@ -19,7 +23,11 @@ export interface Encoding {
   text: string
 }
 
-export type EncodingCreateData = Partial<Encoding>
+export interface EncodingCreateData {
+  decoded?: string
+  encoded: string
+  text: string
+}
 
 export interface Generator {
   type?: string
@@ -27,9 +35,17 @@ export interface Generator {
   value?: any
 }
 
-export type GeneratorLoadMatch = Partial<Generator>
+export interface GeneratorLoadMatch {
+  type?: string
+  uuid?: string
+  value?: any
+}
 
-export type GeneratorListMatch = Partial<Generator>
+export interface GeneratorListMatch {
+  type?: string
+  uuid?: string
+  value?: any
+}
 
 export interface GetDocumentation {
   description?: string
@@ -37,7 +53,11 @@ export interface GetDocumentation {
   name?: string
 }
 
-export type GetDocumentationListMatch = Partial<GetDocumentation>
+export interface GetDocumentationListMatch {
+  description?: string
+  endpoint?: string
+  name?: string
+}
 
 export interface Tool {
   category?: string
@@ -46,7 +66,12 @@ export interface Tool {
   name?: string
 }
 
-export type ToolListMatch = Partial<Tool>
+export interface ToolListMatch {
+  category?: string
+  description?: string
+  id?: string
+  name?: string
+}
 
 export interface Utility {
   city?: string
@@ -59,5 +84,14 @@ export interface Utility {
   utc?: string
 }
 
-export type UtilityLoadMatch = Partial<Utility>
+export interface UtilityLoadMatch {
+  city?: string
+  country?: string
+  ip?: string
+  iso?: string
+  isp?: string
+  millisecond?: number
+  timestamp?: number
+  utc?: string
+}
 

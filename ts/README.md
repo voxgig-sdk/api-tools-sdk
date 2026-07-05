@@ -4,6 +4,11 @@
 
 The TypeScript SDK for the ApiTools API — a type-safe, entity-oriented client with full async/await support.
 
+The API is exposed as capitalised, semantic **Entities** — e.g.
+`client.Cryptography()` — each with a small set of operations (`list`, `load`, `create`)
+instead of raw URL paths and query parameters. This keeps the surface
+predictable and low-friction for both humans and AI agents.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -33,9 +38,38 @@ const client = new ApiToolsSDK()
 ```ts
 // Create — returns the created Cryptography
 const created = await client.Cryptography().create({
-  name: 'Example',
+  text: 'example_text',
 })
 
+```
+
+
+## Error handling
+
+Entity operations reject on failure, so wrap them in `try` / `catch`:
+
+```ts
+try {
+  const cryptography = await client.Cryptography().create({ text: "example" })
+  console.log(cryptography)
+} catch (err) {
+  console.error('create failed:', err)
+}
+```
+
+The low-level `direct()` method does **not** throw — it returns the
+value or an `Error`, so check the result before using it:
+
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example_id' },
+})
+
+if (result instanceof Error) {
+  throw result
+}
 ```
 
 
@@ -83,7 +117,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ApiToolsSDK.test()
 
-const cryptography = await client.Cryptography().load({ id: 'test01' })
+const cryptography = await client.Cryptography().create({ text: 'example_text' })
 // cryptography is a bare entity populated with mock response data
 console.log(cryptography)
 ```
@@ -102,12 +136,12 @@ Entity instances remember their last match and data:
 ```ts
 const entity = client.Cryptography()
 
-// First call sets internal match
-await entity.load({ id: 'example' })
+// First call runs the operation and stores its result
+await entity.create({ text: 'example_text' })
 
-// Subsequent calls reuse the stored match
+// Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id) // 'example'
+console.log(data)
 ```
 
 ### Add custom middleware
@@ -203,10 +237,8 @@ All entities share the same interface.
 | `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
 | `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
 | `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
-| `data` | `data(data?): any` | Get or set entity data. |
-| `match` | `match(match?): any` | Get or set entity match criteria. |
+| `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
+| `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): ApiToolsSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
@@ -216,10 +248,9 @@ All entities share the same interface.
 Entity operations resolve to the entity data directly — there is no
 result envelope:
 
-- `load`, `create` and `update` resolve to a single entity object.
+- `load` and `create` resolve to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
   there is no `.data` and no `.ok`).
-- `remove` resolves to `void`.
 
 On a failed request these methods **throw**, so wrap calls in
 `try`/`catch` to handle errors. Only `direct()` returns the result
@@ -352,15 +383,15 @@ Create an instance: `const cryptography = client.Cryptography()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `algorithm` | ``$STRING`` |  |
-| `hash` | ``$STRING`` |  |
-| `text` | ``$STRING`` |  |
+| `algorithm` | `string` |  |
+| `hash` | `string` |  |
+| `text` | `string` |  |
 
 #### Example: Create
 
 ```ts
 const cryptography = await client.Cryptography().create({
-  text: /* `$STRING` */,
+  text: /* string */,
 })
 ```
 
@@ -379,16 +410,16 @@ Create an instance: `const encoding = client.Encoding()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `decoded` | ``$STRING`` |  |
-| `encoded` | ``$STRING`` |  |
-| `text` | ``$STRING`` |  |
+| `decoded` | `string` |  |
+| `encoded` | `string` |  |
+| `text` | `string` |  |
 
 #### Example: Create
 
 ```ts
 const encoding = await client.Encoding().create({
-  encoded: /* `$STRING` */,
-  text: /* `$STRING` */,
+  encoded: /* string */,
+  text: /* string */,
 })
 ```
 
@@ -408,14 +439,14 @@ Create an instance: `const generator = client.Generator()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `type` | ``$STRING`` |  |
-| `uuid` | ``$STRING`` |  |
-| `value` | ``$ANY`` |  |
+| `type` | `string` |  |
+| `uuid` | `string` |  |
+| `value` | `any` |  |
 
 #### Example: Load
 
 ```ts
-const generator = await client.Generator().load({ id: 'generator_id' })
+const generator = await client.Generator().load()
 ```
 
 #### Example: List
@@ -439,9 +470,9 @@ Create an instance: `const get_documentation = client.GetDocumentation()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | ``$STRING`` |  |
-| `endpoint` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `description` | `string` |  |
+| `endpoint` | `string` |  |
+| `name` | `string` |  |
 
 #### Example: List
 
@@ -464,10 +495,10 @@ Create an instance: `const tool = client.Tool()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `category` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `category` | `string` |  |
+| `description` | `string` |  |
+| `id` | `string` |  |
+| `name` | `string` |  |
 
 #### Example: List
 
@@ -490,28 +521,32 @@ Create an instance: `const utility = client.Utility()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `city` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `ip` | ``$STRING`` |  |
-| `iso` | ``$STRING`` |  |
-| `isp` | ``$STRING`` |  |
-| `millisecond` | ``$INTEGER`` |  |
-| `timestamp` | ``$INTEGER`` |  |
-| `utc` | ``$STRING`` |  |
+| `city` | `string` |  |
+| `country` | `string` |  |
+| `ip` | `string` |  |
+| `iso` | `string` |  |
+| `isp` | `string` |  |
+| `millisecond` | `number` |  |
+| `timestamp` | `number` |  |
+| `utc` | `string` |  |
 
 #### Example: Load
 
 ```ts
-const utility = await client.Utility().load({ id: 'utility_id' })
+const utility = await client.Utility().load()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -528,11 +563,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller.
-
-An unexpected exception triggers the `PreUnexpected` hook before
-propagating.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -568,16 +601,16 @@ import { ApiToolsSDK } from '@voxgig-sdk/api-tools'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `create`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
 const cryptography = client.Cryptography()
-await cryptography.load({ id: "example_id" })
+await cryptography.create({ text: "example" })
 
-// cryptography.data() now returns the loaded cryptography data
-// cryptography.match() returns { id: "example_id" }
+// cryptography.data() now returns the cryptography data from the last `create`
+// cryptography.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

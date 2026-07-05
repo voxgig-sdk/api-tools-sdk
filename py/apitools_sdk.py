@@ -221,37 +221,37 @@ class ApiToolsSDK:
 
 
     def Cryptography(self, data=None) -> "CryptographyEntity":
-        """Entity factory: client.Cryptography().list({}) / client.Cryptography().load({"id": ...})."""
+        """Entity factory: client.Cryptography().list() / client.Cryptography().load({"id": ...})."""
         from entity.cryptography_entity import CryptographyEntity
         return CryptographyEntity(self, data)
 
 
     def Encoding(self, data=None) -> "EncodingEntity":
-        """Entity factory: client.Encoding().list({}) / client.Encoding().load({"id": ...})."""
+        """Entity factory: client.Encoding().list() / client.Encoding().load({"id": ...})."""
         from entity.encoding_entity import EncodingEntity
         return EncodingEntity(self, data)
 
 
     def Generator(self, data=None) -> "GeneratorEntity":
-        """Entity factory: client.Generator().list({}) / client.Generator().load({"id": ...})."""
+        """Entity factory: client.Generator().list() / client.Generator().load({"id": ...})."""
         from entity.generator_entity import GeneratorEntity
         return GeneratorEntity(self, data)
 
 
     def GetDocumentation(self, data=None) -> "GetDocumentationEntity":
-        """Entity factory: client.GetDocumentation().list({}) / client.GetDocumentation().load({"id": ...})."""
+        """Entity factory: client.GetDocumentation().list() / client.GetDocumentation().load({"id": ...})."""
         from entity.get_documentation_entity import GetDocumentationEntity
         return GetDocumentationEntity(self, data)
 
 
     def Tool(self, data=None) -> "ToolEntity":
-        """Entity factory: client.Tool().list({}) / client.Tool().load({"id": ...})."""
+        """Entity factory: client.Tool().list() / client.Tool().load({"id": ...})."""
         from entity.tool_entity import ToolEntity
         return ToolEntity(self, data)
 
 
     def Utility(self, data=None) -> "UtilityEntity":
-        """Entity factory: client.Utility().list({}) / client.Utility().load({"id": ...})."""
+        """Entity factory: client.Utility().list() / client.Utility().load({"id": ...})."""
         from entity.utility_entity import UtilityEntity
         return UtilityEntity(self, data)
 

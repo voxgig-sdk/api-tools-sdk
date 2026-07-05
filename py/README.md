@@ -4,6 +4,11 @@
 
 The Python SDK for the ApiTools API — an entity-oriented client following Pythonic conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Cryptography()` — each
+carrying a small, uniform set of operations (`list`, `load`, `create`) instead of raw URL
+paths and query strings. You work with named resources and verbs, which
+keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -35,8 +40,36 @@ client = ApiToolsSDK()
 
 ```python
 # Create — returns the bare created record (a dict)
-created = client.Cryptography().create({"name": "Example"})
+created = client.Cryptography().create({"text": "example"})
 
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so wrap them in `try` / `except`:
+
+```python
+try:
+    cryptography = client.Cryptography().create({ "text": "example" })
+    print(cryptography)
+except Exception as err:
+    print(f"create failed: {err}")
+```
+
+`direct()` does **not** raise — it returns the result envelope. Branch
+on `ok`; on failure `status` holds the HTTP status (for error responses)
+and `err` holds a transport error, so read both defensively:
+
+```python
+result = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example_id"},
+})
+
+if not result["ok"]:
+    print("request failed:", result.get("status"), result.get("err"))
 ```
 
 
@@ -57,7 +90,10 @@ if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
 else:
-    print(result["err"])     # error value
+    # A non-2xx response carries status + data (the error body); a
+    # transport-level failure carries err instead. Only one is present, so
+    # read both with .get() rather than indexing a key that may be absent.
+    print(result.get("status"), result.get("err"))
 ```
 
 ### Prepare a request without sending it
@@ -83,7 +119,7 @@ Create a mock client for unit testing — no server required:
 client = ApiToolsSDK.test()
 
 # Entity ops return the bare record and raise on error.
-cryptography = client.Cryptography().load({"id": "test01"})
+cryptography = client.Cryptography().create({"text": "example"})
 # cryptography contains the mock response record
 ```
 
@@ -176,8 +212,6 @@ All entities share the same interface.
 | `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
 | `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
 | `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -302,15 +336,15 @@ Create an instance: `cryptography = client.Cryptography()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `algorithm` | ``$STRING`` |  |
-| `hash` | ``$STRING`` |  |
-| `text` | ``$STRING`` |  |
+| `algorithm` | `str` |  |
+| `hash` | `str` |  |
+| `text` | `str` |  |
 
 #### Example: Create
 
 ```python
 cryptography = client.Cryptography().create({
-    "text": ...,  # `$STRING`
+    "text": "example",  # str
 })
 ```
 
@@ -329,16 +363,16 @@ Create an instance: `encoding = client.Encoding()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `decoded` | ``$STRING`` |  |
-| `encoded` | ``$STRING`` |  |
-| `text` | ``$STRING`` |  |
+| `decoded` | `str` |  |
+| `encoded` | `str` |  |
+| `text` | `str` |  |
 
 #### Example: Create
 
 ```python
 encoding = client.Encoding().create({
-    "encoded": ...,  # `$STRING`
-    "text": ...,  # `$STRING`
+    "encoded": "example",  # str
+    "text": "example",  # str
 })
 ```
 
@@ -351,27 +385,27 @@ Create an instance: `generator = client.Generator()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `type` | ``$STRING`` |  |
-| `uuid` | ``$STRING`` |  |
-| `value` | ``$ANY`` |  |
+| `type` | `str` |  |
+| `uuid` | `str` |  |
+| `value` | `Any` |  |
 
 #### Example: Load
 
 ```python
-generator = client.Generator().load({"id": "generator_id"})
+generator = client.Generator().load()
 ```
 
 #### Example: List
 
 ```python
-generators = client.Generator().list({})
+generators = client.Generator().list()
 ```
 
 
@@ -383,20 +417,20 @@ Create an instance: `get_documentation = client.GetDocumentation()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | ``$STRING`` |  |
-| `endpoint` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `description` | `str` |  |
+| `endpoint` | `str` |  |
+| `name` | `str` |  |
 
 #### Example: List
 
 ```python
-get_documentations = client.GetDocumentation().list({})
+get_documentations = client.GetDocumentation().list()
 ```
 
 
@@ -408,21 +442,21 @@ Create an instance: `tool = client.Tool()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `category` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `category` | `str` |  |
+| `description` | `str` |  |
+| `id` | `str` |  |
+| `name` | `str` |  |
 
 #### Example: List
 
 ```python
-tools = client.Tool().list({})
+tools = client.Tool().list()
 ```
 
 
@@ -440,28 +474,32 @@ Create an instance: `utility = client.Utility()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `city` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `ip` | ``$STRING`` |  |
-| `iso` | ``$STRING`` |  |
-| `isp` | ``$STRING`` |  |
-| `millisecond` | ``$INTEGER`` |  |
-| `timestamp` | ``$INTEGER`` |  |
-| `utc` | ``$STRING`` |  |
+| `city` | `str` |  |
+| `country` | `str` |  |
+| `ip` | `str` |  |
+| `iso` | `str` |  |
+| `isp` | `str` |  |
+| `millisecond` | `int` |  |
+| `timestamp` | `int` |  |
+| `utc` | `str` |  |
 
 #### Example: Load
 
 ```python
-utility = client.Utility().load({"id": "utility_id"})
+utility = client.Utility().load()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -478,8 +516,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return tuple.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -522,14 +561,14 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `create`, the entity
 stores the returned data and match criteria internally.
 
 ```python
 cryptography = client.Cryptography()
-cryptography.load({"id": "example_id"})
+cryptography.create({ "text": "example" })
 
-# cryptography.data_get() now returns the loaded cryptography data
+# cryptography.data_get() now returns the cryptography data from the last create
 # cryptography.match_get() returns the last match criteria
 ```
 

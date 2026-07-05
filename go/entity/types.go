@@ -15,12 +15,11 @@ type Cryptography struct {
 	Text string `json:"text"`
 }
 
-// CryptographyCreateData mirrors the cryptography fields as an all-optional match
-// filter (Go analog of Partial<Cryptography>).
+// CryptographyCreateData is the typed request payload for Cryptography.CreateTyped.
 type CryptographyCreateData struct {
 	Algorithm *string `json:"algorithm,omitempty"`
 	Hash *string `json:"hash,omitempty"`
-	Text *string `json:"text,omitempty"`
+	Text string `json:"text"`
 }
 
 // Encoding is the typed data model for the encoding entity.
@@ -30,12 +29,11 @@ type Encoding struct {
 	Text string `json:"text"`
 }
 
-// EncodingCreateData mirrors the encoding fields as an all-optional match
-// filter (Go analog of Partial<Encoding>).
+// EncodingCreateData is the typed request payload for Encoding.CreateTyped.
 type EncodingCreateData struct {
 	Decoded *string `json:"decoded,omitempty"`
-	Encoded *string `json:"encoded,omitempty"`
-	Text *string `json:"text,omitempty"`
+	Encoded string `json:"encoded"`
+	Text string `json:"text"`
 }
 
 // Generator is the typed data model for the generator entity.
@@ -45,16 +43,14 @@ type Generator struct {
 	Value *any `json:"value,omitempty"`
 }
 
-// GeneratorLoadMatch mirrors the generator fields as an all-optional match
-// filter (Go analog of Partial<Generator>).
+// GeneratorLoadMatch is the typed request payload for Generator.LoadTyped.
 type GeneratorLoadMatch struct {
 	Type *string `json:"type,omitempty"`
 	Uuid *string `json:"uuid,omitempty"`
 	Value *any `json:"value,omitempty"`
 }
 
-// GeneratorListMatch mirrors the generator fields as an all-optional match
-// filter (Go analog of Partial<Generator>).
+// GeneratorListMatch is the typed request payload for Generator.ListTyped.
 type GeneratorListMatch struct {
 	Type *string `json:"type,omitempty"`
 	Uuid *string `json:"uuid,omitempty"`
@@ -68,8 +64,7 @@ type GetDocumentation struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// GetDocumentationListMatch mirrors the get_documentation fields as an all-optional match
-// filter (Go analog of Partial<GetDocumentation>).
+// GetDocumentationListMatch is the typed request payload for GetDocumentation.ListTyped.
 type GetDocumentationListMatch struct {
 	Description *string `json:"description,omitempty"`
 	Endpoint *string `json:"endpoint,omitempty"`
@@ -84,8 +79,7 @@ type Tool struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// ToolListMatch mirrors the tool fields as an all-optional match
-// filter (Go analog of Partial<Tool>).
+// ToolListMatch is the typed request payload for Tool.ListTyped.
 type ToolListMatch struct {
 	Category *string `json:"category,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -105,8 +99,7 @@ type Utility struct {
 	Utc *string `json:"utc,omitempty"`
 }
 
-// UtilityLoadMatch mirrors the utility fields as an all-optional match
-// filter (Go analog of Partial<Utility>).
+// UtilityLoadMatch is the typed request payload for Utility.LoadTyped.
 type UtilityLoadMatch struct {
 	City *string `json:"city,omitempty"`
 	Country *string `json:"country,omitempty"`
