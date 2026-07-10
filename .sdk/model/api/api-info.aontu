@@ -15,9 +15,9 @@ main: {
           url: "https://api.apitools.workers.dev"
         }
       ]
+      summary: "API Tools – Access over 30+ REST APIs, all completely free with no usage limits."
       title: "API Tools"
       version: "1.0.0"
+      website: "https://api.apitools.workers.dev/"
     }
   }
-}
-

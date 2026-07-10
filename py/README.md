@@ -40,7 +40,7 @@ client = ApiToolsSDK()
 
 ```python
 # Create — returns the bare created record (a dict)
-created = client.Cryptography().create({"text": "example"})
+created = client.Cryptography().create({"text": "example_text"})
 
 ```
 
@@ -51,10 +51,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    cryptography = client.Cryptography().create({ "text": "example" })
-    print(cryptography)
+    generators = client.Generator().list()
+    print(generators)
 except Exception as err:
-    print(f"create failed: {err}")
+    print(f"list failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -119,8 +119,8 @@ Create a mock client for unit testing — no server required:
 client = ApiToolsSDK.test()
 
 # Entity ops return the bare record and raise on error.
-cryptography = client.Cryptography().create({"text": "example"})
-# cryptography contains the mock response record
+generator = client.Generator().list()
+# generator contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -344,7 +344,7 @@ Create an instance: `cryptography = client.Cryptography()`
 
 ```python
 cryptography = client.Cryptography().create({
-    "text": "example",  # str
+    "text": "example_text",  # str
 })
 ```
 
@@ -371,8 +371,8 @@ Create an instance: `encoding = client.Encoding()`
 
 ```python
 encoding = client.Encoding().create({
-    "encoded": "example",  # str
-    "text": "example",  # str
+    "encoded": "example_encoded",  # str
+    "text": "example_text",  # str
 })
 ```
 
@@ -561,15 +561,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `create`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-cryptography = client.Cryptography()
-cryptography.create({ "text": "example" })
+generator = client.Generator()
+generator.list()
 
-# cryptography.data_get() now returns the cryptography data from the last create
-# cryptography.match_get() returns the last match criteria
+# generator.data_get() now returns the generator data from the last list
+# generator.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

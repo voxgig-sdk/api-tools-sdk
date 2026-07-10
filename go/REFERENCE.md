@@ -111,6 +111,7 @@ same parameters as `Direct()`.
 
 ```go
 cryptography := client.Cryptography(nil)
+fmt.Println(cryptography.GetName()) // "cryptography"
 ```
 
 ### Fields
@@ -129,8 +130,12 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Cryptography(nil).Create(map[string]any{
-    "text": /* string */,
+    "text": "example_text",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -161,6 +166,7 @@ Return the entity name.
 
 ```go
 encoding := client.Encoding(nil)
+fmt.Println(encoding.GetName()) // "encoding"
 ```
 
 ### Fields
@@ -187,9 +193,13 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Encoding(nil).Create(map[string]any{
-    "encoded": /* string */,
-    "text": /* string */,
+    "encoded": "example_encoded",
+    "text": "example_text",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -220,6 +230,7 @@ Return the entity name.
 
 ```go
 generator := client.Generator(nil)
+fmt.Println(generator.GetName()) // "generator"
 ```
 
 ### Fields
@@ -238,6 +249,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Generator(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -246,6 +261,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Generator(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -275,7 +294,8 @@ Return the entity name.
 ## GetDocumentationEntity
 
 ```go
-get_documentation := client.GetDocumentation(nil)
+getDocumentation := client.GetDocumentation(nil)
+fmt.Println(getDocumentation.GetName()) // "get_documentation"
 ```
 
 ### Fields
@@ -294,6 +314,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.GetDocumentation(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -324,6 +348,7 @@ Return the entity name.
 
 ```go
 tool := client.Tool(nil)
+fmt.Println(tool.GetName()) // "tool"
 ```
 
 ### Fields
@@ -343,6 +368,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Tool(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -373,6 +402,7 @@ Return the entity name.
 
 ```go
 utility := client.Utility(nil)
+fmt.Println(utility.GetName()) // "utility"
 ```
 
 ### Fields
@@ -396,6 +426,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Utility(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

@@ -1,8 +1,0 @@
-# Flows
-
-@"BasicCryptographyFlow.jsonic"
-@"BasicEncodingFlow.jsonic"
-@"BasicGeneratorFlow.jsonic"
-@"BasicGetDocumentationFlow.jsonic"
-@"BasicToolFlow.jsonic"
-@"BasicUtilityFlow.jsonic"

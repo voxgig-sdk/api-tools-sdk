@@ -34,7 +34,7 @@ client = ApiToolsSDK.new
 
 ```ruby
 # create returns the bare created Cryptography record.
-created = client.Cryptography.create({ "text" => "example" })
+created = client.Cryptography.create({ "text" => "example_text" })
 
 ```
 
@@ -45,9 +45,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  cryptography = client.Cryptography.create({ "text" => "example" })
+  generators = client.Generator.list()
 rescue => err
-  warn "create failed: #{err}"
+  warn "list failed: #{err}"
 end
 ```
 
@@ -114,8 +114,8 @@ Create a mock client for unit testing — no server required:
 client = ApiToolsSDK.test
 
 # Entity ops return the bare mock record (raises on error).
-cryptography = client.Cryptography.create({ "text" => "example" })
-puts cryptography
+generator = client.Generator.list()
+puts generator
 ```
 
 ### Use a custom fetch function
@@ -338,7 +338,7 @@ Create an instance: `cryptography = client.Cryptography`
 
 ```ruby
 cryptography = client.Cryptography.create({
-  "text" => "example", # String
+  "text" => "example_text", # String
 })
 ```
 
@@ -365,8 +365,8 @@ Create an instance: `encoding = client.Encoding`
 
 ```ruby
 encoding = client.Encoding.create({
-  "encoded" => "example", # String
-  "text" => "example", # String
+  "encoded" => "example_encoded", # String
+  "text" => "example_text", # String
 })
 ```
 
@@ -561,15 +561,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `create`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-cryptography = client.Cryptography
-cryptography.create({ "text" => "example" })
+generator = client.Generator
+generator.list()
 
-# cryptography.data_get now returns the cryptography data from the last create
-# cryptography.match_get returns the last match criteria
+# generator.data_get now returns the generator data from the last list
+# generator.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

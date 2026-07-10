@@ -35,7 +35,7 @@ $client = new ApiToolsSDK();
 
 ```php
 // create() returns the bare created Cryptography record.
-$created = $client->Cryptography()->create(["text" => "example"]);
+$created = $client->Cryptography()->create(["text" => "example_text"]);
 
 ```
 
@@ -47,7 +47,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $cryptography = $client->Cryptography()->create(["text" => "example"]);
+    $generators = $client->Generator()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -120,8 +120,8 @@ Create a mock client for unit testing — no server required:
 $client = ApiToolsSDK::test();
 
 // Entity ops return the bare mock record (throws on error).
-$cryptography = $client->Cryptography()->create(["text" => "example"]);
-print_r($cryptography);
+$generator = $client->Generator()->list();
+print_r($generator);
 ```
 
 ### Use a custom fetch function
@@ -571,15 +571,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `create`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$cryptography = $client->Cryptography();
-$cryptography->create(["text" => "example"]);
+$generator = $client->Generator();
+$generator->list();
 
-// $cryptography->data_get() now returns the cryptography data from the last create
-// $cryptography->match_get() returns the last match criteria
+// $generator->data_get() now returns the generator data from the last list
+// $generator->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

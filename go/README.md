@@ -51,7 +51,7 @@ func main() {
     client := sdk.New()
 
     // Create a cryptography.
-    created, err := client.Cryptography(nil).Create(map[string]any{"text": "example"}, nil)
+    created, err := client.Cryptography(nil).Create(map[string]any{"text": "example_text"}, nil)
     if err != nil {
         panic(err)
     }
@@ -66,12 +66,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-cryptography, err := client.Cryptography(nil).Create(map[string]any{"text": "example"}, nil)
+generators, err := client.Generator(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = cryptography
+_ = generators
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -135,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-cryptography, err := client.Cryptography(nil).Create(
-    map[string]any{"text": "example"}, nil,
+generator, err := client.Generator(nil).List(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(cryptography) // the returned mock data
+fmt.Println(generator) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -367,8 +367,12 @@ Create an instance: `cryptography := client.Cryptography(nil)`
 
 ```go
 result, err := client.Cryptography(nil).Create(map[string]any{
-    "text": /* string */,
+    "text": "example_text",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -394,9 +398,13 @@ Create an instance: `encoding := client.Encoding(nil)`
 
 ```go
 result, err := client.Encoding(nil).Create(map[string]any{
-    "encoded": /* string */,
-    "text": /* string */,
+    "encoded": "example_encoded",
+    "text": "example_text",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -442,7 +450,7 @@ fmt.Println(generators) // the array of records
 
 ### GetDocumentation
 
-Create an instance: `get_documentation := client.GetDocumentation(nil)`
+Create an instance: `getDocumentation := client.GetDocumentation(nil)`
 
 #### Operations
 
@@ -461,11 +469,11 @@ Create an instance: `get_documentation := client.GetDocumentation(nil)`
 #### Example: List
 
 ```go
-get_documentations, err := client.GetDocumentation(nil).List(nil, nil)
+getDocumentations, err := client.GetDocumentation(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(get_documentations) // the array of records
+fmt.Println(getDocumentations) // the array of records
 ```
 
 
@@ -602,15 +610,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Create`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-cryptography := client.Cryptography(nil)
-cryptography.Create(map[string]any{"text": "example"}, nil)
+generator := client.Generator(nil)
+generator.List(nil, nil)
 
-// cryptography.Data() now returns the cryptography data from the last create
-// cryptography.Match() returns the last match criteria
+// generator.Data() now returns the generator data from the last list
+// generator.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

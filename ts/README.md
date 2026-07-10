@@ -50,10 +50,10 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const cryptography = await client.Cryptography().create({ text: "example" })
-  console.log(cryptography)
+  const generators = await client.Generator().list()
+  console.log(generators)
 } catch (err) {
-  console.error('create failed:', err)
+  console.error('list failed:', err)
 }
 ```
 
@@ -117,9 +117,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ApiToolsSDK.test()
 
-const cryptography = await client.Cryptography().create({ text: 'example_text' })
-// cryptography is a bare entity populated with mock response data
-console.log(cryptography)
+const generator = await client.Generator().list()
+// generator is a bare entity populated with mock response data
+console.log(generator)
 ```
 
 You can also use the instance method:
@@ -134,10 +134,10 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Cryptography()
+const entity = client.Generator()
 
 // First call runs the operation and stores its result
-await entity.create({ text: 'example_text' })
+await entity.list()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -391,7 +391,7 @@ Create an instance: `const cryptography = client.Cryptography()`
 
 ```ts
 const cryptography = await client.Cryptography().create({
-  text: /* string */,
+  text: 'example_text',
 })
 ```
 
@@ -418,8 +418,8 @@ Create an instance: `const encoding = client.Encoding()`
 
 ```ts
 const encoding = await client.Encoding().create({
-  encoded: /* string */,
-  text: /* string */,
+  encoded: 'example_encoded',
+  text: 'example_text',
 })
 ```
 
@@ -601,16 +601,16 @@ import { ApiToolsSDK } from '@voxgig-sdk/api-tools'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `create`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const cryptography = client.Cryptography()
-await cryptography.create({ text: "example" })
+const generator = client.Generator()
+await generator.list()
 
-// cryptography.data() now returns the cryptography data from the last `create`
-// cryptography.match() returns the last match criteria
+// generator.data() now returns the generator data from the last `list`
+// generator.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

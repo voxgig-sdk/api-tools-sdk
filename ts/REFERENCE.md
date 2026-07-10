@@ -188,7 +188,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Cryptography().create({
-  text: /* string */,
+  text: 'example_text',
 })
 ```
 
@@ -250,8 +250,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Encoding().create({
-  encoded: /* string */,
-  text: /* string */,
+  encoded: 'example_encoded',
+  text: 'example_text',
 })
 ```
 

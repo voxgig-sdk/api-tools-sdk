@@ -119,7 +119,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Cryptography().create({
-    "text": "example",  # str
+    "text": "example_text",  # str
 })
 ```
 
@@ -182,8 +182,8 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Encoding().create({
-    "encoded": "example",  # str
-    "text": "example",  # str
+    "encoded": "example_encoded",  # str
+    "text": "example_text",  # str
 })
 ```
 

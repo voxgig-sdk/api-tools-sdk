@@ -125,7 +125,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Cryptography.create({
-  "text" => "example", # String
+  "text" => "example_text", # String
 })
 ```
 
@@ -189,8 +189,8 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Encoding.create({
-  "encoded" => "example", # String
-  "text" => "example", # String
+  "encoded" => "example_encoded", # String
+  "text" => "example_text", # String
 })
 ```
 

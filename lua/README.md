@@ -37,7 +37,7 @@ local client = sdk.new()
 
 ```lua
 -- Create
-local created, err = client:Cryptography():create({ text = "example" })
+local created, err = client:Cryptography():create({ text = "example_text" })
 if err then error(err) end
 
 ```
@@ -49,7 +49,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local cryptography, err = client:Cryptography():create({ text = "example" })
+local generators, err = client:Generator():list()
 if err then error(err) end
 ```
 
@@ -107,7 +107,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Cryptography():create({ text = "example" })
+local result, err = client:Generator():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -335,7 +335,7 @@ Create an instance: `local cryptography = client:Cryptography(nil)`
 
 ```lua
 local cryptography, err = client:Cryptography():create({
-  text = nil, -- string
+  text = "example_text", -- string
 })
 ```
 
@@ -362,8 +362,8 @@ Create an instance: `local encoding = client:Encoding(nil)`
 
 ```lua
 local encoding, err = client:Encoding():create({
-  encoded = nil, -- string
-  text = nil, -- string
+  encoded = "example_encoded", -- string
+  text = "example_text", -- string
 })
 ```
 
@@ -553,15 +553,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `create`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local cryptography = client:Cryptography()
-cryptography:create({ text = "example" })
+local generator = client:Generator()
+generator:list()
 
--- cryptography:data_get() now returns the cryptography data from the last create
--- cryptography:match_get() returns the last match criteria
+-- generator:data_get() now returns the generator data from the last list
+-- generator:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration
