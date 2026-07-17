@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- ApiTools SDK exists test
 
 local sdk = require("api-tools_sdk")
 
