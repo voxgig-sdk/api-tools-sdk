@@ -27,19 +27,16 @@
 ---@field text string
 
 ---@class Generator
----@field type? string
 ---@field uuid? string
----@field value? any
+---@field uuids? table
 
 ---@class GeneratorLoadMatch
----@field type? string
 ---@field uuid? string
----@field value? any
+---@field uuids? table
 
 ---@class GeneratorListMatch
----@field type? string
 ---@field uuid? string
----@field value? any
+---@field uuids? table
 
 ---@class GetDocumentation
 ---@field description? string
@@ -69,7 +66,7 @@
 ---@field ip? string
 ---@field iso? string
 ---@field isp? string
----@field millisecond? number
+---@field milliseconds? number
 ---@field timestamp? number
 ---@field utc? string
 
@@ -79,7 +76,7 @@
 ---@field ip? string
 ---@field iso? string
 ---@field isp? string
----@field millisecond? number
+---@field milliseconds? number
 ---@field timestamp? number
 ---@field utc? string
 

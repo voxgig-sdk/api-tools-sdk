@@ -43,8 +43,8 @@ class ApiToolsTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('APITOOLS_TEST_LIVE');
-        $override = self::getenv('APITOOLS_TEST_OVERRIDE');
+        $live = self::getenv('API_TOOLS_TEST_LIVE');
+        $override = self::getenv('API_TOOLS_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class ApiToolsTestRunner
             }
         }
 
-        $explain = self::getenv('APITOOLS_TEST_EXPLAIN');
+        $explain = self::getenv('API_TOOLS_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['APITOOLS_TEST_EXPLAIN'] = $explain;
+            $m['API_TOOLS_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

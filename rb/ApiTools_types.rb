@@ -52,7 +52,7 @@ CryptographyCreateData = Struct.new(
 #
 # @!attribute [rw] text
 #   @return [String]
-Encoding = Struct.new(
+EncodingType = Struct.new(
   :decoded,
   :encoded,
   :text,
@@ -78,52 +78,40 @@ EncodingCreateData = Struct.new(
 
 # Generator entity data model.
 #
-# @!attribute [rw] type
-#   @return [String, nil]
-#
 # @!attribute [rw] uuid
 #   @return [String, nil]
 #
-# @!attribute [rw] value
-#   @return [Object, nil]
+# @!attribute [rw] uuids
+#   @return [Array, nil]
 Generator = Struct.new(
-  :type,
   :uuid,
-  :value,
+  :uuids,
   keyword_init: true
 )
 
 # Request payload for Generator#load.
 #
-# @!attribute [rw] type
-#   @return [String, nil]
-#
 # @!attribute [rw] uuid
 #   @return [String, nil]
 #
-# @!attribute [rw] value
-#   @return [Object, nil]
+# @!attribute [rw] uuids
+#   @return [Array, nil]
 GeneratorLoadMatch = Struct.new(
-  :type,
   :uuid,
-  :value,
+  :uuids,
   keyword_init: true
 )
 
 # Request payload for Generator#list.
 #
-# @!attribute [rw] type
-#   @return [String, nil]
-#
 # @!attribute [rw] uuid
 #   @return [String, nil]
 #
-# @!attribute [rw] value
-#   @return [Object, nil]
+# @!attribute [rw] uuids
+#   @return [Array, nil]
 GeneratorListMatch = Struct.new(
-  :type,
   :uuid,
-  :value,
+  :uuids,
   keyword_init: true
 )
 
@@ -220,7 +208,7 @@ ToolListMatch = Struct.new(
 # @!attribute [rw] isp
 #   @return [String, nil]
 #
-# @!attribute [rw] millisecond
+# @!attribute [rw] milliseconds
 #   @return [Integer, nil]
 #
 # @!attribute [rw] timestamp
@@ -234,7 +222,7 @@ Utility = Struct.new(
   :ip,
   :iso,
   :isp,
-  :millisecond,
+  :milliseconds,
   :timestamp,
   :utc,
   keyword_init: true
@@ -257,7 +245,7 @@ Utility = Struct.new(
 # @!attribute [rw] isp
 #   @return [String, nil]
 #
-# @!attribute [rw] millisecond
+# @!attribute [rw] milliseconds
 #   @return [Integer, nil]
 #
 # @!attribute [rw] timestamp
@@ -271,7 +259,7 @@ UtilityLoadMatch = Struct.new(
   :ip,
   :iso,
   :isp,
-  :millisecond,
+  :milliseconds,
   :timestamp,
   :utc,
   keyword_init: true

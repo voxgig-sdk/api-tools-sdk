@@ -65,11 +65,11 @@ function utility_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "APITOOLS_TEST_UTILITY_ENTID" => [],
-        "APITOOLS_TEST_LIVE" => "FALSE",
+        "API_TOOLS_TEST_UTILITY_ENTID" => [],
+        "API_TOOLS_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["APITOOLS_TEST_LIVE"] === "TRUE";
+    $live = $env["API_TOOLS_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

@@ -33,7 +33,7 @@ class UtilityEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set APITOOLS_TEST_UTILITY_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set API_TOOLS_TEST_UTILITY_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -77,22 +77,22 @@ function utility_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("APITOOLS_TEST_UTILITY_ENTID");
+    $entid_env_raw = getenv("API_TOOLS_TEST_UTILITY_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "APITOOLS_TEST_UTILITY_ENTID" => $idmap,
-        "APITOOLS_TEST_LIVE" => "FALSE",
-        "APITOOLS_TEST_EXPLAIN" => "FALSE",
+        "API_TOOLS_TEST_UTILITY_ENTID" => $idmap,
+        "API_TOOLS_TEST_LIVE" => "FALSE",
+        "API_TOOLS_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["APITOOLS_TEST_UTILITY_ENTID"]);
+        $env["API_TOOLS_TEST_UTILITY_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["APITOOLS_TEST_LIVE"] === "TRUE") {
+    if ($env["API_TOOLS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
             ],
@@ -101,13 +101,13 @@ function utility_basic_setup($extra)
         $client = new ApiToolsSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["APITOOLS_TEST_LIVE"] === "TRUE";
+    $live = $env["API_TOOLS_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["APITOOLS_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["API_TOOLS_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

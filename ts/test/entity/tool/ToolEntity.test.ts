@@ -26,8 +26,8 @@ import {
 describe('ToolEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when APITOOLS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('APITOOLS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when API_TOOLS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('API_TOOLS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = ApiToolsSDK.test()
@@ -63,7 +63,7 @@ describe('ToolEntity', async () => {
     const tool_ref01_ent = client.Tool()
     const tool_ref01_match: any = {}
 
-    const tool_ref01_list = await tool_ref01_ent.list(tool_ref01_match)
+    const tool_ref01_list = (await tool_ref01_ent.list(tool_ref01_match)).map((e: any) => e.data())
 
 
   })

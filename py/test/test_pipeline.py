@@ -16,11 +16,11 @@
 import pytest
 
 from apitools_sdk import ApiToolsSDK
-from core.error import ApiToolsError
-from core.result import ApiToolsResult
-from core.response import ApiToolsResponse
-from core.spec import ApiToolsSpec
-from feature.base_feature import ApiToolsBaseFeature
+from apitools_sdk.core.error import ApiToolsError
+from apitools_sdk.core.result import ApiToolsResult
+from apitools_sdk.core.response import ApiToolsResponse
+from apitools_sdk.core.spec import ApiToolsSpec
+from apitools_sdk.feature.base_feature import ApiToolsBaseFeature
 
 
 def _client():

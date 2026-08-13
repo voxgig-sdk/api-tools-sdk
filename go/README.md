@@ -290,9 +290,8 @@ API path: `/api/base64/decode`
 
 | Field | Description |
 | --- | --- |
-| `"type"` |  |
 | `"uuid"` |  |
-| `"value"` |  |
+| `"uuids"` |  |
 
 Operations: List, Load.
 
@@ -332,7 +331,7 @@ API path: `/api/tools`
 | `"ip"` |  |
 | `"iso"` |  |
 | `"isp"` |  |
-| `"millisecond"` |  |
+| `"milliseconds"` |  |
 | `"timestamp"` |  |
 | `"utc"` |  |
 
@@ -423,9 +422,8 @@ Create an instance: `generator := client.Generator(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `type` | `string` |  |
 | `uuid` | `string` |  |
-| `value` | `any` |  |
+| `uuids` | `[]any` |  |
 
 #### Example: Load
 
@@ -526,7 +524,7 @@ Create an instance: `utility := client.Utility(nil)`
 | `ip` | `string` |  |
 | `iso` | `string` |  |
 | `isp` | `string` |  |
-| `millisecond` | `int` |  |
+| `milliseconds` | `int` |  |
 | `timestamp` | `int` |  |
 | `utc` | `string` |  |
 

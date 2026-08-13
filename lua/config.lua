@@ -60,6 +60,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/api/hash",
                 ["parts"] = {
@@ -120,6 +121,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/api/base64/decode",
                 ["parts"] = {
@@ -137,6 +139,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/api/base64/encode",
                 ["parts"] = {
@@ -154,6 +157,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/api/url/decode",
                 ["parts"] = {
@@ -171,6 +175,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/api/url/encode",
                 ["parts"] = {
@@ -197,24 +202,17 @@ local function make_config()
         ["fields"] = {
           {
             ["active"] = true,
-            ["name"] = "type",
+            ["name"] = "uuid",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 0,
           },
           {
             ["active"] = true,
-            ["name"] = "uuid",
+            ["name"] = "uuids",
             ["req"] = false,
-            ["type"] = "`$STRING`",
+            ["type"] = "`$ARRAY`",
             ["index$"] = 1,
-          },
-          {
-            ["active"] = true,
-            ["name"] = "value",
-            ["req"] = false,
-            ["type"] = "`$ANY`",
-            ["index$"] = 2,
           },
         },
         ["name"] = "generator",
@@ -238,6 +236,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/uuid",
                 ["parts"] = {
@@ -251,7 +250,7 @@ local function make_config()
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.uuids`",
                 },
                 ["index$"] = 0,
               },
@@ -302,6 +301,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/random",
                 ["parts"] = {
@@ -318,7 +318,7 @@ local function make_config()
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.value`",
                 },
                 ["index$"] = 0,
               },
@@ -345,6 +345,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/qrcode",
                 ["parts"] = {
@@ -404,13 +405,14 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/",
                 ["parts"] = {},
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.apis`",
                 },
                 ["index$"] = 0,
               },
@@ -462,6 +464,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/tools",
                 ["parts"] = {
@@ -471,7 +474,7 @@ local function make_config()
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.tools`",
                 },
                 ["index$"] = 0,
               },
@@ -522,7 +525,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "millisecond",
+            ["name"] = "milliseconds",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
             ["index$"] = 5,
@@ -562,6 +565,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/ip",
                 ["parts"] = {
@@ -582,6 +586,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/timestamp",
                 ["parts"] = {

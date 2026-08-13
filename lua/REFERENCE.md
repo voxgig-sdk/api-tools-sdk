@@ -231,9 +231,8 @@ local generator = client:Generator(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `type` | `string` | No |  |
 | `uuid` | `string` | No |  |
-| `value` | `any` | No |  |
+| `uuids` | `table` | No |  |
 
 ### Operations
 
@@ -407,7 +406,7 @@ local utility = client:Utility(nil)
 | `ip` | `string` | No |  |
 | `iso` | `string` | No |  |
 | `isp` | `string` | No |  |
-| `millisecond` | `number` | No |  |
+| `milliseconds` | `number` | No |  |
 | `timestamp` | `number` | No |  |
 | `utc` | `string` | No |  |
 

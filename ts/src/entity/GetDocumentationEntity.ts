@@ -37,7 +37,7 @@ class GetDocumentationEntity extends ApiToolsEntityBase<GetDocumentation> {
 
 
 
-  async list(this: any, reqmatch?: GetDocumentationListMatch, ctrl?: Control): Promise<GetDocumentation[]> {
+  async list(this: any, reqmatch?: GetDocumentationListMatch, ctrl?: Control): Promise<GetDocumentationEntity[]> {
 
     const utility = this._utility
 

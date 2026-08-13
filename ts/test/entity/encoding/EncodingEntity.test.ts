@@ -26,8 +26,8 @@ import {
 describe('EncodingEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when APITOOLS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('APITOOLS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when API_TOOLS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('API_TOOLS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = ApiToolsSDK.test()
@@ -62,7 +62,7 @@ describe('EncodingEntity', async () => {
     const encoding_ref01_ent = client.Encoding()
     let encoding_ref01_data = setup.data.new.encoding['encoding_ref01']
 
-    encoding_ref01_data = await encoding_ref01_ent.create(encoding_ref01_data)
+    encoding_ref01_data = (await encoding_ref01_ent.create(encoding_ref01_data)).data()
     assert(null != encoding_ref01_data)
 
 

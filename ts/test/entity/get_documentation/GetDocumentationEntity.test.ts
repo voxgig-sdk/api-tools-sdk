@@ -26,8 +26,8 @@ import {
 describe('GetDocumentationEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when APITOOLS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('APITOOLS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when API_TOOLS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('API_TOOLS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = ApiToolsSDK.test()
@@ -63,7 +63,7 @@ describe('GetDocumentationEntity', async () => {
     const get_documentation_ref01_ent = client.GetDocumentation()
     const get_documentation_ref01_match: any = {}
 
-    const get_documentation_ref01_list = await get_documentation_ref01_ent.list(get_documentation_ref01_match)
+    const get_documentation_ref01_list = (await get_documentation_ref01_ent.list(get_documentation_ref01_match)).map((e: any) => e.data())
 
 
   })

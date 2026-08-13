@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# ApiTools SDK exists test
 
 import pytest
 from apitools_sdk import ApiToolsSDK

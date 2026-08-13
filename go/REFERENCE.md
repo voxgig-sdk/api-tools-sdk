@@ -237,9 +237,8 @@ fmt.Println(generator.GetName()) // "generator"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `type` | `string` | No |  |
 | `uuid` | `string` | No |  |
-| `value` | `any` | No |  |
+| `uuids` | `[]any` | No |  |
 
 ### Operations
 
@@ -414,7 +413,7 @@ fmt.Println(utility.GetName()) // "utility"
 | `ip` | `string` | No |  |
 | `iso` | `string` | No |  |
 | `isp` | `string` | No |  |
-| `millisecond` | `int` | No |  |
+| `milliseconds` | `int` | No |  |
 | `timestamp` | `int` | No |  |
 | `utc` | `string` | No |  |
 

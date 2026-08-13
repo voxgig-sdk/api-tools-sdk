@@ -36,7 +36,7 @@ const client = new ApiToolsSDK()
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created Cryptography
+// Create — returns the created Cryptography ENTITY (.data() for the record)
 const created = await client.Cryptography().create({
   text: 'example_text',
 })
@@ -118,7 +118,8 @@ Create a mock client for unit testing — no server required:
 const client = ApiToolsSDK.test()
 
 const generator = await client.Generator().list()
-// generator is a bare entity populated with mock response data
+// generator is the entity, populated with mock response data
+// — call generator.data() for the record itself
 console.log(generator)
 ```
 
@@ -314,9 +315,8 @@ API path: `/api/base64/decode`
 
 | Field | Description |
 | --- | --- |
-| `type` |  |
 | `uuid` |  |
-| `value` |  |
+| `uuids` |  |
 
 Operations: list, load.
 
@@ -356,7 +356,7 @@ API path: `/api/tools`
 | `ip` |  |
 | `iso` |  |
 | `isp` |  |
-| `millisecond` |  |
+| `milliseconds` |  |
 | `timestamp` |  |
 | `utc` |  |
 
@@ -439,9 +439,8 @@ Create an instance: `const generator = client.Generator()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `type` | `string` |  |
 | `uuid` | `string` |  |
-| `value` | `any` |  |
+| `uuids` | `any[]` |  |
 
 #### Example: Load
 
@@ -526,7 +525,7 @@ Create an instance: `const utility = client.Utility()`
 | `ip` | `string` |  |
 | `iso` | `string` |  |
 | `isp` | `string` |  |
-| `millisecond` | `number` |  |
+| `milliseconds` | `number` |  |
 | `timestamp` | `number` |  |
 | `utc` | `string` |  |
 

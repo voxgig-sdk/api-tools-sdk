@@ -46,7 +46,7 @@ main: kit: entity: tool: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.tools`"
           }
         }
       ]

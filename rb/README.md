@@ -33,7 +33,7 @@ client = ApiToolsSDK.new
 ### 4. Create, update, and remove
 
 ```ruby
-# create returns the bare created Cryptography record.
+# create returns the ENTITY — call data_get for the created Cryptography record.
 created = client.Cryptography.create({ "text" => "example_text" })
 
 ```
@@ -113,7 +113,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = ApiToolsSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 generator = client.Generator.list()
 puts generator
 ```
@@ -261,9 +262,8 @@ API path: `/api/base64/decode`
 
 | Field | Description |
 | --- | --- |
-| `type` |  |
 | `uuid` |  |
-| `value` |  |
+| `uuids` |  |
 
 Operations: List, Load.
 
@@ -303,7 +303,7 @@ API path: `/api/tools`
 | `ip` |  |
 | `iso` |  |
 | `isp` |  |
-| `millisecond` |  |
+| `milliseconds` |  |
 | `timestamp` |  |
 | `utc` |  |
 
@@ -386,14 +386,13 @@ Create an instance: `generator = client.Generator`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `type` | `String` |  |
 | `uuid` | `String` |  |
-| `value` | `Object` |  |
+| `uuids` | `Array` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Generator record (raises on error).
+# load returns the ENTITY — call data_get for the Generator record (raises on error).
 generator = client.Generator.load()
 ```
 
@@ -477,14 +476,14 @@ Create an instance: `utility = client.Utility`
 | `ip` | `String` |  |
 | `iso` | `String` |  |
 | `isp` | `String` |  |
-| `millisecond` | `Integer` |  |
+| `milliseconds` | `Integer` |  |
 | `timestamp` | `Integer` |  |
 | `utc` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Utility record (raises on error).
+# load returns the ENTITY — call data_get for the Utility record (raises on error).
 utility = client.Utility.load()
 ```
 

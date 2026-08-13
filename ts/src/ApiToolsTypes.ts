@@ -30,21 +30,18 @@ export interface EncodingCreateData {
 }
 
 export interface Generator {
-  type?: string
   uuid?: string
-  value?: any
+  uuids?: any[]
 }
 
 export interface GeneratorLoadMatch {
-  type?: string
   uuid?: string
-  value?: any
+  uuids?: any[]
 }
 
 export interface GeneratorListMatch {
-  type?: string
   uuid?: string
-  value?: any
+  uuids?: any[]
 }
 
 export interface GetDocumentation {
@@ -79,7 +76,7 @@ export interface Utility {
   ip?: string
   iso?: string
   isp?: string
-  millisecond?: number
+  milliseconds?: number
   timestamp?: number
   utc?: string
 }
@@ -90,7 +87,7 @@ export interface UtilityLoadMatch {
   ip?: string
   iso?: string
   isp?: string
-  millisecond?: number
+  milliseconds?: number
   timestamp?: number
   utc?: string
 }

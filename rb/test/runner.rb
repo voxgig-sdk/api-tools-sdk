@@ -23,8 +23,8 @@ module ApiToolsTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("APITOOLS_TEST_LIVE")
-    override = getenv("APITOOLS_TEST_OVERRIDE")
+    live = getenv("API_TOOLS_TEST_LIVE")
+    override = getenv("API_TOOLS_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module ApiToolsTestRunner
       end
     end
 
-    explain = getenv("APITOOLS_TEST_EXPLAIN")
-    m["APITOOLS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("API_TOOLS_TEST_EXPLAIN")
+    m["API_TOOLS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

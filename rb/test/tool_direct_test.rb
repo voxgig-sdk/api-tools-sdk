@@ -60,11 +60,11 @@ def tool_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "APITOOLS_TEST_TOOL_ENTID" => {},
-    "APITOOLS_TEST_LIVE" => "FALSE",
+    "API_TOOLS_TEST_TOOL_ENTID" => {},
+    "API_TOOLS_TEST_LIVE" => "FALSE",
   })
 
-  live = env["APITOOLS_TEST_LIVE"] == "TRUE"
+  live = env["API_TOOLS_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {

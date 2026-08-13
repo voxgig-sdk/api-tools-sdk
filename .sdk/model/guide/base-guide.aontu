@@ -32,21 +32,25 @@ guide: {
     }
     path: "/api/random": {
       op: load: method: *GET
+      op: load: transform: res: *("`body.value`")|top
     }
     path: "/api/uuid": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.uuids`")|top
     }
   }
 
   entity: get_documentation: {
     path: "/": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.apis`")|top
     }
   }
 
   entity: tool: {
     path: "/api/tools": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.tools`")|top
     }
   }
 

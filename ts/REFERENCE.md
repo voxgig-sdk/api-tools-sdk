@@ -293,9 +293,8 @@ const generator = client.Generator()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `type` | `string` | No |  |
 | `uuid` | `string` | No |  |
-| `value` | `any` | No |  |
+| `uuids` | `any[]` | No |  |
 
 ### Operations
 
@@ -463,7 +462,7 @@ const utility = client.Utility()
 | `ip` | `string` | No |  |
 | `iso` | `string` | No |  |
 | `isp` | `string` | No |  |
-| `millisecond` | `number` | No |  |
+| `milliseconds` | `number` | No |  |
 | `timestamp` | `number` | No |  |
 | `utc` | `string` | No |  |
 

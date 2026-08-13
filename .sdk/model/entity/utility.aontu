@@ -31,7 +31,7 @@ main: kit: entity: utility: {
       type: "`$STRING`"
     }
     {
-      name: "millisecond"
+      name: "milliseconds"
       req: false
       type: "`$INTEGER`"
     }

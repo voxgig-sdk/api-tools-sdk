@@ -40,9 +40,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = ApiToolsSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = ApiToolsSDK.test({
+  entity: {
+    generator: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const generators = await client.Generator().list()
-// generators is an array of bare Generator records populated with mock data
+// generators is an array of Generator entities, populated with mock data
+// — call generators[0].data() for the record itself
 console.log(generators)
 ```
 
@@ -326,6 +335,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://api.apitools.workers.dev/](https://api.apitools.workers.dev/)
 

@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ ApiToolsUtility.registrar = ->(u) {
   u.prepare_params = ApiToolsUtilities::PrepareParams
   u.prepare_path = ApiToolsUtilities::PreparePath
   u.prepare_query = ApiToolsUtilities::PrepareQuery
+  u.graphql_body = ApiToolsUtilities::GraphqlBody
+  u.graphql_errors = ApiToolsUtilities::GraphqlErrors
   u.result_basic = ApiToolsUtilities::ResultBasic
   u.result_body = ApiToolsUtilities::ResultBody
   u.result_headers = ApiToolsUtilities::ResultHeaders

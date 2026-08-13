@@ -39,7 +39,7 @@ client = ApiToolsSDK()
 ### 4. Create, update, and remove
 
 ```python
-# Create — returns the bare created record (a dict)
+# Create — returns the ENTITY (call data_get() for the record)
 created = client.Cryptography().create({"text": "example_text"})
 
 ```
@@ -118,7 +118,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = ApiToolsSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 generator = client.Generator().list()
 # generator contains the mock response record
 ```
@@ -221,7 +222,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -267,9 +268,8 @@ API path: `/api/base64/decode`
 
 | Field | Description |
 | --- | --- |
-| `type` |  |
 | `uuid` |  |
-| `value` |  |
+| `uuids` |  |
 
 Operations: List, Load.
 
@@ -309,7 +309,7 @@ API path: `/api/tools`
 | `ip` |  |
 | `iso` |  |
 | `isp` |  |
-| `millisecond` |  |
+| `milliseconds` |  |
 | `timestamp` |  |
 | `utc` |  |
 
@@ -392,9 +392,8 @@ Create an instance: `generator = client.Generator()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `type` | `str` |  |
 | `uuid` | `str` |  |
-| `value` | `Any` |  |
+| `uuids` | `list` |  |
 
 #### Example: Load
 
@@ -479,7 +478,7 @@ Create an instance: `utility = client.Utility()`
 | `ip` | `str` |  |
 | `iso` | `str` |  |
 | `isp` | `str` |  |
-| `millisecond` | `int` |  |
+| `milliseconds` | `int` |  |
 | `timestamp` | `int` |  |
 | `utc` | `str` |  |
 

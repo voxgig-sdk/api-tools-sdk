@@ -233,9 +233,8 @@ $generator = $client->Generator();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `type` | `string` | No |  |
 | `uuid` | `string` | No |  |
-| `value` | `mixed` | No |  |
+| `uuids` | `array` | No |  |
 
 ### Operations
 
@@ -409,7 +408,7 @@ $utility = $client->Utility();
 | `ip` | `string` | No |  |
 | `iso` | `string` | No |  |
 | `isp` | `string` | No |  |
-| `millisecond` | `int` | No |  |
+| `milliseconds` | `int` | No |  |
 | `timestamp` | `int` | No |  |
 | `utc` | `string` | No |  |
 

@@ -226,9 +226,8 @@ generator = client.Generator()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `type` | `str` | No |  |
 | `uuid` | `str` | No |  |
-| `value` | `Any` | No |  |
+| `uuids` | `list` | No |  |
 
 ### Operations
 
@@ -405,7 +404,7 @@ utility = client.Utility()
 | `ip` | `str` | No |  |
 | `iso` | `str` | No |  |
 | `isp` | `str` | No |  |
-| `millisecond` | `int` | No |  |
+| `milliseconds` | `int` | No |  |
 | `timestamp` | `int` | No |  |
 | `utc` | `str` | No |  |
 

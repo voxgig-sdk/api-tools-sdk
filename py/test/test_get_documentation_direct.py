@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from apitools_sdk.utility.voxgig_struct import voxgig_struct as vs
 from apitools_sdk import ApiToolsSDK
-from core import helpers
+from apitools_sdk.core import helpers
 from test import runner
 
 
@@ -58,11 +58,11 @@ def _get_documentation_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "APITOOLS_TEST_GET_DOCUMENTATION_ENTID": {},
-        "APITOOLS_TEST_LIVE": "FALSE",
+        "API_TOOLS_TEST_GET_DOCUMENTATION_ENTID": {},
+        "API_TOOLS_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("APITOOLS_TEST_LIVE") == "TRUE"
+    live = env.get("API_TOOLS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

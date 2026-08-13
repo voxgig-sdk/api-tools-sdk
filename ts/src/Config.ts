@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'ApiTools',
   }
 
 
@@ -100,6 +100,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/api/hash",
               "parts": [
@@ -160,6 +161,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/api/base64/decode",
               "parts": [
@@ -177,6 +179,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/api/base64/encode",
               "parts": [
@@ -194,6 +197,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/api/url/decode",
               "parts": [
@@ -211,6 +215,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/api/url/encode",
               "parts": [
@@ -237,24 +242,17 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "type",
+          "name": "uuid",
           "req": false,
           "type": "`$STRING`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "uuid",
+          "name": "uuids",
           "req": false,
-          "type": "`$STRING`",
+          "type": "`$ARRAY`",
           "index$": 1
-        },
-        {
-          "active": true,
-          "name": "value",
-          "req": false,
-          "type": "`$ANY`",
-          "index$": 2
         }
       ],
       "name": "generator",
@@ -278,6 +276,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api/uuid",
               "parts": [
@@ -291,7 +290,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.uuids`"
               },
               "index$": 0
             }
@@ -342,6 +341,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api/random",
               "parts": [
@@ -358,7 +358,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.value`"
               },
               "index$": 0
             },
@@ -385,6 +385,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api/qrcode",
               "parts": [
@@ -444,13 +445,14 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/",
               "parts": [],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.apis`"
               },
               "index$": 0
             }
@@ -502,6 +504,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/api/tools",
               "parts": [
@@ -511,7 +514,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.tools`"
               },
               "index$": 0
             }
@@ -562,7 +565,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "millisecond",
+          "name": "milliseconds",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 5
@@ -602,6 +605,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api/ip",
               "parts": [
@@ -622,6 +626,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/api/timestamp",
               "parts": [

@@ -221,9 +221,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local cryptography, err = client:Cryptography():load()
+    local generator, err = client:Generator():load()
     if err then error(err) end
-    -- cryptography is the loaded record
+    -- generator is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -258,9 +258,8 @@ API path: `/api/base64/decode`
 
 | Field | Description |
 | --- | --- |
-| `type` |  |
 | `uuid` |  |
-| `value` |  |
+| `uuids` |  |
 
 Operations: List, Load.
 
@@ -300,7 +299,7 @@ API path: `/api/tools`
 | `ip` |  |
 | `iso` |  |
 | `isp` |  |
-| `millisecond` |  |
+| `milliseconds` |  |
 | `timestamp` |  |
 | `utc` |  |
 
@@ -383,9 +382,8 @@ Create an instance: `local generator = client:Generator(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `type` | `string` |  |
 | `uuid` | `string` |  |
-| `value` | `any` |  |
+| `uuids` | `table` |  |
 
 #### Example: Load
 
@@ -470,7 +468,7 @@ Create an instance: `local utility = client:Utility(nil)`
 | `ip` | `string` |  |
 | `iso` | `string` |  |
 | `isp` | `string` |  |
-| `millisecond` | `number` |  |
+| `milliseconds` | `number` |  |
 | `timestamp` | `number` |  |
 | `utc` | `string` |  |
 

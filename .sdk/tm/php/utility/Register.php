@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ ApiToolsUtility::setRegistrar(function (ApiToolsUtility $u): void {
     $u->prepare_params = [ApiToolsPrepareParams::class, 'call'];
     $u->prepare_path = [ApiToolsPreparePath::class, 'call'];
     $u->prepare_query = [ApiToolsPrepareQuery::class, 'call'];
+    $u->graphql_body = [ApiToolsGraphql::class, 'body'];
+    $u->graphql_errors = [ApiToolsGraphql::class, 'errors'];
     $u->result_basic = [ApiToolsResultBasic::class, 'call'];
     $u->result_body = [ApiToolsResultBody::class, 'call'];
     $u->result_headers = [ApiToolsResultHeaders::class, 'call'];

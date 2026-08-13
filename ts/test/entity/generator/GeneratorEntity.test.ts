@@ -26,8 +26,8 @@ import {
 describe('GeneratorEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when APITOOLS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('APITOOLS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when API_TOOLS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('API_TOOLS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = ApiToolsSDK.test()
@@ -63,12 +63,12 @@ describe('GeneratorEntity', async () => {
     const generator_ref01_ent = client.Generator()
     const generator_ref01_match: any = {}
 
-    const generator_ref01_list = await generator_ref01_ent.list(generator_ref01_match)
+    const generator_ref01_list = (await generator_ref01_ent.list(generator_ref01_match)).map((e: any) => e.data())
 
 
     // LOAD
     const generator_ref01_match_dt0: any = {}
-    const generator_ref01_data_dt0 = await generator_ref01_ent.load(generator_ref01_match_dt0)
+    const generator_ref01_data_dt0 = (await generator_ref01_ent.load(generator_ref01_match_dt0)).data()
     assert(null != generator_ref01_data_dt0)
 
 

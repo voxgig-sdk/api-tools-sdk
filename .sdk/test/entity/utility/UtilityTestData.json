@@ -7,7 +7,7 @@
         "ip": "s52",
         "iso": "s53",
         "isp": "s54",
-        "millisecond": "s55",
+        "milliseconds": "s55",
         "timestamp": "s56",
         "utc": "s57",
         "id": "UTILITY00"
@@ -18,7 +18,7 @@
         "ip": "sa2",
         "iso": "sa3",
         "isp": "sa4",
-        "millisecond": "sa5",
+        "milliseconds": "sa5",
         "timestamp": "sa6",
         "utc": "sa7",
         "id": "UTILITY01"
@@ -29,7 +29,7 @@
         "ip": "sf2",
         "iso": "sf3",
         "isp": "sf4",
-        "millisecond": "sf5",
+        "milliseconds": "sf5",
         "timestamp": "sf6",
         "utc": "sf7",
         "id": "UTILITY02"
@@ -44,7 +44,7 @@
         "ip": "s142",
         "iso": "s143",
         "isp": "s144",
-        "millisecond": "s145",
+        "milliseconds": "s145",
         "timestamp": "s146",
         "utc": "s147"
       }

@@ -61,6 +61,7 @@ module ApiToolsConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/api/hash",
                   "parts" => [
@@ -121,6 +122,7 @@ module ApiToolsConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/api/base64/decode",
                   "parts" => [
@@ -138,6 +140,7 @@ module ApiToolsConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/api/base64/encode",
                   "parts" => [
@@ -155,6 +158,7 @@ module ApiToolsConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/api/url/decode",
                   "parts" => [
@@ -172,6 +176,7 @@ module ApiToolsConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/api/url/encode",
                   "parts" => [
@@ -198,24 +203,17 @@ module ApiToolsConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "type",
+              "name" => "uuid",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 0,
             },
             {
               "active" => true,
-              "name" => "uuid",
+              "name" => "uuids",
               "req" => false,
-              "type" => "`$STRING`",
+              "type" => "`$ARRAY`",
               "index$" => 1,
-            },
-            {
-              "active" => true,
-              "name" => "value",
-              "req" => false,
-              "type" => "`$ANY`",
-              "index$" => 2,
             },
           ],
           "name" => "generator",
@@ -239,6 +237,7 @@ module ApiToolsConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/uuid",
                   "parts" => [
@@ -252,7 +251,7 @@ module ApiToolsConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.uuids`",
                   },
                   "index$" => 0,
                 },
@@ -303,6 +302,7 @@ module ApiToolsConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/random",
                   "parts" => [
@@ -319,7 +319,7 @@ module ApiToolsConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.value`",
                   },
                   "index$" => 0,
                 },
@@ -346,6 +346,7 @@ module ApiToolsConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/qrcode",
                   "parts" => [
@@ -405,13 +406,14 @@ module ApiToolsConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/",
                   "parts" => [],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.apis`",
                   },
                   "index$" => 0,
                 },
@@ -463,6 +465,7 @@ module ApiToolsConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/tools",
                   "parts" => [
@@ -472,7 +475,7 @@ module ApiToolsConfig
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.tools`",
                   },
                   "index$" => 0,
                 },
@@ -523,7 +526,7 @@ module ApiToolsConfig
             },
             {
               "active" => true,
-              "name" => "millisecond",
+              "name" => "milliseconds",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 5,
@@ -563,6 +566,7 @@ module ApiToolsConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/ip",
                   "parts" => [
@@ -583,6 +587,7 @@ module ApiToolsConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/timestamp",
                   "parts" => [

@@ -2,21 +2,18 @@
   "existing": {
     "generator": {
       "GENERATOR00": {
-        "type": "s1e",
-        "uuid": "s1f",
-        "value": "s20",
+        "uuid": "s14",
+        "uuids": [],
         "id": "GENERATOR00"
       },
       "GENERATOR01": {
-        "type": "s3c",
-        "uuid": "s3d",
-        "value": "s3e",
+        "uuid": "s28",
+        "uuids": [],
         "id": "GENERATOR01"
       },
       "GENERATOR02": {
-        "type": "s5a",
-        "uuid": "s5b",
-        "value": "s5c",
+        "uuid": "s3c",
+        "uuids": [],
         "id": "GENERATOR02"
       }
     }
@@ -24,9 +21,8 @@
   "new": {
     "generator": {
       "generator_ref01": {
-        "type": "s78",
-        "uuid": "s79",
-        "value": "s7a"
+        "uuid": "s50",
+        "uuids": []
       }
     }
   }

@@ -37,7 +37,7 @@ class ToolEntity extends ApiToolsEntityBase<Tool> {
 
 
 
-  async list(this: any, reqmatch?: ToolListMatch, ctrl?: Control): Promise<Tool[]> {
+  async list(this: any, reqmatch?: ToolListMatch, ctrl?: Control): Promise<ToolEntity[]> {
 
     const utility = this._utility
 

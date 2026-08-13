@@ -26,8 +26,8 @@ import {
 describe('CryptographyEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when APITOOLS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('APITOOLS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when API_TOOLS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('API_TOOLS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = ApiToolsSDK.test()
@@ -62,7 +62,7 @@ describe('CryptographyEntity', async () => {
     const cryptography_ref01_ent = client.Cryptography()
     let cryptography_ref01_data = setup.data.new.cryptography['cryptography_ref01']
 
-    cryptography_ref01_data = await cryptography_ref01_ent.create(cryptography_ref01_data)
+    cryptography_ref01_data = (await cryptography_ref01_ent.create(cryptography_ref01_data)).data()
     assert(null != cryptography_ref01_data)
 
 

@@ -26,7 +26,7 @@ class EncodingEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set APITOOLS_TEST_ENCODING_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set API_TOOLS_TEST_ENCODING_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -37,7 +37,7 @@ class EncodingEntityTest < Minitest::Test
       Vs.getpath(setup[:data], "new.encoding"), "encoding_ref01"))
 
     encoding_ref01_data_result = encoding_ref01_ent.create(encoding_ref01_data, nil)
-    encoding_ref01_data = Helpers.to_map(encoding_ref01_data_result)
+    encoding_ref01_data = Helpers.to_map(encoding_ref01_data_result.respond_to?(:data_get) ? encoding_ref01_data_result.data_get : encoding_ref01_data_result)
     assert !encoding_ref01_data.nil?
 
   end
@@ -69,22 +69,22 @@ def encoding_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["APITOOLS_TEST_ENCODING_ENTID"]
+  entid_env_raw = ENV["API_TOOLS_TEST_ENCODING_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "APITOOLS_TEST_ENCODING_ENTID" => idmap,
-    "APITOOLS_TEST_LIVE" => "FALSE",
-    "APITOOLS_TEST_EXPLAIN" => "FALSE",
+    "API_TOOLS_TEST_ENCODING_ENTID" => idmap,
+    "API_TOOLS_TEST_LIVE" => "FALSE",
+    "API_TOOLS_TEST_EXPLAIN" => "FALSE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["APITOOLS_TEST_ENCODING_ENTID"])
+    env["API_TOOLS_TEST_ENCODING_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["APITOOLS_TEST_LIVE"] == "TRUE"
+  if env["API_TOOLS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
       },
@@ -93,13 +93,13 @@ def encoding_basic_setup(extra)
     client = ApiToolsSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["APITOOLS_TEST_LIVE"] == "TRUE"
+  live = env["API_TOOLS_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["APITOOLS_TEST_EXPLAIN"] == "TRUE",
+    explain: env["API_TOOLS_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

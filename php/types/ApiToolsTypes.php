@@ -47,25 +47,22 @@ class EncodingCreateData
 /** Generator entity data model. */
 class Generator
 {
-    public ?string $type = null;
     public ?string $uuid = null;
-    public mixed $value = null;
+    public ?array $uuids = null;
 }
 
 /** Request payload for Generator#load. */
 class GeneratorLoadMatch
 {
-    public ?string $type = null;
     public ?string $uuid = null;
-    public mixed $value = null;
+    public ?array $uuids = null;
 }
 
 /** Request payload for Generator#list. */
 class GeneratorListMatch
 {
-    public ?string $type = null;
     public ?string $uuid = null;
-    public mixed $value = null;
+    public ?array $uuids = null;
 }
 
 /** GetDocumentation entity data model. */
@@ -110,7 +107,7 @@ class Utility
     public ?string $ip = null;
     public ?string $iso = null;
     public ?string $isp = null;
-    public ?int $millisecond = null;
+    public ?int $milliseconds = null;
     public ?int $timestamp = null;
     public ?string $utc = null;
 }
@@ -123,7 +120,7 @@ class UtilityLoadMatch
     public ?string $ip = null;
     public ?string $iso = null;
     public ?string $isp = null;
-    public ?int $millisecond = null;
+    public ?int $milliseconds = null;
     public ?int $timestamp = null;
     public ?string $utc = null;
 }
