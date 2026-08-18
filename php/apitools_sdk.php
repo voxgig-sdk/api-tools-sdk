@@ -40,7 +40,7 @@ class ApiToolsSDK
         $utility = new ApiToolsUtility();
         $this->_utility = $utility;
 
-        $config = ApiToolsConfig::make_config();
+        $config = ApiToolsConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

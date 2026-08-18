@@ -28,7 +28,7 @@ class ApiToolsSDK
     utility = ApiToolsUtility.new
     @_utility = utility
 
-    config = ApiToolsConfig.make_config
+    config = ApiToolsConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

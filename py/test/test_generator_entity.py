@@ -42,8 +42,8 @@ class TestGeneratorEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from apitools_sdk.config import make_config
-        cfg = make_config()
+        from apitools_sdk.config import shared_config
+        cfg = shared_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = ApiToolsSDK.test(
                 seed, {"feature": {"streaming": {"active": True}}})
