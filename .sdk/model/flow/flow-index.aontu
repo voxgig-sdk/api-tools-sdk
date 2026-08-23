@@ -1,8 +1,0 @@
-# Flows
-
-@"BasicCryptographyFlow.aontu"
-@"BasicEncodingFlow.aontu"
-@"BasicGeneratorFlow.aontu"
-@"BasicGetDocumentationFlow.aontu"
-@"BasicToolFlow.aontu"
-@"BasicUtilityFlow.aontu"

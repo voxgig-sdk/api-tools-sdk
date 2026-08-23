@@ -1,0 +1,8 @@
+# Flows
+
+@"BasicCryptographyFlow.aon"
+@"BasicEncodingFlow.aon"
+@"BasicGeneratorFlow.aon"
+@"BasicGetDocumentationFlow.aon"
+@"BasicToolFlow.aon"
+@"BasicUtilityFlow.aon"

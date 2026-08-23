@@ -176,9 +176,9 @@ const cryptography = client.Cryptography()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `algorithm` | `string` | No |  |
+| `algorithm` | `string` | No | Hashing algorithm |
 | `hash` | `string` | No |  |
-| `text` | `string` | Yes |  |
+| `text` | `string` | Yes | Text to hash |
 
 ### Operations
 
@@ -231,8 +231,8 @@ const encoding = client.Encoding()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `decoded` | `string` | No |  |
-| `encoded` | `string` | Yes |  |
-| `text` | `string` | Yes |  |
+| `encoded` | `string` | Yes | Base64 encoded text to decode |
+| `text` | `string` | Yes | Text to encode |
 
 ### Field Usage by Operation
 
@@ -352,9 +352,9 @@ const get_documentation = client.GetDocumentation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `string` | No |  |
-| `endpoint` | `string` | No |  |
-| `name` | `string` | No |  |
+| `description` | `string` | No | Description of the API |
+| `endpoint` | `string` | No | Endpoint path for the API |
+| `name` | `string` | No | Name of the API |
 
 ### Operations
 
@@ -460,11 +460,11 @@ const utility = client.Utility()
 | `city` | `string` | No |  |
 | `country` | `string` | No |  |
 | `ip` | `string` | No |  |
-| `iso` | `string` | No |  |
+| `iso` | `string` | No | ISO 8601 formatted date |
 | `isp` | `string` | No |  |
-| `milliseconds` | `number` | No |  |
-| `timestamp` | `number` | No |  |
-| `utc` | `string` | No |  |
+| `milliseconds` | `number` | No | Unix timestamp in milliseconds |
+| `timestamp` | `number` | No | Unix timestamp in seconds |
+| `utc` | `string` | No | UTC formatted date |
 
 ### Operations
 

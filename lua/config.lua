@@ -7,6 +7,9 @@ local function make_config()
   return {
     main = {
       name = "ApiTools",
+      slug = "api-tools",
+      version = "0.0.1",
+      target = "lua",
     },
     feature = {
       ["test"] = {
@@ -34,6 +37,7 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "algorithm",
+            ["short"] = "Hashing algorithm",
             ["type"] = "`$STRING`",
           },
           {
@@ -43,6 +47,7 @@ local function make_config()
           {
             ["name"] = "text",
             ["req"] = true,
+            ["short"] = "Text to hash",
             ["type"] = "`$STRING`",
           },
         },
@@ -88,11 +93,13 @@ local function make_config()
               },
             },
             ["req"] = true,
+            ["short"] = "Base64 encoded text to decode",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "text",
             ["req"] = true,
+            ["short"] = "Text to encode",
             ["type"] = "`$STRING`",
           },
         },
@@ -324,14 +331,17 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "description",
+            ["short"] = "Description of the API",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "endpoint",
+            ["short"] = "Endpoint path for the API",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "name",
+            ["short"] = "Name of the API",
             ["type"] = "`$STRING`",
           },
         },
@@ -423,6 +433,7 @@ local function make_config()
           },
           {
             ["name"] = "iso",
+            ["short"] = "ISO 8601 formatted date",
             ["type"] = "`$STRING`",
           },
           {
@@ -431,14 +442,17 @@ local function make_config()
           },
           {
             ["name"] = "milliseconds",
+            ["short"] = "Unix timestamp in milliseconds",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "timestamp",
+            ["short"] = "Unix timestamp in seconds",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "utc",
+            ["short"] = "UTC formatted date",
             ["type"] = "`$STRING`",
           },
         },

@@ -248,9 +248,9 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `algorithm` |  |
+| `algorithm` | Hashing algorithm |
 | `hash` |  |
-| `text` |  |
+| `text` | Text to hash |
 
 Operations: Create.
 
@@ -261,8 +261,8 @@ API path: `/api/hash`
 | Field | Description |
 | --- | --- |
 | `decoded` |  |
-| `encoded` |  |
-| `text` |  |
+| `encoded` | Base64 encoded text to decode |
+| `text` | Text to encode |
 
 Operations: Create.
 
@@ -283,9 +283,9 @@ API path: `/api/uuid`
 
 | Field | Description |
 | --- | --- |
-| `description` |  |
-| `endpoint` |  |
-| `name` |  |
+| `description` | Description of the API |
+| `endpoint` | Endpoint path for the API |
+| `name` | Name of the API |
 
 Operations: List.
 
@@ -311,11 +311,11 @@ API path: `/api/tools`
 | `city` |  |
 | `country` |  |
 | `ip` |  |
-| `iso` |  |
+| `iso` | ISO 8601 formatted date |
 | `isp` |  |
-| `milliseconds` |  |
-| `timestamp` |  |
-| `utc` |  |
+| `milliseconds` | Unix timestamp in milliseconds |
+| `timestamp` | Unix timestamp in seconds |
+| `utc` | UTC formatted date |
 
 Operations: Load.
 
@@ -340,9 +340,9 @@ Create an instance: `$cryptography = $client->Cryptography();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `algorithm` | `string` |  |
+| `algorithm` | `string` | Hashing algorithm |
 | `hash` | `string` |  |
-| `text` | `string` |  |
+| `text` | `string` | Text to hash |
 
 #### Example: Create
 
@@ -368,8 +368,8 @@ Create an instance: `$encoding = $client->Encoding();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `decoded` | `string` |  |
-| `encoded` | `string` |  |
-| `text` | `string` |  |
+| `encoded` | `string` | Base64 encoded text to decode |
+| `text` | `string` | Text to encode |
 
 #### Example: Create
 
@@ -428,9 +428,9 @@ Create an instance: `$get_documentation = $client->GetDocumentation();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `string` |  |
-| `endpoint` | `string` |  |
-| `name` | `string` |  |
+| `description` | `string` | Description of the API |
+| `endpoint` | `string` | Endpoint path for the API |
+| `name` | `string` | Name of the API |
 
 #### Example: List
 
@@ -484,11 +484,11 @@ Create an instance: `$utility = $client->Utility();`
 | `city` | `string` |  |
 | `country` | `string` |  |
 | `ip` | `string` |  |
-| `iso` | `string` |  |
+| `iso` | `string` | ISO 8601 formatted date |
 | `isp` | `string` |  |
-| `milliseconds` | `int` |  |
-| `timestamp` | `int` |  |
-| `utc` | `string` |  |
+| `milliseconds` | `int` | Unix timestamp in milliseconds |
+| `timestamp` | `int` | Unix timestamp in seconds |
+| `utc` | `string` | UTC formatted date |
 
 #### Example: Load
 

@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "ApiTools",
+			"slug": "api-tools",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -38,6 +41,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "algorithm",
+						"short": "Hashing algorithm",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -47,6 +51,7 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "text",
 						"req": true,
+						"short": "Text to hash",
 						"type": "`$STRING`",
 					},
 				},
@@ -92,11 +97,13 @@ func MakeConfig() map[string]any {
 							},
 						},
 						"req": true,
+						"short": "Base64 encoded text to decode",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "text",
 						"req": true,
+						"short": "Text to encode",
 						"type": "`$STRING`",
 					},
 				},
@@ -328,14 +335,17 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "description",
+						"short": "Description of the API",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "endpoint",
+						"short": "Endpoint path for the API",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "name",
+						"short": "Name of the API",
 						"type": "`$STRING`",
 					},
 				},
@@ -427,6 +437,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "iso",
+						"short": "ISO 8601 formatted date",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -435,14 +446,17 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "milliseconds",
+						"short": "Unix timestamp in milliseconds",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "timestamp",
+						"short": "Unix timestamp in seconds",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "utc",
+						"short": "UTC formatted date",
 						"type": "`$STRING`",
 					},
 				},

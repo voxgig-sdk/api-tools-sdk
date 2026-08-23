@@ -244,9 +244,9 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `algorithm` |  |
+| `algorithm` | Hashing algorithm |
 | `hash` |  |
-| `text` |  |
+| `text` | Text to hash |
 
 Operations: Create.
 
@@ -257,8 +257,8 @@ API path: `/api/hash`
 | Field | Description |
 | --- | --- |
 | `decoded` |  |
-| `encoded` |  |
-| `text` |  |
+| `encoded` | Base64 encoded text to decode |
+| `text` | Text to encode |
 
 Operations: Create.
 
@@ -279,9 +279,9 @@ API path: `/api/uuid`
 
 | Field | Description |
 | --- | --- |
-| `description` |  |
-| `endpoint` |  |
-| `name` |  |
+| `description` | Description of the API |
+| `endpoint` | Endpoint path for the API |
+| `name` | Name of the API |
 
 Operations: List.
 
@@ -307,11 +307,11 @@ API path: `/api/tools`
 | `city` |  |
 | `country` |  |
 | `ip` |  |
-| `iso` |  |
+| `iso` | ISO 8601 formatted date |
 | `isp` |  |
-| `milliseconds` |  |
-| `timestamp` |  |
-| `utc` |  |
+| `milliseconds` | Unix timestamp in milliseconds |
+| `timestamp` | Unix timestamp in seconds |
+| `utc` | UTC formatted date |
 
 Operations: Load.
 
@@ -336,9 +336,9 @@ Create an instance: `cryptography = client.Cryptography()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `algorithm` | `str` |  |
+| `algorithm` | `str` | Hashing algorithm |
 | `hash` | `str` |  |
-| `text` | `str` |  |
+| `text` | `str` | Text to hash |
 
 #### Example: Create
 
@@ -364,8 +364,8 @@ Create an instance: `encoding = client.Encoding()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `decoded` | `str` |  |
-| `encoded` | `str` |  |
-| `text` | `str` |  |
+| `encoded` | `str` | Base64 encoded text to decode |
+| `text` | `str` | Text to encode |
 
 #### Example: Create
 
@@ -422,9 +422,9 @@ Create an instance: `get_documentation = client.GetDocumentation()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `str` |  |
-| `endpoint` | `str` |  |
-| `name` | `str` |  |
+| `description` | `str` | Description of the API |
+| `endpoint` | `str` | Endpoint path for the API |
+| `name` | `str` | Name of the API |
 
 #### Example: List
 
@@ -476,11 +476,11 @@ Create an instance: `utility = client.Utility()`
 | `city` | `str` |  |
 | `country` | `str` |  |
 | `ip` | `str` |  |
-| `iso` | `str` |  |
+| `iso` | `str` | ISO 8601 formatted date |
 | `isp` | `str` |  |
-| `milliseconds` | `int` |  |
-| `timestamp` | `int` |  |
-| `utc` | `str` |  |
+| `milliseconds` | `int` | Unix timestamp in milliseconds |
+| `timestamp` | `int` | Unix timestamp in seconds |
+| `utc` | `str` | UTC formatted date |
 
 #### Example: Load
 

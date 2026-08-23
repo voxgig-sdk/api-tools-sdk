@@ -107,9 +107,9 @@ cryptography = client.Cryptography()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `algorithm` | `str` | No |  |
+| `algorithm` | `str` | No | Hashing algorithm |
 | `hash` | `str` | No |  |
-| `text` | `str` | Yes |  |
+| `text` | `str` | Yes | Text to hash |
 
 ### Operations
 
@@ -163,8 +163,8 @@ encoding = client.Encoding()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `decoded` | `str` | No |  |
-| `encoded` | `str` | Yes |  |
-| `text` | `str` | Yes |  |
+| `encoded` | `str` | Yes | Base64 encoded text to decode |
+| `text` | `str` | Yes | Text to encode |
 
 ### Field Usage by Operation
 
@@ -288,9 +288,9 @@ get_documentation = client.GetDocumentation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `str` | No |  |
-| `endpoint` | `str` | No |  |
-| `name` | `str` | No |  |
+| `description` | `str` | No | Description of the API |
+| `endpoint` | `str` | No | Endpoint path for the API |
+| `name` | `str` | No | Name of the API |
 
 ### Operations
 
@@ -402,11 +402,11 @@ utility = client.Utility()
 | `city` | `str` | No |  |
 | `country` | `str` | No |  |
 | `ip` | `str` | No |  |
-| `iso` | `str` | No |  |
+| `iso` | `str` | No | ISO 8601 formatted date |
 | `isp` | `str` | No |  |
-| `milliseconds` | `int` | No |  |
-| `timestamp` | `int` | No |  |
-| `utc` | `str` | No |  |
+| `milliseconds` | `int` | No | Unix timestamp in milliseconds |
+| `timestamp` | `int` | No | Unix timestamp in seconds |
+| `utc` | `str` | No | UTC formatted date |
 
 ### Operations
 

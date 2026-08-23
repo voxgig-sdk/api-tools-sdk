@@ -33,6 +33,9 @@ class ApiToolsConfig
         return [
             "main" => [
                 "name" => "ApiTools",
+                "slug" => "api-tools",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
@@ -60,6 +63,7 @@ class ApiToolsConfig
           'fields' => [
             [
               'name' => 'algorithm',
+              'short' => 'Hashing algorithm',
               'type' => '`$STRING`',
             ],
             [
@@ -69,6 +73,7 @@ class ApiToolsConfig
             [
               'name' => 'text',
               'req' => true,
+              'short' => 'Text to hash',
               'type' => '`$STRING`',
             ],
           ],
@@ -114,11 +119,13 @@ class ApiToolsConfig
                 ],
               ],
               'req' => true,
+              'short' => 'Base64 encoded text to decode',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'text',
               'req' => true,
+              'short' => 'Text to encode',
               'type' => '`$STRING`',
             ],
           ],
@@ -350,14 +357,17 @@ class ApiToolsConfig
           'fields' => [
             [
               'name' => 'description',
+              'short' => 'Description of the API',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'endpoint',
+              'short' => 'Endpoint path for the API',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'name',
+              'short' => 'Name of the API',
               'type' => '`$STRING`',
             ],
           ],
@@ -449,6 +459,7 @@ class ApiToolsConfig
             ],
             [
               'name' => 'iso',
+              'short' => 'ISO 8601 formatted date',
               'type' => '`$STRING`',
             ],
             [
@@ -457,14 +468,17 @@ class ApiToolsConfig
             ],
             [
               'name' => 'milliseconds',
+              'short' => 'Unix timestamp in milliseconds',
               'type' => '`$INTEGER`',
             ],
             [
               'name' => 'timestamp',
+              'short' => 'Unix timestamp in seconds',
               'type' => '`$INTEGER`',
             ],
             [
               'name' => 'utc',
+              'short' => 'UTC formatted date',
               'type' => '`$STRING`',
             ],
           ],

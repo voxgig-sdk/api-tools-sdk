@@ -113,9 +113,9 @@ cryptography = client.Cryptography
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `algorithm` | `String` | No |  |
+| `algorithm` | `String` | No | Hashing algorithm |
 | `hash` | `String` | No |  |
-| `text` | `String` | Yes |  |
+| `text` | `String` | Yes | Text to hash |
 
 ### Operations
 
@@ -170,8 +170,8 @@ encoding = client.Encoding
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `decoded` | `String` | No |  |
-| `encoded` | `String` | Yes |  |
-| `text` | `String` | Yes |  |
+| `encoded` | `String` | Yes | Base64 encoded text to decode |
+| `text` | `String` | Yes | Text to encode |
 
 ### Field Usage by Operation
 
@@ -295,9 +295,9 @@ get_documentation = client.GetDocumentation
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `String` | No |  |
-| `endpoint` | `String` | No |  |
-| `name` | `String` | No |  |
+| `description` | `String` | No | Description of the API |
+| `endpoint` | `String` | No | Endpoint path for the API |
+| `name` | `String` | No | Name of the API |
 
 ### Operations
 
@@ -407,11 +407,11 @@ utility = client.Utility
 | `city` | `String` | No |  |
 | `country` | `String` | No |  |
 | `ip` | `String` | No |  |
-| `iso` | `String` | No |  |
+| `iso` | `String` | No | ISO 8601 formatted date |
 | `isp` | `String` | No |  |
-| `milliseconds` | `Integer` | No |  |
-| `timestamp` | `Integer` | No |  |
-| `utc` | `String` | No |  |
+| `milliseconds` | `Integer` | No | Unix timestamp in milliseconds |
+| `timestamp` | `Integer` | No | Unix timestamp in seconds |
+| `utc` | `String` | No | UTC formatted date |
 
 ### Operations
 

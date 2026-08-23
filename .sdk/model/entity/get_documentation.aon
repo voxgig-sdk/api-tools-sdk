@@ -1,0 +1,47 @@
+# Entity: get_documentation
+
+main: kit: entity: get_documentation: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "description"
+      req: false
+      short: "Description of the API"
+      type: "`$STRING`"
+    }
+    {
+      name: "endpoint"
+      req: false
+      short: "Endpoint path for the API"
+      type: "`$STRING`"
+    }
+    {
+      name: "name"
+      req: false
+      short: "Name of the API"
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "get_documentation"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/"
+          transform: {
+            req: "`reqdata`"
+            res: "`body.apis`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

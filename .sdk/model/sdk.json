@@ -36,6 +36,7 @@
               "active": true,
               "name": "algorithm",
               "req": false,
+              "short": "Hashing algorithm",
               "type": "`$STRING`"
             },
             {
@@ -48,6 +49,7 @@
               "active": true,
               "name": "text",
               "req": true,
+              "short": "Text to hash",
               "type": "`$STRING`"
             }
           ],
@@ -102,12 +104,14 @@
                 }
               },
               "req": true,
+              "short": "Base64 encoded text to decode",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "text",
               "req": true,
+              "short": "Text to encode",
               "type": "`$STRING`"
             }
           ],
@@ -373,18 +377,21 @@
               "active": true,
               "name": "description",
               "req": false,
+              "short": "Description of the API",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "endpoint",
               "req": false,
+              "short": "Endpoint path for the API",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "name",
               "req": false,
+              "short": "Name of the API",
               "type": "`$STRING`"
             }
           ],
@@ -506,6 +513,7 @@
               "active": true,
               "name": "iso",
               "req": false,
+              "short": "ISO 8601 formatted date",
               "type": "`$STRING`"
             },
             {
@@ -518,18 +526,21 @@
               "active": true,
               "name": "milliseconds",
               "req": false,
+              "short": "Unix timestamp in milliseconds",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "timestamp",
               "req": false,
+              "short": "Unix timestamp in seconds",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "utc",
               "req": false,
+              "short": "UTC formatted date",
               "type": "`$STRING`"
             }
           ],

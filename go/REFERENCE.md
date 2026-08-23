@@ -118,9 +118,9 @@ fmt.Println(cryptography.GetName()) // "cryptography"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `algorithm` | `string` | No |  |
+| `algorithm` | `string` | No | Hashing algorithm |
 | `hash` | `string` | No |  |
-| `text` | `string` | Yes |  |
+| `text` | `string` | Yes | Text to hash |
 
 ### Operations
 
@@ -174,8 +174,8 @@ fmt.Println(encoding.GetName()) // "encoding"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `decoded` | `string` | No |  |
-| `encoded` | `string` | Yes |  |
-| `text` | `string` | Yes |  |
+| `encoded` | `string` | Yes | Base64 encoded text to decode |
+| `text` | `string` | Yes | Text to encode |
 
 ### Field Usage by Operation
 
@@ -301,9 +301,9 @@ fmt.Println(getDocumentation.GetName()) // "get_documentation"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `string` | No |  |
-| `endpoint` | `string` | No |  |
-| `name` | `string` | No |  |
+| `description` | `string` | No | Description of the API |
+| `endpoint` | `string` | No | Endpoint path for the API |
+| `name` | `string` | No | Name of the API |
 
 ### Operations
 
@@ -411,11 +411,11 @@ fmt.Println(utility.GetName()) // "utility"
 | `city` | `string` | No |  |
 | `country` | `string` | No |  |
 | `ip` | `string` | No |  |
-| `iso` | `string` | No |  |
+| `iso` | `string` | No | ISO 8601 formatted date |
 | `isp` | `string` | No |  |
-| `milliseconds` | `int` | No |  |
-| `timestamp` | `int` | No |  |
-| `utc` | `string` | No |  |
+| `milliseconds` | `int` | No | Unix timestamp in milliseconds |
+| `timestamp` | `int` | No | Unix timestamp in seconds |
+| `utc` | `string` | No | UTC formatted date |
 
 ### Operations
 
