@@ -28,6 +28,7 @@ module ApiToolsConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
