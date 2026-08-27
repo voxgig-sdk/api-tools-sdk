@@ -91,27 +91,31 @@ Generator = Struct.new(
 
 # Request payload for Generator#load.
 #
-# @!attribute [rw] uuid
-#   @return [String, nil]
+# @!attribute [rw] length
+#   @return [Integer, nil]
 #
-# @!attribute [rw] uuids
-#   @return [Array, nil]
+# @!attribute [rw] max
+#   @return [Integer, nil]
+#
+# @!attribute [rw] min
+#   @return [Integer, nil]
+#
+# @!attribute [rw] type
+#   @return [String, nil]
 GeneratorLoadMatch = Struct.new(
-  :uuid,
-  :uuids,
+  :length,
+  :max,
+  :min,
+  :type,
   keyword_init: true
 )
 
 # Request payload for Generator#list.
 #
-# @!attribute [rw] uuid
-#   @return [String, nil]
-#
-# @!attribute [rw] uuids
-#   @return [Array, nil]
+# @!attribute [rw] count
+#   @return [Integer, nil]
 GeneratorListMatch = Struct.new(
-  :uuid,
-  :uuids,
+  :count,
   keyword_init: true
 )
 
@@ -230,38 +234,10 @@ Utility = Struct.new(
 
 # Request payload for Utility#load.
 #
-# @!attribute [rw] city
-#   @return [String, nil]
-#
-# @!attribute [rw] country
-#   @return [String, nil]
-#
 # @!attribute [rw] ip
 #   @return [String, nil]
-#
-# @!attribute [rw] iso
-#   @return [String, nil]
-#
-# @!attribute [rw] isp
-#   @return [String, nil]
-#
-# @!attribute [rw] milliseconds
-#   @return [Integer, nil]
-#
-# @!attribute [rw] timestamp
-#   @return [Integer, nil]
-#
-# @!attribute [rw] utc
-#   @return [String, nil]
 UtilityLoadMatch = Struct.new(
-  :city,
-  :country,
   :ip,
-  :iso,
-  :isp,
-  :milliseconds,
-  :timestamp,
-  :utc,
   keyword_init: true
 )
 

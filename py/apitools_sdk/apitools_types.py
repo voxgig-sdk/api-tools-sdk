@@ -58,13 +58,14 @@ class Generator(TypedDict, total=False):
 
 
 class GeneratorLoadMatch(TypedDict, total=False):
-    uuid: str
-    uuids: list
+    length: int
+    max: int
+    min: int
+    type: str
 
 
 class GeneratorListMatch(TypedDict, total=False):
-    uuid: str
-    uuids: list
+    count: int
 
 
 class GetDocumentation(TypedDict, total=False):
@@ -105,11 +106,4 @@ class Utility(TypedDict, total=False):
 
 
 class UtilityLoadMatch(TypedDict, total=False):
-    city: str
-    country: str
     ip: str
-    iso: str
-    isp: str
-    milliseconds: int
-    timestamp: int
-    utc: str

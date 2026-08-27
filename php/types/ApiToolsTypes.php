@@ -54,15 +54,16 @@ class Generator
 /** Request payload for Generator#load. */
 class GeneratorLoadMatch
 {
-    public ?string $uuid = null;
-    public ?array $uuids = null;
+    public ?int $length = null;
+    public ?int $max = null;
+    public ?int $min = null;
+    public ?string $type = null;
 }
 
 /** Request payload for Generator#list. */
 class GeneratorListMatch
 {
-    public ?string $uuid = null;
-    public ?array $uuids = null;
+    public ?int $count = null;
 }
 
 /** GetDocumentation entity data model. */
@@ -115,13 +116,6 @@ class Utility
 /** Request payload for Utility#load. */
 class UtilityLoadMatch
 {
-    public ?string $city = null;
-    public ?string $country = null;
     public ?string $ip = null;
-    public ?string $iso = null;
-    public ?string $isp = null;
-    public ?int $milliseconds = null;
-    public ?int $timestamp = null;
-    public ?string $utc = null;
 }
 

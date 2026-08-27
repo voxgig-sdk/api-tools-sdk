@@ -48,14 +48,15 @@ type Generator struct {
 
 // GeneratorLoadMatch is the typed request payload for Generator.LoadTyped.
 type GeneratorLoadMatch struct {
-	Uuid *string `json:"uuid,omitempty"`
-	Uuids *[]any `json:"uuids,omitempty"`
+	Length *int `json:"length,omitempty"`
+	Max *int `json:"max,omitempty"`
+	Min *int `json:"min,omitempty"`
+	Type *string `json:"type,omitempty"`
 }
 
 // GeneratorListMatch is the typed request payload for Generator.ListTyped.
 type GeneratorListMatch struct {
-	Uuid *string `json:"uuid,omitempty"`
-	Uuids *[]any `json:"uuids,omitempty"`
+	Count *int `json:"count,omitempty"`
 }
 
 // GetDocumentation is the typed data model for the get_documentation entity.
@@ -102,14 +103,7 @@ type Utility struct {
 
 // UtilityLoadMatch is the typed request payload for Utility.LoadTyped.
 type UtilityLoadMatch struct {
-	City *string `json:"city,omitempty"`
-	Country *string `json:"country,omitempty"`
 	Ip *string `json:"ip,omitempty"`
-	Iso *string `json:"iso,omitempty"`
-	Isp *string `json:"isp,omitempty"`
-	Milliseconds *int `json:"milliseconds,omitempty"`
-	Timestamp *int `json:"timestamp,omitempty"`
-	Utc *string `json:"utc,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

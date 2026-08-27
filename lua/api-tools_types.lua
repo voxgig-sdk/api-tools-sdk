@@ -31,12 +31,13 @@
 ---@field uuids? table
 
 ---@class GeneratorLoadMatch
----@field uuid? string
----@field uuids? table
+---@field length? number
+---@field max? number
+---@field min? number
+---@field type? string
 
 ---@class GeneratorListMatch
----@field uuid? string
----@field uuids? table
+---@field count? number
 
 ---@class GetDocumentation
 ---@field description? string
@@ -71,14 +72,7 @@
 ---@field utc? string
 
 ---@class UtilityLoadMatch
----@field city? string
----@field country? string
 ---@field ip? string
----@field iso? string
----@field isp? string
----@field milliseconds? number
----@field timestamp? number
----@field utc? string
 
 local M = {}
 

@@ -35,13 +35,14 @@ export interface Generator {
 }
 
 export interface GeneratorLoadMatch {
-  uuid?: string
-  uuids?: any[]
+  length?: number
+  max?: number
+  min?: number
+  type?: string
 }
 
 export interface GeneratorListMatch {
-  uuid?: string
-  uuids?: any[]
+  count?: number
 }
 
 export interface GetDocumentation {
@@ -82,13 +83,6 @@ export interface Utility {
 }
 
 export interface UtilityLoadMatch {
-  city?: string
-  country?: string
   ip?: string
-  iso?: string
-  isp?: string
-  milliseconds?: number
-  timestamp?: number
-  utc?: string
 }
 
