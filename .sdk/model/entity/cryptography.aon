@@ -32,9 +32,13 @@ main: kit: entity: cryptography: {
         {
           method: "POST"
           orig: "/api/hash"
-          parts: [
-            "api"
-            "hash"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "hash"
+            }
           ]
           transform: {
             req: "`reqdata`"

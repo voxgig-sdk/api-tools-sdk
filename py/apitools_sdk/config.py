@@ -1,6 +1,14 @@
 # ApiTools SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -84,15 +92,23 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/api/hash",
-                "parts": [
-                  "api",
-                  "hash",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "hash",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "hash",
+                ],
               },
             ],
           },
@@ -136,64 +152,108 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/api/base64/decode",
-                "parts": [
-                  "api",
-                  "base64",
-                  "decode",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "base64",
+                  },
+                  {
+                    "lit": "decode",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "base64",
+                  "decode",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/api/base64/encode",
-                "parts": [
-                  "api",
-                  "base64",
-                  "encode",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "base64",
+                  },
+                  {
+                    "lit": "encode",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "base64",
+                  "encode",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/api/url/decode",
-                "parts": [
-                  "api",
-                  "url",
-                  "decode",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "url",
+                  },
+                  {
+                    "lit": "decode",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "url",
+                  "decode",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/api/url/encode",
-                "parts": [
-                  "api",
-                  "url",
-                  "encode",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "url",
+                  },
+                  {
+                    "lit": "encode",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "url",
+                  "encode",
+                ],
               },
             ],
           },
@@ -234,9 +294,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/uuid",
-                "parts": [
-                  "api",
-                  "uuid",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "uuid",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -247,6 +311,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.uuids`",
                 },
+                "parts": [
+                  "api",
+                  "uuid",
+                ],
               },
             ],
           },
@@ -288,9 +356,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/random",
-                "parts": [
-                  "api",
-                  "random",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "random",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -304,6 +376,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.value`",
                 },
+                "parts": [
+                  "api",
+                  "random",
+                ],
               },
               {
                 "args": {
@@ -327,9 +403,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/qrcode",
-                "parts": [
-                  "api",
-                  "qrcode",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "qrcode",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -341,6 +421,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "qrcode",
+                ],
               },
             ],
           },
@@ -378,12 +462,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/",
-                "parts": [],
+                "segments": [],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body.apis`",
                 },
+                "parts": [],
               },
             ],
           },
@@ -411,6 +496,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "tool",
         "op": {
           "list": {
@@ -422,15 +511,23 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/tools",
-                "parts": [
-                  "api",
-                  "tools",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "tools",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body.tools`",
                 },
+                "parts": [
+                  "api",
+                  "tools",
+                ],
               },
             ],
           },
@@ -498,9 +595,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/ip",
-                "parts": [
-                  "api",
-                  "ip",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "ip",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -511,21 +612,33 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "ip",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/timestamp",
-                "parts": [
-                  "api",
-                  "timestamp",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "timestamp",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "timestamp",
+                ],
               },
             ],
           },

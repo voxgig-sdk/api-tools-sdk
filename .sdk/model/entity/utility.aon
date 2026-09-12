@@ -70,9 +70,13 @@ main: kit: entity: utility: {
           }
           method: "GET"
           orig: "/api/ip"
-          parts: [
-            "api"
-            "ip"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "ip"
+            }
           ]
           select: {
             exist: [
@@ -87,9 +91,13 @@ main: kit: entity: utility: {
         {
           method: "GET"
           orig: "/api/timestamp"
-          parts: [
-            "api"
-            "timestamp"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "timestamp"
+            }
           ]
           transform: {
             req: "`reqdata`"

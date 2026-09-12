@@ -37,9 +37,13 @@ main: kit: entity: generator: {
           }
           method: "GET"
           orig: "/api/uuid"
-          parts: [
-            "api"
-            "uuid"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "uuid"
+            }
           ]
           select: {
             exist: [
@@ -93,9 +97,13 @@ main: kit: entity: generator: {
           }
           method: "GET"
           orig: "/api/random"
-          parts: [
-            "api"
-            "random"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "random"
+            }
           ]
           select: {
             exist: [
@@ -132,9 +140,13 @@ main: kit: entity: generator: {
           }
           method: "GET"
           orig: "/api/qrcode"
-          parts: [
-            "api"
-            "qrcode"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "qrcode"
+            }
           ]
           select: {
             exist: [

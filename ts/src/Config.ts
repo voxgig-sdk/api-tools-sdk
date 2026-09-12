@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -108,15 +119,23 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/api/hash",
-              "parts": [
-                "api",
-                "hash"
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "hash"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "api",
+                "hash"
+              ]
             }
           ]
         }
@@ -160,64 +179,108 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/api/base64/decode",
-              "parts": [
-                "api",
-                "base64",
-                "decode"
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "base64"
+                },
+                {
+                  "lit": "decode"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "api",
+                "base64",
+                "decode"
+              ]
             },
             {
               "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/api/base64/encode",
-              "parts": [
-                "api",
-                "base64",
-                "encode"
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "base64"
+                },
+                {
+                  "lit": "encode"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "api",
+                "base64",
+                "encode"
+              ]
             },
             {
               "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/api/url/decode",
-              "parts": [
-                "api",
-                "url",
-                "decode"
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "url"
+                },
+                {
+                  "lit": "decode"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "api",
+                "url",
+                "decode"
+              ]
             },
             {
               "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/api/url/encode",
-              "parts": [
-                "api",
-                "url",
-                "encode"
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "url"
+                },
+                {
+                  "lit": "encode"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "api",
+                "url",
+                "encode"
+              ]
             }
           ]
         }
@@ -258,9 +321,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/api/uuid",
-              "parts": [
-                "api",
-                "uuid"
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "uuid"
+                }
               ],
               "select": {
                 "exist": [
@@ -270,7 +337,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.uuids`"
-              }
+              },
+              "parts": [
+                "api",
+                "uuid"
+              ]
             }
           ]
         },
@@ -312,9 +383,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/api/random",
-              "parts": [
-                "api",
-                "random"
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "random"
+                }
               ],
               "select": {
                 "exist": [
@@ -327,7 +402,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.value`"
-              }
+              },
+              "parts": [
+                "api",
+                "random"
+              ]
             },
             {
               "args": {
@@ -351,9 +430,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/api/qrcode",
-              "parts": [
-                "api",
-                "qrcode"
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "qrcode"
+                }
               ],
               "select": {
                 "exist": [
@@ -364,7 +447,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "api",
+                "qrcode"
+              ]
             }
           ]
         }
@@ -402,12 +489,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/",
-              "parts": [],
+              "segments": [],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.apis`"
-              }
+              },
+              "parts": []
             }
           ]
         }
@@ -435,6 +523,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "tool",
       "op": {
         "list": {
@@ -446,15 +538,23 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/api/tools",
-              "parts": [
-                "api",
-                "tools"
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "tools"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.tools`"
-              }
+              },
+              "parts": [
+                "api",
+                "tools"
+              ]
             }
           ]
         }
@@ -522,9 +622,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/api/ip",
-              "parts": [
-                "api",
-                "ip"
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "ip"
+                }
               ],
               "select": {
                 "exist": [
@@ -534,22 +638,34 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "api",
+                "ip"
+              ]
             },
             {
               "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/api/timestamp",
-              "parts": [
-                "api",
-                "timestamp"
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "timestamp"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "api",
+                "timestamp"
+              ]
             }
           ]
         }
@@ -565,6 +681,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

@@ -40,9 +40,13 @@ main: kit: entity: tool: {
         {
           method: "GET"
           orig: "/api/tools"
-          parts: [
-            "api"
-            "tools"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "tools"
+            }
           ]
           transform: {
             req: "`reqdata`"

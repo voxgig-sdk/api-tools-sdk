@@ -38,10 +38,16 @@ main: kit: entity: encoding: {
         {
           method: "POST"
           orig: "/api/base64/decode"
-          parts: [
-            "api"
-            "base64"
-            "decode"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "base64"
+            }
+            {
+              lit: "decode"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -51,10 +57,16 @@ main: kit: entity: encoding: {
         {
           method: "POST"
           orig: "/api/base64/encode"
-          parts: [
-            "api"
-            "base64"
-            "encode"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "base64"
+            }
+            {
+              lit: "encode"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -64,10 +76,16 @@ main: kit: entity: encoding: {
         {
           method: "POST"
           orig: "/api/url/decode"
-          parts: [
-            "api"
-            "url"
-            "decode"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "url"
+            }
+            {
+              lit: "decode"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -77,10 +95,16 @@ main: kit: entity: encoding: {
         {
           method: "POST"
           orig: "/api/url/encode"
-          parts: [
-            "api"
-            "url"
-            "encode"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "url"
+            }
+            {
+              lit: "encode"
+            }
           ]
           transform: {
             req: "`reqdata`"

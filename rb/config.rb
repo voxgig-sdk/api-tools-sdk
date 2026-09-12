@@ -75,15 +75,23 @@ module ApiToolsConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/api/hash",
-                  "parts" => [
-                    "api",
-                    "hash",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "hash",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "api",
+                    "hash",
+                  ],
                 },
               ],
             },
@@ -127,64 +135,108 @@ module ApiToolsConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/api/base64/decode",
-                  "parts" => [
-                    "api",
-                    "base64",
-                    "decode",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "base64",
+                    },
+                    {
+                      "lit" => "decode",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "api",
+                    "base64",
+                    "decode",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/api/base64/encode",
-                  "parts" => [
-                    "api",
-                    "base64",
-                    "encode",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "base64",
+                    },
+                    {
+                      "lit" => "encode",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "api",
+                    "base64",
+                    "encode",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/api/url/decode",
-                  "parts" => [
-                    "api",
-                    "url",
-                    "decode",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "url",
+                    },
+                    {
+                      "lit" => "decode",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "api",
+                    "url",
+                    "decode",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/api/url/encode",
-                  "parts" => [
-                    "api",
-                    "url",
-                    "encode",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "url",
+                    },
+                    {
+                      "lit" => "encode",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "api",
+                    "url",
+                    "encode",
+                  ],
                 },
               ],
             },
@@ -225,9 +277,13 @@ module ApiToolsConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/uuid",
-                  "parts" => [
-                    "api",
-                    "uuid",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "uuid",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -238,6 +294,10 @@ module ApiToolsConfig
                     "req" => "`reqdata`",
                     "res" => "`body.uuids`",
                   },
+                  "parts" => [
+                    "api",
+                    "uuid",
+                  ],
                 },
               ],
             },
@@ -279,9 +339,13 @@ module ApiToolsConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/random",
-                  "parts" => [
-                    "api",
-                    "random",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "random",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -295,6 +359,10 @@ module ApiToolsConfig
                     "req" => "`reqdata`",
                     "res" => "`body.value`",
                   },
+                  "parts" => [
+                    "api",
+                    "random",
+                  ],
                 },
                 {
                   "args" => {
@@ -318,9 +386,13 @@ module ApiToolsConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/qrcode",
-                  "parts" => [
-                    "api",
-                    "qrcode",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "qrcode",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -332,6 +404,10 @@ module ApiToolsConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "api",
+                    "qrcode",
+                  ],
                 },
               ],
             },
@@ -369,12 +445,13 @@ module ApiToolsConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/",
-                  "parts" => [],
+                  "segments" => [],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.apis`",
                   },
+                  "parts" => [],
                 },
               ],
             },
@@ -402,6 +479,10 @@ module ApiToolsConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "tool",
           "op" => {
             "list" => {
@@ -413,15 +494,23 @@ module ApiToolsConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/tools",
-                  "parts" => [
-                    "api",
-                    "tools",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "tools",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.tools`",
                   },
+                  "parts" => [
+                    "api",
+                    "tools",
+                  ],
                 },
               ],
             },
@@ -489,9 +578,13 @@ module ApiToolsConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/ip",
-                  "parts" => [
-                    "api",
-                    "ip",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "ip",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -502,21 +595,33 @@ module ApiToolsConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "api",
+                    "ip",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/timestamp",
-                  "parts" => [
-                    "api",
-                    "timestamp",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "timestamp",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "api",
+                    "timestamp",
+                  ],
                 },
               ],
             },
