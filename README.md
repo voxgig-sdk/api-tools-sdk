@@ -107,7 +107,7 @@ local results, err = client:Generator():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/api-tools` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/releases) |
+| TypeScript | `@voxgig-sdk/api-tools-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/releases) |
 | Python | `voxgig-sdk-api-tools` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/releases) |
 | PHP | `voxgig-sdk/api-tools` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/api-tools-sdk/go` | `go get github.com/voxgig-sdk/api-tools-sdk/go@latest` |
@@ -121,7 +121,7 @@ local results, err = client:Generator():list()
 ### TypeScript
 
 ```ts
-import { ApiToolsSDK } from '@voxgig-sdk/api-tools'
+import { ApiToolsSDK } from '@voxgig-sdk/api-tools-sdk'
 
 const client = new ApiToolsSDK()
 

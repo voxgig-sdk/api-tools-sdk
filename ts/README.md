@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { ApiToolsSDK } from '@voxgig-sdk/api-tools'
+import { ApiToolsSDK } from '@voxgig-sdk/api-tools-sdk'
 
 const client = new ApiToolsSDK()
 ```
@@ -618,7 +618,7 @@ api-tools/
 Import the SDK from the package root:
 
 ```ts
-import { ApiToolsSDK } from '@voxgig-sdk/api-tools'
+import { ApiToolsSDK } from '@voxgig-sdk/api-tools-sdk'
 ```
 
 ### Entity state
