@@ -29,5 +29,53 @@
         "name": "sa3"
       }
     }
+  },
+  "requests": {
+    "GET /api/tools": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "listApiTools",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "tools": {
+                      "items": {
+                        "properties": {
+                          "category": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with list of API tools"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

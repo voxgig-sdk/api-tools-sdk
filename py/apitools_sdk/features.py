@@ -1,12 +1,18 @@
 # ApiTools SDK feature factory
 
 from apitools_sdk.feature.base_feature import ApiToolsBaseFeature
+from apitools_sdk.feature.ratelimit_feature import ApiToolsRatelimitFeature
+from apitools_sdk.feature.retry_feature import ApiToolsRetryFeature
 from apitools_sdk.feature.test_feature import ApiToolsTestFeature
+from apitools_sdk.feature.timeout_feature import ApiToolsTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: ApiToolsBaseFeature(),
+    "ratelimit": lambda: ApiToolsRatelimitFeature(),
+    "retry": lambda: ApiToolsRetryFeature(),
     "test": lambda: ApiToolsTestFeature(),
+    "timeout": lambda: ApiToolsTimeoutFeature(),
 }
 
 

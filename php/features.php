@@ -4,7 +4,10 @@ declare(strict_types=1);
 // ApiTools SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class ApiToolsFeatures
@@ -14,8 +17,14 @@ class ApiToolsFeatures
         switch ($name) {
             case "base":
                 return new ApiToolsBaseFeature();
+            case "ratelimit":
+                return new ApiToolsRatelimitFeature();
+            case "retry":
+                return new ApiToolsRetryFeature();
             case "test":
                 return new ApiToolsTestFeature();
+            case "timeout":
+                return new ApiToolsTimeoutFeature();
             default:
                 return new ApiToolsBaseFeature();
         }
@@ -31,7 +40,10 @@ class ApiToolsFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { ApiToolsSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('GeneratorEntity', async () => {
 
     const live = 'TRUE' === process.env.API_TOOLS_TEST_LIVE
     for (const op of ['list', 'load']) {
-      if (maybeSkipControl(t, 'entityOp', 'generator.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'generator.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set API_TOOLS_TEST_GENERATOR_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"uuid","req":false,"type":"`$STRING`","index$":0},{"active":true,"name":"uuids","req":false,"type":"`$ARRAY`","index$":1}],"name":"generator","op":{"list":{"input":"data","name":"list","points":[{"active":true,"args":{"query":[{"active":true,"example":1,"kind":"query","name":"count","orig":"count","reqd":false,"type":"`$INTEGER`","index$":0}]},"contract":{"id":"GET /api/uuid","json":"{\"operationId\":\"generateUuid\",\"parameters\":[{\"description\":\"Number of UUIDs to generate\",\"in\":\"query\",\"name\":\"count\",\"required\":false,\"schema\":{\"default\":1,\"maximum\":100,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"uuid\":{\"type\":\"string\"},\"uuids\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response with generated UUID(s)\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/api/uuid","segments":[{"lit":"api"},{"lit":"uuid"}],"select":{"exist":["count"]},"transform":{"req":"`reqdata`","res":"`body.uuids`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"active":true,"args":{"query":[{"active":true,"example":16,"kind":"query","name":"length","orig":"length","reqd":false,"type":"`$INTEGER`","index$":0},{"active":true,"kind":"query","name":"max","orig":"max","reqd":false,"type":"`$INTEGER`","index$":1},{"active":true,"kind":"query","name":"min","orig":"min","reqd":false,"type":"`$INTEGER`","index$":2},{"active":true,"example":"number","kind":"query","name":"type","orig":"type","reqd":false,"type":"`$STRING`","index$":3}]},"contract":{"id":"GET /api/random","json":"{\"operationId\":\"generateRandom\",\"parameters\":[{\"description\":\"Type of random data to generate\",\"in\":\"query\",\"name\":\"type\",\"required\":false,\"schema\":{\"default\":\"number\",\"enum\":[\"number\",\"string\",\"boolean\"],\"type\":\"string\"}},{\"description\":\"Minimum value for random number\",\"in\":\"query\",\"name\":\"min\",\"required\":false,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Maximum value for random number\",\"in\":\"query\",\"name\":\"max\",\"required\":false,\"schema\":{\"type\":\"integer\"}},{\"description\":\"Length of random string\",\"in\":\"query\",\"name\":\"length\",\"required\":false,\"schema\":{\"default\":16,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"type\":{\"type\":\"string\"},\"value\":{\"oneOf\":[{\"type\":\"integer\"},{\"type\":\"string\"},{\"type\":\"boolean\"}]}},\"type\":\"object\"}}},\"description\":\"Successful response with random data\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/api/random","segments":[{"lit":"api"},{"lit":"random"}],"select":{"exist":["length","max","min","type"]},"transform":{"req":"`reqdata`","res":"`body.value`"},"index$":0},{"active":true,"args":{"query":[{"active":true,"example":200,"kind":"query","name":"size","orig":"size","reqd":false,"type":"`$INTEGER`","index$":0},{"active":true,"kind":"query","name":"text","orig":"text","reqd":true,"type":"`$STRING`","index$":1}]},"contract":{"id":"GET /api/qrcode","json":"{\"operationId\":\"generateQrCode\",\"parameters\":[{\"description\":\"Text or URL to encode in the QR code\",\"in\":\"query\",\"name\":\"text\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"Size of the QR code in pixels\",\"in\":\"query\",\"name\":\"size\",\"required\":false,\"schema\":{\"default\":200,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"image/png\":{\"schema\":{\"format\":\"binary\",\"type\":\"string\"}}},\"description\":\"Successful response with QR code image\"},\"400\":{\"description\":\"Bad request - missing or invalid parameters\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/api/qrcode","segments":[{"lit":"api"},{"lit":"qrcode"}],"select":{"exist":["size","text"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"generator","name__orig":"generator","Name":"Generator","name_":"generator","name-":"generator","NAME":"GENERATOR","index$":2}, {"active":true,"entity":"generator","key$":"BasicGeneratorFlow","kind":"basic","name":"BasicGeneratorFlow","param":{},"step":[{"active":true,"data":{},"input":{},"match":{},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"generator_ref01"}}],"index$":0},{"active":true,"data":{},"input":{"ref":"generator_ref01","srcdatavar":"generator_ref01_data","suffix":"_dt0"},"match":{},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-generator_ref01"}}],"index$":1}]}, 'Generator')
     }
     const client = setup.client
     const struct = setup.struct
@@ -115,13 +114,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['API_TOOLS_TEST_GENERATOR_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'API_TOOLS_TEST_GENERATOR_ENTID': idmap,
     'API_TOOLS_TEST_LIVE': 'FALSE',
@@ -132,7 +124,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.API_TOOLS_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['API_TOOLS_TEST_GENERATOR_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new ApiToolsSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -144,7 +142,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -157,7 +156,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.API_TOOLS_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

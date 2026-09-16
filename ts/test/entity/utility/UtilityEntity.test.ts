@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { ApiToolsSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('UtilityEntity', async () => {
 
     const live = 'TRUE' === process.env.API_TOOLS_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'utility.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'utility.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set API_TOOLS_TEST_UTILITY_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"city","req":false,"type":"`$STRING`","index$":0},{"active":true,"name":"country","req":false,"type":"`$STRING`","index$":1},{"active":true,"name":"ip","req":false,"type":"`$STRING`","index$":2},{"active":true,"name":"iso","req":false,"short":"ISO 8601 formatted date","type":"`$STRING`","index$":3},{"active":true,"name":"isp","req":false,"type":"`$STRING`","index$":4},{"active":true,"name":"milliseconds","req":false,"short":"Unix timestamp in milliseconds","type":"`$INTEGER`","index$":5},{"active":true,"name":"timestamp","req":false,"short":"Unix timestamp in seconds","type":"`$INTEGER`","index$":6},{"active":true,"name":"utc","req":false,"short":"UTC formatted date","type":"`$STRING`","index$":7}],"name":"utility","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"query":[{"active":true,"kind":"query","name":"ip","orig":"ip","reqd":false,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /api/ip","json":"{\"operationId\":\"getIpInfo\",\"parameters\":[{\"description\":\"IP address to lookup (optional, defaults to requesting IP)\",\"in\":\"query\",\"name\":\"ip\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"city\":{\"type\":\"string\"},\"country\":{\"type\":\"string\"},\"ip\":{\"type\":\"string\"},\"isp\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response with IP information\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/api/ip","segments":[{"lit":"api"},{"lit":"ip"}],"select":{"exist":["ip"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0},{"active":true,"args":{},"contract":{"id":"GET /api/timestamp","json":"{\"operationId\":\"getTimestamp\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"iso\":{\"description\":\"ISO 8601 formatted date\",\"type\":\"string\"},\"milliseconds\":{\"description\":\"Unix timestamp in milliseconds\",\"type\":\"integer\"},\"timestamp\":{\"description\":\"Unix timestamp in seconds\",\"type\":\"integer\"},\"utc\":{\"description\":\"UTC formatted date\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response with timestamp information\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/api/timestamp","segments":[{"lit":"api"},{"lit":"timestamp"}],"select":{},"transform":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"utility","name__orig":"utility","Name":"Utility","name_":"utility","name-":"utility","NAME":"UTILITY","index$":5}, {"active":true,"entity":"utility","key$":"BasicUtilityFlow","kind":"basic","name":"BasicUtilityFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"utility_ref01","srcdatavar":"utility_ref01_data","suffix":"_dt0"},"match":{},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-utility_ref01"}}],"index$":0}]}, 'Utility')
     }
     const client = setup.client
     const struct = setup.struct
@@ -109,13 +108,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['API_TOOLS_TEST_UTILITY_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'API_TOOLS_TEST_UTILITY_ENTID': idmap,
     'API_TOOLS_TEST_LIVE': 'FALSE',
@@ -126,7 +118,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.API_TOOLS_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['API_TOOLS_TEST_UTILITY_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new ApiToolsSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -138,7 +136,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -151,7 +150,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.API_TOOLS_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

@@ -29,5 +29,66 @@
         "text": "s7a"
       }
     }
+  },
+  "requests": {
+    "POST /api/hash": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "generateHash",
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "algorithm": {
+                    "default": "sha256",
+                    "description": "Hashing algorithm",
+                    "enum": [
+                      "md5",
+                      "sha1",
+                      "sha256",
+                      "sha512"
+                    ],
+                    "type": "string"
+                  },
+                  "text": {
+                    "description": "Text to hash",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "text"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "algorithm": {
+                      "type": "string"
+                    },
+                    "hash": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with hash"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

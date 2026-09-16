@@ -25,5 +25,180 @@
         "uuids": []
       }
     }
+  },
+  "requests": {
+    "GET /api/uuid": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "generateUuid",
+        "parameters": [
+          {
+            "description": "Number of UUIDs to generate",
+            "in": "query",
+            "name": "count",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "uuid": {
+                      "type": "string"
+                    },
+                    "uuids": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with generated UUID(s)"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /api/random": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "generateRandom",
+        "parameters": [
+          {
+            "description": "Type of random data to generate",
+            "in": "query",
+            "name": "type",
+            "required": false,
+            "schema": {
+              "default": "number",
+              "enum": [
+                "number",
+                "string",
+                "boolean"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Minimum value for random number",
+            "in": "query",
+            "name": "min",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum value for random number",
+            "in": "query",
+            "name": "max",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Length of random string",
+            "in": "query",
+            "name": "length",
+            "required": false,
+            "schema": {
+              "default": 16,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "boolean"
+                        }
+                      ]
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with random data"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /api/qrcode": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "generateQrCode",
+        "parameters": [
+          {
+            "description": "Text or URL to encode in the QR code",
+            "in": "query",
+            "name": "text",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Size of the QR code in pixels",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "schema": {
+              "default": 200,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "image/png": {
+                "schema": {
+                  "format": "binary",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful response with QR code image"
+          },
+          "400": {
+            "description": "Bad request - missing or invalid parameters"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

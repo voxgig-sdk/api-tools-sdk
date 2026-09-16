@@ -68,6 +68,12 @@ main: kit: entity: utility: {
               }
             ]
           }
+          contract: {
+            id: "GET /api/ip"
+            json: "{\"operationId\":\"getIpInfo\",\"parameters\":[{\"description\":\"IP address to lookup (optional, defaults to requesting IP)\",\"in\":\"query\",\"name\":\"ip\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"city\":{\"type\":\"string\"},\"country\":{\"type\":\"string\"},\"ip\":{\"type\":\"string\"},\"isp\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response with IP information\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/api/ip"
           segments: [
@@ -89,6 +95,12 @@ main: kit: entity: utility: {
           }
         }
         {
+          contract: {
+            id: "GET /api/timestamp"
+            json: "{\"operationId\":\"getTimestamp\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"iso\":{\"description\":\"ISO 8601 formatted date\",\"type\":\"string\"},\"milliseconds\":{\"description\":\"Unix timestamp in milliseconds\",\"type\":\"integer\"},\"timestamp\":{\"description\":\"Unix timestamp in seconds\",\"type\":\"integer\"},\"utc\":{\"description\":\"UTC formatted date\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response with timestamp information\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/api/timestamp"
           segments: [

@@ -26,5 +26,61 @@
         "name": "s7a"
       }
     }
+  },
+  "requests": {
+    "GET /": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getDocumentation",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "apis": {
+                      "description": "List of available APIs",
+                      "items": {
+                        "properties": {
+                          "description": {
+                            "description": "Description of the API",
+                            "type": "string"
+                          },
+                          "endpoint": {
+                            "description": "Endpoint path for the API",
+                            "type": "string"
+                          },
+                          "name": {
+                            "description": "Name of the API",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "total": {
+                      "description": "Total number of available APIs",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "description": "HTML page containing API documentation",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful response with API documentation"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

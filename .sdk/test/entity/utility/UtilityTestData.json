@@ -7,8 +7,8 @@
         "ip": "s52",
         "iso": "s53",
         "isp": "s54",
-        "milliseconds": "s55",
-        "timestamp": "s56",
+        "milliseconds": 85,
+        "timestamp": 86,
         "utc": "s57",
         "id": "UTILITY00"
       },
@@ -18,8 +18,8 @@
         "ip": "sa2",
         "iso": "sa3",
         "isp": "sa4",
-        "milliseconds": "sa5",
-        "timestamp": "sa6",
+        "milliseconds": 165,
+        "timestamp": 166,
         "utc": "sa7",
         "id": "UTILITY01"
       },
@@ -29,8 +29,8 @@
         "ip": "sf2",
         "iso": "sf3",
         "isp": "sf4",
-        "milliseconds": "sf5",
-        "timestamp": "sf6",
+        "milliseconds": 245,
+        "timestamp": 246,
         "utc": "sf7",
         "id": "UTILITY02"
       }
@@ -44,9 +44,95 @@
         "ip": "s142",
         "iso": "s143",
         "isp": "s144",
-        "milliseconds": "s145",
-        "timestamp": "s146",
+        "milliseconds": 325,
+        "timestamp": 326,
         "utc": "s147"
+      }
+    }
+  },
+  "requests": {
+    "GET /api/ip": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getIpInfo",
+        "parameters": [
+          {
+            "description": "IP address to lookup (optional, defaults to requesting IP)",
+            "in": "query",
+            "name": "ip",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "city": {
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    },
+                    "ip": {
+                      "type": "string"
+                    },
+                    "isp": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with IP information"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /api/timestamp": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getTimestamp",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "iso": {
+                      "description": "ISO 8601 formatted date",
+                      "type": "string"
+                    },
+                    "milliseconds": {
+                      "description": "Unix timestamp in milliseconds",
+                      "type": "integer"
+                    },
+                    "timestamp": {
+                      "description": "Unix timestamp in seconds",
+                      "type": "integer"
+                    },
+                    "utc": {
+                      "description": "UTC formatted date",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with timestamp information"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }
