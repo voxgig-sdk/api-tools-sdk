@@ -127,24 +127,24 @@ class Config {
 
     entity: {
       
-      cryptography: {
-      },
-
-      encoding: {
-      },
-
-      generator: {
-      },
-
-      get_documentation: {
-      },
-
-      tool: {
-      },
-
-      utility: {
-      },
-
+        cryptography: {
+        },
+  
+        encoding: {
+        },
+  
+        generator: {
+        },
+  
+        get_documentation: {
+        },
+  
+        tool: {
+        },
+  
+        utility: {
+        },
+  
     }
   }
 

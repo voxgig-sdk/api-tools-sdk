@@ -107,12 +107,12 @@ local results, err = client:Generator():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/api-tools-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/releases) |
-| Python | `voxgig-sdk-api-tools` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/releases) |
-| PHP | `voxgig-sdk/api-tools` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/releases) |
+| TypeScript | `@voxgig-sdk/api-tools-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/tags) |
+| Python | `voxgig-sdk-api-tools` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/tags) |
+| PHP | `voxgig-sdk/api-tools` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/api-tools-sdk/go` | `go get github.com/voxgig-sdk/api-tools-sdk/go@latest` |
-| Ruby | `voxgig-sdk-api-tools` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/releases) |
-| Lua | `voxgig-sdk-api-tools` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/releases) |
+| Ruby | `voxgig-sdk-api-tools` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/tags) |
+| Lua | `voxgig-sdk-api-tools` | publish pending — [install from git tag](https://github.com/voxgig-sdk/api-tools-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/api-tools-sdk/go-cli` | `go install github.com/voxgig-sdk/api-tools-sdk/go-cli/cmd/api-tools@latest` |
 | Go MCP server | `github.com/voxgig-sdk/api-tools-sdk/go-mcp` | `go get github.com/voxgig-sdk/api-tools-sdk/go-mcp@latest` |
 
